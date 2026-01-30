@@ -91,12 +91,40 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="si"><div class="sv cyan" id="daysTo">--</div><div class="sl">DAYS</div></div>
 <div class="si"><div class="sv green" id="debt">£15.4k</div><div class="sl">DEBT</div></div>
 </div>
+
+<!-- Quick Nav -->
+<div class="quick-nav" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+<div class="nav-btn" onclick="go('money',this)"><span style="font-size:24px">💰</span><span style="font-size:10px">Money</span></div>
+<div class="nav-btn" onclick="go('health',this)"><span style="font-size:24px">❤️</span><span style="font-size:10px">Health</span></div>
+<div class="nav-btn" onclick="go('tasks',this)"><span style="font-size:24px">📋</span><span style="font-size:10px">Tasks</span></div>
+<div class="nav-btn" onclick="go('settings',this)"><span style="font-size:24px">⚙️</span><span style="font-size:10px">Settings</span></div>
 </div>
+
+<style>
+.nav-btn{background:var(--bg-card);border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;transition:all 0.2s;border:1px solid rgba(255,255,255,0.05)}
+.nav-btn:active{transform:scale(0.95);background:rgba(139,92,246,0.2)}
+.nav-btn span{display:block;color:var(--text-secondary);font-weight:500}
+.nav-btn:hover{border-color:var(--purple)}
+</style>
 
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div><div class="st">Morning</div></div><span class="tag orange" id="mornProg">0/6</span></div>
 <div id="mornHabits"></div>
+
+<!-- Quick Nav -->
+<div class="quick-nav" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+<div class="nav-btn" onclick="go('money',this)"><span style="font-size:24px">💰</span><span style="font-size:10px">Money</span></div>
+<div class="nav-btn" onclick="go('health',this)"><span style="font-size:24px">❤️</span><span style="font-size:10px">Health</span></div>
+<div class="nav-btn" onclick="go('tasks',this)"><span style="font-size:24px">📋</span><span style="font-size:10px">Tasks</span></div>
+<div class="nav-btn" onclick="go('settings',this)"><span style="font-size:24px">⚙️</span><span style="font-size:10px">Settings</span></div>
 </div>
+
+<style>
+.nav-btn{background:var(--bg-card);border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;transition:all 0.2s;border:1px solid rgba(255,255,255,0.05)}
+.nav-btn:active{transform:scale(0.95);background:rgba(139,92,246,0.2)}
+.nav-btn span{display:block;color:var(--text-secondary);font-weight:500}
+.nav-btn:hover{border-color:var(--purple)}
+</style>
 
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div><div class="st">Evening</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
@@ -112,7 +140,21 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="g">FINANCIAL COMMAND CENTER</div>
 <div class="t" id="clockM">--:--</div>
 <div class="d" id="dayInfoM">Loading...</div>
+
+<!-- Quick Nav -->
+<div class="quick-nav" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+<div class="nav-btn" onclick="go('money',this)"><span style="font-size:24px">💰</span><span style="font-size:10px">Money</span></div>
+<div class="nav-btn" onclick="go('health',this)"><span style="font-size:24px">❤️</span><span style="font-size:10px">Health</span></div>
+<div class="nav-btn" onclick="go('tasks',this)"><span style="font-size:24px">📋</span><span style="font-size:10px">Tasks</span></div>
+<div class="nav-btn" onclick="go('settings',this)"><span style="font-size:24px">⚙️</span><span style="font-size:10px">Settings</span></div>
 </div>
+
+<style>
+.nav-btn{background:var(--bg-card);border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;transition:all 0.2s;border:1px solid rgba(255,255,255,0.05)}
+.nav-btn:active{transform:scale(0.95);background:rgba(139,92,246,0.2)}
+.nav-btn span{display:block;color:var(--text-secondary);font-weight:500}
+.nav-btn:hover{border-color:var(--purple)}
+</style>
 
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
@@ -217,7 +259,7 @@ renderBills();
 renderDebts();
 renderHistory();
 
-function go(p,el){
+function go(p,el){if(!el)el=document.querySelector(".nav-item:nth-child(2)");
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.getElementById('page-'+p).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
