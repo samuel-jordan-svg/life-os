@@ -1,86 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Sam's Life OS</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#0d0d12;--card:#1a1a24;--purple:#8b5cf6;--cyan:#06b6d4;--green:#10b981;--orange:#f59e0b;--red:#ef4444;
---text:#fff;--text2:#9ca3af;--border:rgba(255,255,255,0.08)
-}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-.c{max-width:420px;margin:0 auto;padding:20px;padding-bottom:100px}
-.h{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px;border:1px solid var(--border)}
-.g{font-size:14px;color:var(--text2);font-weight:500}
-.t{font-size:48px;font-weight:700;color:#fff;margin-top:8px}
-.d{font-size:13px;color:var(--text2);margin-top:4px}
+body{background:#0d0d12;color:#fff;font-family:'Inter',sans-serif;min-height:100vh;padding-bottom:80px}
+.c{max-width:420px;margin:0 auto;padding:20px}
+.h{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px}
+.g{font-size:14px;color:#9ca3af}
+.t{font-size:48px;font-weight:700;margin-top:8px}
+.d{font-size:13px;color:#9ca3af;margin-top:4px}
 .s{display:flex;justify-content:space-between;margin-top:24px}
 .si{text-align:center;flex:1}
-.si:not(:last-child){border-right:1px solid var(--border)}
+.si:not(:last-child){border-right:1px solid rgba(255,255,255,0.08)}
 .sv{font-size:18px;font-weight:700}
-.sl{font-size:9px;color:var(--text2);text-transform:uppercase;margin-top:4px}
-.sv.green{color:var(--green)}
-.sv.cyan{color:var(--cyan)}
-.sv.orange{color:var(--orange)}
-.sv.red{color:var(--red)}
-.sec{background:var(--card);border-radius:24px;padding:20px;margin-bottom:16px}
+.sl{font-size:9px;color:#9ca3af;text-transform:uppercase;margin-top:4px}
+.sv.green{color:#10b981}.sv.cyan{color:#06b6d4}.sv.orange{color:#f59e0b}
+.sec{background:#1a1a24;border-radius:24px;padding:20px;margin-bottom:16px}
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .slft{display:flex;align-items:center;gap:12px}
-.si2{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15))}
+.si2{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));font-size:18px}
 .st{font-size:15px;font-weight:600}
-.tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:var(--purple);border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase}
-.tag.green{background:rgba(16,185,129,0.15);color:var(--green)}
-.tag.orange{background:rgba(245,158,11,0.15);color:var(--orange)}
-.tag.cyan{background:rgba(6,182,212,0.15);color:var(--cyan)}
-.tag.red{background:rgba(239,68,68,0.15);color:var(--red)}
+.tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:#8b5cf6;border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase}
+.tag.green{background:rgba(16,185,129,0.15);color:#10b981}
+.tag.orange{background:rgba(245,158,11,0.15);color:#f59e0b}
+.tag.red{background:rgba(239,68,68,0.15);color:#ef4444}
 .hi{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;cursor:pointer}
-.hc{width:26px;height:26px;border-radius:6px;border:2px solid var(--orange);display:flex;align-items:center;justify-content:center}
-.hc.checked{background:var(--green);border-color:var(--green)}
-.hc.evening{border-color:var(--cyan)}
-.hc.evening.checked{background:var(--cyan);border-color:var(--cyan)}
+.hc{width:26px;height:26px;border-radius:6px;border:2px solid #f59e0b;display:flex;align-items:center;justify-content:center}
+.hc.checked{background:#10b981;border-color:#10b981}
 .hc.checked::after{content:'✓';color:white;font-size:12px;font-weight:bold}
-.hn{flex:1}
-.hn2{font-size:13px;font-weight:500}
-.hd{font-size:11px;color:var(--text2);margin-top:2px}
+.hc.evening{border-color:#06b6d4}
+.hc.evening.checked{background:#06b6d4;border-color:#06b6d4}
+.hn{flex:1}.hn2{font-size:13px;font-weight:500}
+.hd{font-size:11px;color:#9ca3af;margin-top:2px}
 .quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
-.nav-btn{background:var(--card);border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;border:1px solid var(--border)}
-.nav-btn span{display:block;font-size:10px;color:var(--text2);margin-top:6px}
+.nav-btn{background:#1a1a24;border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,0.08)}
+.nav-btn span{display:block;font-size:10px;color:#9ca3af;margin-top:6px}
 .nav-btn span:first-child{font-size:24px}
-.nav-btn:hover{border-color:var(--purple)}
 .nav-btn:active{background:rgba(139,92,246,0.2)}
-.nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,#13131a,#0d0d12);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:12px 8px 25px;z-index:100}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text2);font-size:10px;cursor:pointer}
-.nav-item.active{color:var(--purple)}
+.nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,#13131a,#0d0d12);border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-around;padding:12px 8px 25px;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:#9ca3af;font-size:10px;cursor:pointer}
+.nav-item.active{color:#8b5cf6}
 .nav-item i{font-size:20px}
-input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:14px;margin-bottom:10px}
-.btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px}
 .bill-item{display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px;cursor:pointer}
-.bill-paid{background:rgba(16,185,129,0.15);color:var(--green)}
-.debt-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid var(--border)}
+.bill-paid{background:rgba(16,185,129,0.15);color:#10b981}
+.debt-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.08)}
 .debt-row{display:flex;justify-content:space-between;margin-bottom:8px}
 .debt-name{font-size:14px;font-weight:600}
 .debt-bal{font-size:18px;font-weight:700}
-.debt-bal.active{color:var(--orange)}
-.debt-bal.paid{color:var(--green)}
-.debt-meta{font-size:11px;color:var(--text2)}
+.debt-bal.active{color:#f59e0b}
+.debt-bal.paid{color:#10b981}
+.debt-meta{font-size:11px;color:#9ca3af}
 .debt-btns{display:flex;gap:8px;margin-top:10px}
 .debt-btn{flex:1;padding:8px;border-radius:8px;border:none;font-size:11px;font-weight:600;cursor:pointer}
-.debt-btn.pay{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
-.debt-btn.edit{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text2)}
-.hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
-.hist-info{font-size:12px}
-.hist-amt{color:var(--green);font-weight:600}
-.hist-date{font-size:11px;color:var(--text2)}
+.debt-btn.pay{background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:#fff}
+.debt-btn.edit{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:#9ca3af}
+input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:14px;margin-bottom:10px}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px}
+.hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+.hist-amt{color:#10b981;font-weight:600}
+.hist-date{font-size:11px;color:#9ca3af}
 @media(max-width:767px){.c{padding:16px}.h{padding:24px 20px;border-radius:20px}.t{font-size:40px}}
 </style>
 </head>
 <body>
 
-<!-- Dashboard Page -->
 <div id="page-dashboard" class="page">
 <div class="c">
 <div class="h">
@@ -94,7 +82,6 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 </div>
 </div>
 
-<!-- Quick Nav -->
 <div class="quick-nav">
 <div class="nav-btn" onclick="showPage('money')"><span>💰</span><span>Money</span></div>
 <div class="nav-btn" onclick="showPage('health')"><span>❤️</span><span>Health</span></div>
@@ -102,104 +89,60 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="nav-btn" onclick="showPage('settings')"><span>⚙️</span><span>Settings</span></div>
 </div>
 
-<!-- Todoist Due Today -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">✅</div><div class="st">Due Today</div></div><span class="tag" id="todoist-count">0 tasks</span></div>
-<div id="todoist-tasks" style="font-size:13px;color:var(--text2)"></div>
-<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">Refresh</button>
-</div>
-
-<!-- Morning Habits -->
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div><div class="st">Morning</div></div><span class="tag orange" id="mornProg">0/6</span></div>
+<div class="sh"><div class="slft"><div class="si2">🌅</div><div class="st">Morning</div></div><span class="tag orange" id="mornProg">0/6</span></div>
 <div id="mornHabits"></div>
 </div>
 
-<!-- Evening Habits -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div><div class="st">Evening</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
+<div class="sh"><div class="slft"><div class="si2">🌙</div><div class="st">Evening</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
 <div id="eveHabits"></div>
 </div>
 </div>
 </div>
 
-<!-- Money Page -->
 <div id="page-money" class="page" style="display:none">
 <div class="c">
 <div class="h">
-<div class="g">FINANCIAL COMMAND CENTER</div>
+<div class="g">FINANCIAL</div>
 <div class="t" id="clockM">--:--</div>
 <div class="d" id="dayInfoM">Loading...</div>
 </div>
 
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
-<div class="s" style="margin-bottom:0">
-<div class="si"><div class="sv green">£1,872</div><div class="sl">INCOME</div></div>
-<div class="si"><div class="sv red" id="fixedTotal">£0</div><div class="sl">PAID</div></div>
-<div class="si"><div class="sv orange" id="totalDebt">£15,402</div><div class="sl">DEBT</div></div>
-<div class="si"><div class="sv cyan" id="remaining">£1,872</div><div class="sl">AVAILABLE</div></div>
-</div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
-<div id="billsList"></div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5 debts</span></div>
+<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5</span></div>
 <div id="debtsList"></div>
 </div>
 
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">⚡</div><div class="st">Quick Payment</div></div></div>
-<input type="number" id="payAmt" placeholder="Amount">
-<select id="payDebt"><option value="">Select debt</option></select>
-<button class="btn" onclick="quickPay()">Pay Now</button>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📜</div><div class="st">Payment History</div></div><button class="tag" onclick="clearHist()">Clear</button></div>
-<div id="histList" style="font-size:12px;color:var(--text2)">No payments</div>
+<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
+<div id="billsList"></div>
 </div>
 </div>
 </div>
 
-<!-- Health Page -->
 <div id="page-health" class="page" style="display:none">
 <div class="c">
 <div class="h"><div class="g">HEALTH</div><div class="t" id="clockH">--:--</div><div class="d" id="dayInfoH">Loading...</div></div>
-<div class="sec"><div class="st">🏃 Running 500km</div><div style="margin:12px 0;color:var(--text2)">0 / 500km</div></div>
-<div class="sec"><div class="st">📚 Reading 24 books</div><div style="margin:12px 0;color:var(--text2)">0 / 24</div></div>
+<div class="sec"><div class="st">🏃 Running</div><div style="margin:12px 0;color:#9ca3af">0 / 500km</div></div>
+<div class="sec"><div class="st">📚 Reading</div><div style="margin:12px 0;color:#9ca3af">0 / 24 books</div></div>
 </div>
 </div>
 
-<!-- Tasks Page -->
 <div id="page-tasks" class="page" style="display:none">
 <div class="c">
 <div class="h"><div class="g">TASKS</div><div class="t" id="clockT">--:--</div><div class="d" id="dayInfoT">Loading...</div></div>
-<div class="sec"><div class="st">📋 Todoist</div><p style="color:var(--text2);margin-top:12px">Full Todoist integration coming soon</p></div>
+<div class="sec"><div class="st">📋 Tasks</div><p style="color:#9ca3af;margin-top:12px">Coming soon</p></div>
 </div>
 </div>
 
-<!-- Settings Page -->
 <div id="page-settings" class="page" style="display:none">
 <div class="c">
 <div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div>
-<div class="sec"><div class="st">⚙️ Data Backup</div>
-<p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Export before clearing cache!</p>
-<button class="btn" onclick="exportData()" style="background:var(--green)">Export Backup</button>
-<button class="btn" onclick="importData()" style="background:var(--cyan)">Import Backup</button>
-</div>
-<div class="sec"><div class="st">🔗 Todoist API</div>
-<p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Token saved automatically</p>
-<input type="password" id="todoist-token" placeholder="API token (optional)" onchange="saveTodoistToken()">
-</div>
+<div class="sec"><div class="st">⚙️ Settings</div><p style="color:#9ca3af;margin-top:12px">Coming soon</p></div>
 </div>
 </div>
 
-<!-- Bottom Nav -->
 <nav class="nav">
 <div class="nav-item active" onclick="showPage('dashboard',this)"><i class="fas fa-home"></i><span>Home</span></div>
 <div class="nav-item" onclick="showPage('money',this)"><i class="fas fa-pound-sign"></i><span>Money</span></div>
@@ -209,298 +152,109 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 </nav>
 
 <script>
-// Habits
-var MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
-var EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
+// Data
+var MORN=[{n:'Wake 6am'},{n:'Outside 10min'},{n:'Water'},{n:'Stretch'},{n:'Coffee'},{n:'Write'}];
+var EVE=[{n:'Meal 4hrs bed'},{n:'Screens off'},{n:'Read'},{n:'No caffeine'},{n:'Red lights'}];
 
-// Bills
 var bills=[
-{id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:false},
-{id:'phone',n:'📱 Phone',a:48.09,m:48.09,p:false},
-{id:'carIns',n:'🚗 Car Insurance',a:32.50,m:32.50,p:false},
-{id:'sky',n:'📺 Sky',a:53.00,m:53.00,p:false},
-{id:'life',n:'❤️ Life Insurance',a:4.99,m:4.99,p:false},
-{id:'kia',n:'🚗 Kia Finance (PCP)',a:198.29,m:198.29,p:false}
+{n:'Rent',a:500,p:false},
+{n:'Phone',a:48.09,p:false},
+{n:'Car Insurance',a:32.50,p:false},
+{n:'Sky',a:53,p:false},
+{n:'Life Insurance',a:4.99,p:false},
+{n:'Kia Finance',a:198.29,p:false}
 ];
 
-// Debts
 var debts=[
-{id:'argos',n:'🏪 Argos Card',b:320,min:51.10,apr:0,end:'2026-06-14',h:[]},
-{id:'monzo',n:'🏦 Monzo IFL',b:40,min:40,apr:0,end:null,h:[]},
-{id:'virgin',n:'💳 Virgin Money',b:2555.23,min:51.10,apr:26.49,end:'2027-09-16',h:[]},
-{id:'lendable',n:'🏦 Lendable',b:11876.71,min:264.25,apr:15.8,end:null,h:[]},
-{id:'zopa',n:'💳 Zopa Spend',b:0,min:0,apr:34.4,end:null,h:[]}
+{n:'Argos Card',b:320,min:51.10},
+{n:'Monzo IFL',b:40,min:40},
+{n:'Virgin Money',b:2555.23,min:51.10},
+{n:'Lendable',b:11876.71,min:264.25},
+{n:'Zopa',b:0,min:0}
 ];
 
-var history=[];
+// Init
+renderHabits();
+renderBills();
+renderDebts();
 
-function showPage(pageName,el){
+// Functions
+function showPage(page,el){
   document.querySelectorAll('.page').forEach(function(p){p.style.display='none'});
-  document.getElementById('page-'+pageName).style.display='block';
+  document.getElementById('page-'+page).style.display='block';
   document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active')});
   if(el)el.classList.add('active');
   updateClocks();
 }
 
-function loadAll(){
-  var ld=localStorage.getItem('lifeOSdebts');
-  if(ld)debts=JSON.parse(ld);
-  var lb=localStorage.getItem('lifeOSbills');
-  if(lb)bills=JSON.parse(lb);
-  var lh=localStorage.getItem('lifeOShistory');
-  if(lh)history=JSON.parse(lh);
-  calcTotals();
-}
-
-function saveAll(){
-  localStorage.setItem('lifeOSdebts',JSON.stringify(debts));
-  localStorage.setItem('lifeOSbills',JSON.stringify(bills));
-  localStorage.setItem('lifeOShistory',JSON.stringify(history));
-  calcTotals();
-}
-
-function calcTotals(){
-  var totDebt=debts.reduce(function(a,b){return a+(b.paid?0:b.b)},0);
-  var totBill=bills.filter(function(b){return b.p}).reduce(function(a,b){return a+b.m},0);
-  var today=new Date().toLocaleDateString('en-GB');
-  var todayPayments=history.filter(function(h){return h.d===today}).reduce(function(a,h){return a+parseFloat(h.a)},0);
-  var inc=1872.44;
-  var available=inc-totBill-todayPayments;
-  document.getElementById('totalDebt').textContent='£'+totDebt.toLocaleString();
-  document.getElementById('fixedTotal').textContent='£'+totBill.toFixed(2);
-  document.getElementById('remaining').textContent='£'+available.toFixed(2);
-  document.getElementById('debt').textContent=totDebt<10000?'£'+(totDebt/1000).toFixed(1)+'k':'£'+(totDebt/1000).toFixed(1)+'k';
-  document.getElementById('billCount').textContent=bills.filter(function(b){return b.p}).length+' paid';
-  document.getElementById('debtCount').textContent=debts.filter(function(d){return !d.paid}).length+' debts';
-}
-
-function checkDayReset(){
-  var today=new Date().toISOString().split('T')[0];
-  var lastDate=localStorage.getItem('lifeOSlastDate');
-  if(lastDate!==today){
-    localStorage.setItem('morn','{}');
-    localStorage.setItem('eve','{}');
-    localStorage.setItem('lifeOSlastDate',today);
-  }
-}
-
 function renderHabits(){
   var ms=JSON.parse(localStorage.getItem('morn')||'{}');
   var es=JSON.parse(localStorage.getItem('eve')||'{}');
-  var mc=MORN.reduce(function(a,x,i){return a+(ms[i]?1:0)},0);
-  var ec=EVE.reduce(function(a,x,i){return a+(es[i]?1:0)},0);
-  document.getElementById('mornHabits').innerHTML=MORN.map(function(x,i){
-    return '<div class="hi" onclick="toggleHabit(\'morn\','+i+')"><div class="hc '+(ms[i]?'checked':'')+'"></div><div class="hn"><div class="hn2">'+x.n+'</div><div class="hd">'+x.d+'</div></div></div>';
-  }).join('');
-  document.getElementById('eveHabits').innerHTML=EVE.map(function(x,i){
-    return '<div class="hi" onclick="toggleHabit(\'eve\','+i+')"><div class="hc evening '+(es[i]?'checked':'')+'"></div><div class="hn"><div class="hn2">'+x.n+'</div><div class="hd">'+x.d+'</div></div></div>';
-  }).join('');
+  var mc=0,ec=0;
+  for(var i=0;i<6;i++){if(ms[i])mc++;}
+  for(var i=0;i<5;i++){if(es[i])ec++;}
+  
+  var html='';
+  for(var i=0;i<MORN.length;i++){
+    html+='<div class="hi" onclick="toggleM('+i+')"><div class="hc'+(ms[i]?' checked':'')+'"></div><div class="hn"><div class="hn2">'+MORN[i].n+'</div></div></div>';
+  }
+  document.getElementById('mornHabits').innerHTML=html;
+  
+  var html2='';
+  for(var i=0;i<EVE.length;i++){
+    html2+='<div class="hi" onclick="toggleE('+i+')"><div class="hc evening '+(es[i]?'checked':'')+'"></div><div class="hn"><div class="hn2">'+EVE[i].n+'</div></div></div>';
+  }
+  document.getElementById('eveHabits').innerHTML=html2;
   document.getElementById('mornProg').textContent=mc+'/6';
   document.getElementById('eveProg').textContent=ec+'/5';
 }
 
-function toggleHabit(type,i){
-  var key=type==='morn'?'morn':'eve';
-  var s=JSON.parse(localStorage.getItem(key)||'{}');
+function toggleM(i){
+  var s=JSON.parse(localStorage.getItem('morn')||'{}');
   s[i]=!s[i];
-  localStorage.setItem(key,JSON.stringify(s));
+  localStorage.setItem('morn',JSON.stringify(s));
+  renderHabits();
+}
+
+function toggleE(i){
+  var s=JSON.parse(localStorage.getItem('eve')||'{}');
+  s[i]=!s[i];
+  localStorage.setItem('eve',JSON.stringify(s));
   renderHabits();
 }
 
 function renderBills(){
-  document.getElementById('billsList').innerHTML=bills.map(function(b){
-    return '<div class="bill-item '+(b.p?'bill-paid':'')+'" onclick="toggleBill(\''+b.id+'\')"><span class="bill-name">'+b.n+'</span><span class="bill-amt">£'+b.m.toFixed(2)+'</span></div>';
-  }).join('');
+  var html='';
+  for(var i=0;i<bills.length;i++){
+    html+='<div class="bill-item'+(bills[i].p?' bill-paid':'')+'" onclick="toggleBill('+i+')"><span>'+bills[i].n+'</span><span>£'+bills[i].a.toFixed(2)+'</span></div>';
+  }
+  document.getElementById('billsList').innerHTML=html;
 }
 
-function toggleBill(id){
-  var b=bills.find(function(x){return x.id===id});
-  if(b){
-    b.p=!b.p;
-    saveAll();
-    renderBills();
-  }
+function toggleBill(i){
+  bills[i].p=!bills[i].p;
+  renderBills();
 }
 
 function renderDebts(){
-  var d=document.getElementById('debtsList');
-  var s=document.getElementById('payDebt');
-  d.innerHTML=debts.sort(function(a,b){return (a.paid?1:0)-(b.paid?1:0)}).map(function(x){
-    var paid=x.paid;
-    var bal=paid?'PAID':'£'+x.b.toLocaleString();
-    var balClass=paid?'paid':'active';
-    var end=x.end?'0% ends '+x.end:x.apr+'% APR';
-    var last=x.h&&x.h.length>0?'<div style="font-size:11px;color:var(--text2);margin-top:6px">Last: £'+x.h[x.h.length-1].a+'</div>':'';
-    return '<div class="debt-item" onclick="showDebtOpts(\''+x.id+'\')"><div class="debt-row"><div><div class="debt-name">'+x.n+'</div><div class="debt-meta">'+end+' • Min: £'+x.min+'</div></div><div class="debt-bal '+balClass+'">'+bal+'</div></div>'+(paid?'':'<div class="debt-btns"><button class="debt-btn pay" onclick="event.stopPropagation();payMin(\''+x.id+'\')">Pay Min</button><button class="debt-btn pay" onclick="event.stopPropagation();payCustom(\''+x.id+'\')">Custom</button><button class="debt-btn edit" onclick="event.stopPropagation();editBalance(\''+x.id+'\')">Edit</button></div>')+last+'</div>';
-  }).join('');
-  s.innerHTML='<option value="">Select debt</option>'+debts.filter(function(d){return !d.paid}).map(function(x){return '<option value="'+x.id+'">'+x.n+' (£'+x.b+')</option>'}).join('');
-}
-
-function showDebtOpts(id){
-  var d=debts.find(function(x){return x.id===id});
-  if(!d||d.paid)return;
-  var m='Pay towards '+d.n+':\n\nBalance: £'+d.b+'\nMin: £'+d.min+'\n\n1. Pay Minimum\n2. Custom Amount\n3. Edit Balance\n\nCancel to close';
-  var r=prompt(m);
-  if(r==='1')payMin(id);
-  else if(r==='2')payCustom(id);
-  else if(r==='3')editBalance(id);
-}
-
-function payMin(id){
-  var d=debts.find(function(x){return x.id===id});
-  if(!d||d.paid)return;
-  var a=d.b<d.min?d.b:d.min;
-  addPayment(d,a);
-}
-
-function payCustom(id){
-  var d=debts.find(function(x){return x.id===id});
-  if(!d||d.paid)return;
-  var a=prompt('Amount to pay '+d.n+'?',d.min);
-  if(a&&parseFloat(a)>0){
-    a=Math.min(parseFloat(a),d.b);
-    addPayment(d,a);
+  var html='';
+  for(var i=0;i<debts.length;i++){
+    var d=debts[i];
+    html+='<div class="debt-item"><div class="debt-row"><div><div class="debt-name">'+d.n+'</div><div class="debt-meta">Min: £'+d.min+'</div></div><div class="debt-bal active">£'+d.b+'</div></div><div class="debt-btns"><button class="debt-btn pay" onclick="payMin('+i+')">Pay Min</button><button class="debt-btn edit" onclick="editBal('+i+')">Edit</button></div></div>';
   }
+  document.getElementById('debtsList').innerHTML=html;
 }
 
-function editBalance(id){
-  var d=debts.find(function(x){return x.id===id});
-  if(!d)return;
-var b=prompt('New balance for '+d.n+'?',d.b);
-  if(b&&parseFloat(b)>=0){
-    d.b=parseFloat(b);
-    if(d.b<0.01){d.b=0;d.paid=true;d.h=[];}
-    saveAll();
-    renderDebts();
-  }
-}
-
-function addPayment(d,amount){
-  if(amount>d.b)amount=d.b;
-  d.b-=amount;
-  d.h.push({a:amount,d:new Date().toLocaleDateString('en-GB'),t:Date.now()});
-  if(d.b<0.01){d.b=0;d.paid=true;}
-  history.unshift({n:d.n,a:amount,d:new Date().toLocaleDateString('en-GB'),t:Date.now()});
-  saveAll();
+function payMin(i){
+  var d=debts[i];
+  d.b=Math.max(0,d.b-d.min);
   renderDebts();
-  renderHistory();
-  toast(amount>0?'Paid £'+amount:'Balance updated');
 }
 
-function undoPayment(idx){
-  var h=history[idx];
-  if(!h)return;
-  var amount=parseFloat(h.a);
-  if(!confirm('Undo payment of £'+amount.toFixed(2)+' to '+h.n+'?'))return;
-  var d=debts.find(function(x){return x.n.trim()===h.n.trim()});
-  if(d){
-    d.b=d.b+amount;
-    d.paid=false;
-    d.h=d.h.filter(function(y){return y.t!==h.t});
-    d.b=Math.round(d.b*100)/100;
-  }
-  history.splice(idx,1);
-  saveAll();
-  renderDebts();
-  renderHistory();
-  toast('Payment undone - £'+amount.toFixed(2)+' restored');
-}
-
-function quickPay(){
-  var a=parseFloat(document.getElementById('payAmt').value);
-  var id=document.getElementById('payDebt').value;
-  if(!id||!a||a<=0)return alert('Select debt and amount');
-  var d=debts.find(function(x){return x.id===id});
-  if(!d||d.paid)return;
-  addPayment(d,a);
-  document.getElementById('payAmt').value='';
-}
-
-function renderHistory(){
-  var h=document.getElementById('histList');
-  if(history.length===0){
-    h.innerHTML='No payments';
-    return;
-  }
-  h.innerHTML=history.map(function(x,i){
-    return '<div class="hist-item"><div class="hist-info"><div>'+x.n+'</div><div class="hist-date">'+x.d+'</div></div><div style="display:flex;align-items:center;gap:10px"><span class="hist-amt">-£'+x.a+'</span><button class="tag orange" onclick="undoPayment('+i+')" style="cursor:pointer">Undo</button></div></div>';
-  }).join('');
-}
-
-function clearHist(){
-  if(history.length===0)return;
-  if(confirm('Clear all history?')){
-    history=[];
-    saveAll();
-    renderHistory();
-  }
-}
-
-function saveTodoistToken(){
-  localStorage.setItem('todoistToken',document.getElementById('todoist-token').value.trim());
-  loadTodoist();
-}
-
-function loadTodoist(){
-  var token=localStorage.getItem('todoistToken');
-  if(!token)return;
-  fetch('https://api.todoist.com/rest/v2/tasks',{headers:{'Authorization':'Bearer '+token}})
-    .then(function(r){return r.json()})
-    .then(function(tasks){
-      var today=new Date().toISOString().split('T')[0];
-      var overdue=tasks.filter(function(t){return t.due&&t.due.date<today});
-      var dueToday=tasks.filter(function(t){return t.due&&t.due.date===today});
-      var html='';
-      if(overdue.length>0){
-        html+=overdue.map(function(t){return '<div style="color:var(--red);padding:8px;margin-bottom:6px;background:rgba(239,68,68,0.15);border-radius:8px">⚠️ '+t.content+'</div>'}).join('');
-      }
-      if(dueToday.length>0){
-        html+=dueToday.map(function(t){return '<div style="padding:8px;margin-bottom:6px;background:rgba(139,92,246,0.15);border-radius:8px">○ '+t.content+'</div>'}).join('');
-      }
-      document.getElementById('todoist-tasks').innerHTML=html||'All caught up!';
-      var total=overdue.length+dueToday.length;
-      document.getElementById('todoist-count').textContent=total+(total===1?' task':' tasks');
-    })
-    .catch(function(e){document.getElementById('todoist-tasks').innerHTML='Error loading tasks'});
-}
-
-function exportData(){
-  var data={bills:bills,debts:debts,history:history,exported:new Date().toISOString()};
-  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='life-os-backup-'+new Date().toISOString().split('T')[0]+'.json';
-  a.click();
-}
-
-function importData(){
-  var input=document.createElement('input');
-  input.type='file';
-  input.accept='.json';
-  input.onchange=function(e){
-    var reader=new FileReader();
-    reader.onload=function(ev){
-      try{
-        var data=JSON.parse(ev.target.result);
-        if(data.bills)bills=data.bills;
-        if(data.debts)debts=data.debts;
-        if(data.history)history=data.history;
-        saveAll();
-        renderBills();
-        renderDebts();
-      }catch(err){alert('Invalid file');}
-    };
-    reader.readAsText(e.target.files[0]);
-  };
-  input.click();
-}
-
-function toast(msg){
-  var t=document.createElement('div');
-  t.style.cssText='position:fixed;bottom:140px;left:50%;transform:translateX(-50%);padding:12px 24px;background:var(--green);color:#fff;border-radius:10px;font-size:14px;z-index:9999';
-  t.textContent=msg;
-  document.body.appendChild(t);
-  setTimeout(function(){t.remove()},3000);
+function editBal(i){
+  var d=debts[i];
+  var newBal=prompt('New balance for '+d.n+'?',d.b);
+  if(newBal!==null){d.b=Math.max(0,parseFloat(newBal));renderDebts();}
 }
 
 function updateClocks(){
@@ -513,16 +267,6 @@ function updateClocks(){
   document.getElementById('daysTo').textContent=Math.ceil((new Date('2026-03-02')-n)/(1000*60*60*24));
 }
 
-checkDayReset();
-loadAll();
-renderHabits();
-renderBills();
-renderDebts();
-renderHistory();
-if(localStorage.getItem('todoistToken')){
-  document.getElementById('todoist-token').value=localStorage.getItem('todoistToken');
-  loadTodoist();
-}
 setInterval(updateClocks,1000);
 updateClocks();
 </script>
