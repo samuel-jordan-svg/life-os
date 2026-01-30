@@ -282,20 +282,36 @@ function toggleEveningHabit(name,el){
 }
 
 function updateAllClocks(){
-  const now=new Date();
-  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-  const dateStr=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
-  const clockIds=['clock','clockF','clockH','clockT','clockS'];
-  const dayIds=['dayInfo','dayInfoF','dayInfoH','dayInfoT','dayInfoS'];
-  clockIds.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=timeStr});
-  dayIds.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr});
-  const dayNum=now.getDate();
-  const totalDays=(now.getFullYear()%4===0)?366:365;
-  document.getElementById('yearProgress').textContent=Math.round((dayNum/totalDays)*100)+'%';
-  const march2=new Date('2026-03-02');
-  document.getElementById('daysToGoal').textContent=Math.ceil((march2-now)/(1000*60*60*24));
+  try{
+    var now=new Date();
+    var timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var dateStr=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
+    
+    var clockEl=document.getElementById('clock');
+    if(clockEl)clockEl.textContent=timeStr;
+    
+    var dayEl=document.getElementById('dayInfo');
+    if(dayEl)dayEl.textContent=dateStr;
+    
+    var clockF=document.getElementById('clockF');
+    if(clockF)clockF.textContent=timeStr;
+    
+    var dayF=document.getElementById('dayInfoF');
+    if(dayF)dayF.textContent=dateStr;
+    
+    var yearPct=document.getElementById('yearProgress');
+    var dayNum=now.getDate();
+    var totalDays=(now.getFullYear()%4===0)?366:365;
+    if(yearPct)yearPct.textContent=Math.round((dayNum/totalDays)*100)+'%';
+    
+    var daysTo=document.getElementById('daysToGoal');
+    var march2=new Date('2026-03-02');
+    if(daysTo)daysTo.textContent=Math.ceil((march2-now)/(1000*60*60*24));
+  }catch(e){
+    console.log('Clock error:',e);
+  }
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
