@@ -729,15 +729,11 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);cursor:po
 </div>
 
 <script>
-function togglePayment(row){const check=row.querySelector(".payment-check");check.classList.toggle("checked");if(check.classList.contains("checked")){check.style.background="var(--accent-success)";check.style.borderColor="var(--accent-success)";check.innerHTML="<span style=color:white;font-size:12px;display:flex;align-items:center;justify-content:center;height:100%>✓</span>"}else{check.style.background="transparent";check.style.borderColor="var(--text-muted)";check.innerHTML=""}}
-function loadPaymentChecklist(){const saved=JSON.parse(localStorage.getItem("paymentChecklist")||"{}");document.querySelectorAll(".payment-row").forEach((row,i)=>{const idx=i.toString();if(saved[idx]){const check=row.querySelector(".payment-check");check.classList.add("checked");check.style.background="var(--accent-success)";check.style.borderColor="var(--accent-success)";check.innerHTML="<span style=color:white;font-size:12px;display:flex;align-items:center;justify-content:center;height:100%>✓</span>"}})}
+function togglePayment(row){const check=row.querySelector(".payment-check");check.classList.toggle("checked");if(check.classList.contains("checked")){check.style.background="var(--accent-success)";check.style.borderColor="var(--accent-success)";check.innerHTML='<span style=color:white;font-size:12px;display:flex;align-items:center;justify-content:center;height:100%>✓</span>'}else{check.style.background="transparent";check.style.borderColor="var(--text-muted)";check.innerHTML=""}savePaymentChecklist()}
+function loadPaymentChecklist(){const saved=JSON.parse(localStorage.getItem("paymentChecklist")||"{}");document.querySelectorAll(".payment-row").forEach((row,i)=>{const idx=i.toString();if(saved[idx]){const check=row.querySelector(".payment-check");check.classList.add("checked");check.style.background="var(--accent-success)";check.style.borderColor="var(--accent-success)";check.innerHTML='<span style=color:white;font-size:12px;display:flex;align-items:center;justify-content:center;height:100%>✓</span>'}})}
 function savePaymentChecklist(){const saved={};document.querySelectorAll(".payment-row").forEach((row,i)=>{if(row.querySelector(".payment-check").classList.contains("checked")){saved[i]=true}});localStorage.setItem("paymentChecklist",JSON.stringify(saved))}
-// Add to init
-content = content.replace("updateFinancialPage();setInterval(updateClockF,1000);",
-                         "updateFinancialPage();loadPaymentChecklist();setInterval(updateClockF,1000);")
-// Update togglePayment to save
-content = content.replace("function togglePayment(row){const check=row.querySelector(".payment-check");check.classList.toggle("checked");if(check.classList.contains("checked")){check.style.background="var(--accent-success)";check.style.borderColor="var(--accent-success)";check.innerHTML="<span style=color:white;font-size:12px;display:flex;align-items:center;justify-content:center;height:100%>✓</span>"}else{check.style.background="transparent";check.style.borderColor="var(--text-muted)";check.innerHTML=""}}",
-                         "function togglePayment(row){const check=row.querySelector(".payment-check");check.classList.toggle("checked");if(check.classList.contains("checked")){check.style.background="var(--accent-success)";check.style.borderColor="var(--accent-success)";check.innerHTML='<span style=color:white;font-size:12px;display:flex;align-items:center;justify-content:center;height:100%>✓</span>'}else{check.style.background="transparent";check.style.borderColor="var(--text-muted)";check.innerHTML=""}savePaymentChecklist()}")
+</script>
+
 <div class="footer"><p>💰 Financial Command Center - Updated in real-time</p></div>
 </div>
 </div>
@@ -772,7 +768,7 @@ function updateClockF(){const now=new Date();const timeStr=now.toLocaleTimeStrin
 function toggleDebtDetail(debtId){const detail=document.getElementById(debtId+"-detail");if(detail){detail.style.display=detail.style.display==="none"?"block":"none"}}
 </script>
 
-<!-- Page: Settings -->
+<!-- Page: Settings --><!-- Page: Settings -->
 <div id="page-settings" class="page">
 <div class="container">
 <div class="header">
@@ -857,7 +853,7 @@ const SPACE_FACTS=[
 function resetHabits(){localStorage.removeItem('morningHabits');localStorage.removeItem('eveningHabits');loadMorningHabits();loadEveningHabits();showToast('Habits reset!','info')}
 function checkMidnightReset(){const today=new Date().toISOString().split('T')[0];const lastReset=localStorage.getItem('lastResetDate');if(lastReset!==today){localStorage.removeItem('morningHabits');localStorage.removeItem('eveningHabits');localStorage.setItem('lastResetDate',today);loadMorningHabits();loadEveningHabits()}}
 setInterval(checkMidnightReset,60000);
-document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadMorningHabits();loadEveningHabits();loadSpaceFact();loadTodoistTasks();loadFinancial();loadWeight();loadBooks();loadRunning();updateFinancialPage();setInterval(updateClockF,1000);setInterval(updateAllClocks,1000);});
+document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadMorningHabits();loadEveningHabits();loadSpaceFact();loadTodoistTasks();loadFinancial();loadWeight();loadBooks();loadRunning();updateFinancialPage();loadPaymentChecklist();setInterval(updateClockF,1000);setInterval(updateAllClocks,1000);});
 
 function getUKTime(){const now=new Date();return now}
 function updateAllClocks(){const now=getUKTime();const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const months=['January','February','March','April','May','June','July','August','September','October','November','December'];const dayNum=now.getDate();const totalDays=(now.getFullYear()%4===0)?366:365;const yearProgress=Math.round((dayNum/totalDays)*100);const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});const dateStr=days[now.getDay()]+' '+dayNum+' '+months[now.getMonth()];['clock','clock2','clock3','clock4','clock5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=timeStr});['dayInfo','dayInfo2','dayInfo3','dayInfo4','dayInfo5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr});document.getElementById('yearProgress').textContent=yearProgress+'%';const march2=new Date('2026-03-02');const daysToGoal=Math.ceil((march2-now)/(1000*60*60*24));document.getElementById('daysToGoal').textContent=daysToGoal}
