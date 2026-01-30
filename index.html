@@ -63,20 +63,17 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .debt-btn{flex:1;padding:8px;border-radius:8px;border:none;font-size:11px;font-weight:600;cursor:pointer}
 .debt-btn.pay{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
 .debt-btn.edit{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text2)}
-.debt-btn.undo{background:rgba(245,158,11,0.15);color:var(--orange)}
 .hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
 .hist-item:last-child{border-bottom:none}
 .hist-info{font-size:12px}
 .hist-amt{color:var(--green);font-weight:600}
 .hist-date{font-size:11px;color:var(--text2)}
-.bill-item{display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px}
+.bill-item{display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px;cursor:pointer}
 .bill-name{font-size:13px}
 .bill-amt{font-size:13px;font-weight:600}
 .bill-paid{background:rgba(16,185,129,0.15);color:var(--green)}
 input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:14px;margin-bottom:10px}
 .btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px}
-.btn.green{background:linear-gradient(135deg,var(--green),#34d399)}
-.btn.orange{background:linear-gradient(135deg,var(--orange),#fbbf24);color:#000}
 @media(max-width:767px){.c{padding:16px}.h{padding:24px 20px;border-radius:20px}.t{font-size:40px}}
 </style>
 </head>
@@ -121,21 +118,21 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
 <div class="s" style="margin-bottom:0">
 <div class="si"><div class="sv green">£1,872</div><div class="sl">INCOME</div></div>
-<div class="si"><div class="sv red" id="fixedTotal">£639</div><div class="sl">BILLS</div></div>
+<div class="si"><div class="sv red" id="fixedTotal">£837</div><div class="sl">BILLS</div></div>
 <div class="si"><div class="sv orange" id="totalDebt">£15,402</div><div class="sl">DEBT</div></div>
-<div class="si"><div class="sv cyan" id="remaining">£985</div><div class="sl">LEFT</div></div>
+<div class="si"><div class="sv cyan" id="remaining">£787</div><div class="sl">LEFT</div></div>
 </div>
 </div>
 
 <!-- Fixed Bills -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">5 bills</span></div>
+<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">6 bills</span></div>
 <div id="billsList"></div>
 </div>
 
 <!-- Debts -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">6 debts</span></div>
+<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">4 debts</span></div>
 <div id="debtsList"></div>
 </div>
 
@@ -149,7 +146,7 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 
 <!-- History -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📜</div><div class="st">Payment History</div></div><button class="tag" onclick="clearHist()">Clear All</button></div>
+<div class="sh"><div class="slft"><div class="si2">📜</div><div class="st">Payment History</div></div><button class="tag" onclick="clearHist()">Clear</button></div>
 <div id="histList" style="font-size:12px;color:var(--text2)">No payments</div>
 </div>
 </div>
@@ -188,22 +185,22 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 const MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
 const EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
 
-// Fixed Bills
+// Fixed Bills - INCLUDING KIA PCP
 let bills=[
 {id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:true},
 {id:'phone',n:'📱 Phone',a:48.09,m:48.09,p:true},
 {id:'carIns',n:'🚗 Car Insurance',a:32.50,m:32.50,p:true},
-{id:'sky',n:'📺 Sky',a:53.00,m:53.00,p:true}, // £24 from March
-{id:'life',n:'❤️ Life Insurance',a:4.99,m:4.99,p:true}
+{id:'sky',n:'📺 Sky',a:53.00,m:53.00,p:true},
+{id:'life',n:'❤️ Life Insurance',a:4.99,m:4.99,p:true},
+{id:'kia',n:'🚗 Kia Finance (PCP)',a:198.29,m:198.29,p:true}
 ];
 
-// Debts
+// Debts - KIA REMOVED
 let debts=[
 {id:'argos',n:'🏪 Argos Card',b:320,min:51.10,apr:0,end:'2026-06-14',h:[]},
 {id:'monzo',n:'🏦 Monzo IFL',b:40,min:40,apr:0,end:null,h:[]},
 {id:'virgin',n:'💳 Virgin Money',b:2555.23,min:51.10,apr:26.49,end:'2027-09-16',h:[]},
 {id:'lendable',n:'🏦 Lendable',b:11876.71,min:264.25,apr:15.8,end:null,h:[]},
-,
 {id:'zopa',n:'💳 Zopa Spend',b:0,min:0,apr:34.4,end:null,h:[]}
 ];
 
@@ -281,7 +278,7 @@ function toggleE(i){
 
 function renderBills(){
   document.getElementById('billsList').innerHTML=bills.map(b=>
-    '<div class="bill-item '+(!b.p?'bill-paid':'')+'" onclick="toggleBill(\''+b.id+'\')" style="cursor:pointer"><span class="bill-name">'+b.n+'</span><span class="bill-amt">£'+b.m.toFixed(2)+'</span></div>'
+    '<div class="bill-item '+(!b.p?'bill-paid':'')+'" onclick="toggleBill(\''+b.id+'\')"><span class="bill-name">'+b.n+'</span><span class="bill-amt">£'+b.m.toFixed(2)+'</span></div>'
   ).join('');
 }
 
@@ -364,14 +361,11 @@ function undoPayment(idx){
   if(!h)return;
   let amount=parseFloat(h.a);
   if(!confirm('Undo payment of £'+amount.toFixed(2)+' to '+h.n+'?'))return;
-  // Find debt by matching the name (trim both)
   let d=debts.find(x=>x.n.trim()===h.n.trim());
   if(d){
     d.b=d.b+amount;
     d.paid=false;
-    // Remove this payment from debt's history
     d.h=d.h.filter(y=>y.t!==h.t);
-    // Ensure balance doesn't have floating point errors
     d.b=Math.round(d.b*100)/100;
   }
   history.splice(idx,1);
