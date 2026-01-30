@@ -4,7 +4,6 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>🚀 Sam's Life OS</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -22,7 +21,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .page{display:none;padding-bottom:80px}
 .page.active{display:block}
 .container{max-width:420px;margin:0 auto;padding:20px;padding-bottom:100px}
-.header{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px;backdrop-filter:blur(30px);border:1px solid var(--border-accent);position:relative;overflow:hidden}
+.header{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px;border:1px solid var(--border-accent)}
 .greeting{font-size:14px;color:var(--text-secondary);font-weight:500}
 .time-display{font-size:48px;font-weight:700;background:linear-gradient(90deg:#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .day-info{font-size:13px;color:var(--text-muted);margin-top:4px}
@@ -33,11 +32,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .header-stat .label{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
 .header-stat.success .value{color:var(--accent-success)}
 .header-stat.cyan .value{color:var(--accent-secondary)}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
-.stat-card{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:20px;padding:20px;text-align:center;border:1px solid var(--border-subtle)}
-.stat-card .icon{font-size:26px;margin-bottom:8px}
-.stat-card .value{font-size:24px;font-weight:700;background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-card .label{font-size:10px;color:var(--text-muted);margin-top:6px}
 .section{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:24px;padding:24px;margin-bottom:18px;border:1px solid var(--border-subtle)}
 .section-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
 .section-left{display:flex;align-items:center;gap:14px}
@@ -59,7 +53,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .tag.info{background:rgba(6,182,212,0.15);color:var(--accent-secondary)}
 .tag.danger{background:rgba(239,68,68,0.15);color:var(--accent-danger)}
 @media (min-width:1024px){.container{max-width:900px;padding:40px}}
-@media (max-width:767px){.container{max-width:100%;padding:16px}.header{padding:24px 20px;border-radius:20px}.time-display{font-size:40px}.section{padding:20px;border-radius:20px}.stats-grid{gap:10px}.stat-card{padding:16px}.stat-card .value{font-size:22px}}
+@media (max-width:767px){.container{max-width:100%;padding:16px}.header{padding:24px 20px;border-radius:20px}.time-display{font-size:40px}.section{padding:20px;border-radius:20px}}
 </style>
 </head>
 <body>
@@ -73,414 +67,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 <div class="day-info" id="dayInfo">Loading...</div>
 <div class="header-stats">
 <div class="header-stat"><div class="value" id="yearProgress">--%</div><div class="label">YEAR</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-
 <div class="header-stat cyan"><div class="value" id="daysToGoal">--</div><div class="label">DAYS TO GOAL</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-
 <div class="header-stat success"><div class="value">TBD</div><div class="label">DEBT</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
 </div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-
-</div>
-</div>
-<div class="stats-grid">
-<div class="stat-card"><div class="icon">💼</div><div class="value">ScS</div><div class="label">Current Employer</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-
-<div class="stat-card"><div class="icon">🏃</div><div class="value">0km</div><div class="label">Running Total</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-
-<div class="stat-card"><div class="icon">📚</div><div class="value">0/24</div><div class="label">Books Read</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-
-<div class="stat-card"><div class="icon">💰</div><div class="value">TBD</div><div class="label">Debt</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-
 </div>
 <div class="section">
 <div class="section-header">
@@ -501,6 +90,117 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 <span class="tag info" id="eveningProgress">0/5</span>
 </div>
 <div id="eveningHabits"></div>
+</div>
+</div>
+</div>
+
+<!-- Page: Money -->
+<div id="page-financial-v2" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">FINANCIAL</div>
+<div class="time-display" id="clockF">--:--</div>
+<div class="day-info" id="dayInfoF">Loading...</div>
+</div>
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">💰</div>
+<div class="section-title">Financial Command Center</div>
+</div>
+</div>
+<p style="color:var(--text-secondary);margin-bottom:16px">Monthly cash flow and debt tracking.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<div style="background:rgba(16,185,129,0.15);border-radius:12px;padding:16px;text-align:center">
+<div style="font-size:11px;color:var(--text-muted)">INCOME</div>
+<div style="font-size:24px;font-weight:700;color:var(--accent-success)">£1,872</div>
+</div>
+<div style="background:rgba(239,68,68,0.15);border-radius:12px;padding:16px;text-align:center">
+<div style="font-size:11px;color:var(--text-muted)">FIXED</div>
+<div style="font-size:24px;font-weight:700;color:var(--accent-danger)">£887</div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="section-title">💳 Debts</div>
+<div style="margin-top:12px">
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(239,68,68,0.1);border-radius:8px;margin-bottom:8px">
+<span>🏪 Argos Card</span><span style="color:var(--accent-danger)">£320</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(245,158,11,0.1);border-radius:8px;margin-bottom:8px">
+<span>🏦 Monzo IFL</span><span style="color:var(--accent-warning)">£40</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px">
+<span>💳 Virgin Money</span><span>£2,555</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px">
+<span>🏦 Lendable</span><span>£11,877</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px">
+<span>🚗 Kia Finance</span><span>£198/mo</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Page: Health -->
+<div id="page-health" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">HEALTH</div>
+<div class="time-display" id="clockH">--:--</div>
+<div class="day-info" id="dayInfoH">Loading...</div>
+</div>
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🏃</div>
+<div class="section-title">Running Goal 2026</div>
+</div>
+</div>
+<div style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">0 / 500km</div>
+<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
+</div>
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">📚</div>
+<div class="section-title">Reading Challenge</div>
+</div>
+</div>
+<div style="font-size:14px;color:var(--text-secondary);margin-bottom:12px">0 / 24 books</div>
+<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div class="goal-fill yellow" style="height:100%;width:0%;border-radius:6px"></div></div>
+</div>
+</div>
+</div>
+
+<!-- Page: Tasks -->
+<div id="page-todoist" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">TASKS</div>
+<div class="time-display" id="clockT">--:--</div>
+<div class="day-info" id="dayInfoT">Loading...</div>
+</div>
+<div class="section">
+<div class="section-title">📋 Todoist</div>
+<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
+</div>
+</div>
+</div>
+
+<!-- Page: Settings -->
+<div id="page-settings" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">SETTINGS</div>
+<div class="time-display" id="clockS">--:--</div>
+<div class="day-info" id="dayInfoS">Loading...</div>
+</div>
+<div class="section">
+<div class="section-title">⚙️ Settings</div>
+<p style="color:var(--text-secondary);margin-top:12px">Configure your Life OS preferences.</p>
 </div>
 </div>
 </div>
@@ -546,64 +246,7 @@ function loadMorningHabits(){
   container.innerHTML=MORNING_HABITS.map(h=>{
     const isCompleted=saved[h.name]||false;
     if(isCompleted)completed++;
-    return '<div class="habit-item" onclick="toggleMorningHabit(\''+h.name+'\',this)"><div class="habit-check morning '+(isCompleted?'checked':'')+'"></div><div class="habit-info"><div class="habit-name">'+h.name+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">'+h.description+'</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-</div>';
+    return '<div class="habit-item" onclick="toggleMorningHabit(\''+h.name.replace(/'/g,"\\'")+'\',this)"><div class="habit-check morning '+(isCompleted?'checked':'')+'"></div><div class="habit-info"><div class="habit-name">'+h.name+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">'+h.description+'</div></div></div>';
   }).join('');
   document.getElementById('morningProgress').textContent=completed+'/'+MORNING_HABITS.length;
 }
@@ -624,64 +267,7 @@ function loadEveningHabits(){
   container.innerHTML=EVENING_HABITS.map(h=>{
     const isCompleted=saved[h.name]||false;
     if(isCompleted)completed++;
-    return '<div class="habit-item" onclick="toggleEveningHabit(\''+h.name+'\',this)"><div class="habit-check evening '+(isCompleted?'checked':'')+'"></div><div class="habit-info"><div class="habit-name">'+h.name+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">'+h.description+'</div></div>
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">💰 Financial Command Center</div>
-<p style="color:var(--text-secondary);margin-top:12px">Coming soon with full debt tracking, payday waterfall, and monthly payment checklist.</p>
-</div>
-</div></div>
-
-<div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">🏃 Running Goal</div>
-<p style="color:var(--text-secondary);margin-top:12px">500km in 2026</p>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px;margin-top:12px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<p style="color:var(--text-secondary);margin-top:12px">24 books in 2026</p>
-</div>
-</div></div>
-
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
-</div></div>
-
-<div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Configuration</div>
-<p style="color:var(--text-secondary);margin-top:12px">Settings and automations coming soon.</p>
-</div>
-</div></div>
-</div>';
+    return '<div class="habit-item" onclick="toggleEveningHabit(\''+h.name.replace(/'/g,"\\'")+'\',this)"><div class="habit-check evening '+(isCompleted?'checked':'')+'"></div><div class="habit-info"><div class="habit-name">'+h.name+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">'+h.description+'</div></div></div>';
   }).join('');
   document.getElementById('eveningProgress').textContent=completed+'/'+EVENING_HABITS.length;
 }
@@ -695,7 +281,6 @@ function toggleEveningHabit(name,el){
   loadEveningHabits();
 }
 
-
 function updateAllClocks(){
   const now=new Date();
   const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -706,8 +291,12 @@ function updateAllClocks(){
   const dayIds=['dayInfo','dayInfoF','dayInfoH','dayInfoT','dayInfoS'];
   clockIds.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=timeStr});
   dayIds.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr});
+  const dayNum=now.getDate();
+  const totalDays=(now.getFullYear()%4===0)?366:365;
+  document.getElementById('yearProgress').textContent=Math.round((dayNum/totalDays)*100)+'%';
+  const march2=new Date('2026-03-02');
+  document.getElementById('daysToGoal').textContent=Math.ceil((march2-now)/(1000*60*60*24));
 }
-
 
 document.addEventListener('DOMContentLoaded',()=>{
   loadMorningHabits();
