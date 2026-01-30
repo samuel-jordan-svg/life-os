@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sam's Life OS</title>
+<title>Sam's Life OS - Financial</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -118,15 +118,15 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
 <div class="s" style="margin-bottom:0">
 <div class="si"><div class="sv green">£1,872</div><div class="sl">INCOME</div></div>
-<div class="si"><div class="sv red" id="fixedTotal">£837</div><div class="sl">BILLS</div></div>
+<div class="si"><div class="sv red" id="fixedTotal">£837</div><div class="sl">PAID</div></div>
 <div class="si"><div class="sv orange" id="totalDebt">£15,402</div><div class="sl">DEBT</div></div>
-<div class="si"><div class="sv cyan" id="remaining">£787</div><div class="sl">LEFT</div></div>
+<div class="si"><div class="sv cyan" id="remaining">£1,035</div><div class="sl">AVAILABLE</div></div>
 </div>
 </div>
 
 <!-- Fixed Bills -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">6 bills</span></div>
+<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
 <div id="billsList"></div>
 </div>
 
@@ -169,7 +169,7 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <!-- Settings -->
 <div id="page-settings" class="page">
 <div class="c"><div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div><div class="sec"><div class="st">⚙️ Data Backup</div>
-<p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Data saves to browser storage. Export before clearing cache!</p>
+<p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Export before clearing cache!</p>
 <button class="btn" onclick="exportData()" style="background:var(--green)">📥 Export Backup</button>
 <button class="btn" onclick="importData()" style="background:var(--cyan)">📤 Import Backup</button>
 </div></div>
@@ -191,12 +191,12 @@ const EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'6
 
 // Fixed Bills
 let bills=[
-{id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:true},
-{id:'phone',n:'📱 Phone',a:48.09,m:48.09,p:true},
-{id:'carIns',n:'🚗 Car Insurance',a:32.50,m:32.50,p:true},
-{id:'sky',n:'📺 Sky',a:53.00,m:53.00,p:true},
-{id:'life',n:'❤️ Life Insurance',a:4.99,m:4.99,p:true},
-{id:'kia',n:'🚗 Kia Finance (PCP)',a:198.29,m:198.29,p:true}
+{id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:false},
+{id:'phone',n:'📱 Phone',a:48.09,m:48.09,p:false},
+{id:'carIns',n:'🚗 Car Insurance',a:32.50,m:32.50,p:false},
+{id:'sky',n:'📺 Sky',a:53.00,m:53.00,p:false},
+{id:'life',n:'❤️ Life Insurance',a:4.99,m:4.99,p:false},
+{id:'kia',n:'🚗 Kia Finance (PCP)',a:198.29,m:198.29,p:false}
 ];
 
 // Debts
@@ -244,16 +244,19 @@ function saveAll(){
 
 function calcTotals(){
   let totDebt=debts.reduce((a,b)=>a+(b.paid?0:b.b),0);
-  let totBill=bills.filter(b=>!b.p).reduce((a,b)=>a+b.m,0);
+  // Bills total = sum of PAID bills
+  let totBill=bills.filter(b=>b.p).reduce((a,b)=>a+b.m,0);
+  // Available = Income - Paid Bills - Today's Debt Payments
   let today=new Date().toLocaleDateString('en-GB');
   let todayPayments=history.filter(h=>h.d===today).reduce((a,h)=>a+parseFloat(h.a),0);
   let inc=1872.44;
-  let left=inc-totBill-todayPayments;
+  let available=inc-totBill-todayPayments;
+  
   document.getElementById('totalDebt').textContent='£'+totDebt.toLocaleString();
   document.getElementById('fixedTotal').textContent='£'+totBill.toFixed(2);
-  document.getElementById('remaining').textContent='£'+left.toFixed(2);
+  document.getElementById('remaining').textContent='£'+available.toFixed(2);
   document.getElementById('debt').textContent=totDebt<10000?'£'+(totDebt/1000).toFixed(1)+'k':'£'+(totDebt/1000).toFixed(1)+'k';
-  document.getElementById('billCount').textContent=bills.filter(b=>!b.p).length+' bills';
+  document.getElementById('billCount').textContent=bills.filter(b=>b.p).length+' paid';
   document.getElementById('debtCount').textContent=debts.filter(d=>!d.paid).length+' debts';
 }
 
