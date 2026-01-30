@@ -362,17 +362,18 @@ function addPayment(d,amount){
 function undoPayment(idx){
   let h=history[idx];
   if(!h)return;
-  if(!confirm('Undo payment of £'+h.a+' to '+h.n+'?'))return;
+  if(!confirm('Undo payment of £'+parseFloat(h.a).toFixed(2)+' to '+h.n+'?'))return;
   let d=debts.find(x=>x.n===h.n);
   if(d){
-    d.b+=h.a;
+    d.b=parseFloat(d.b)+parseFloat(h.a);
     d.paid=false;
+    d.h=d.h.filter(x=>x.t!==h.t);
   }
   history.splice(idx,1);
   saveAll();
   renderDebts();
   renderHistory();
-  toast('Payment undone');
+  toast('Payment undone - £'+parseFloat(h.a).toFixed(2)+' restored');
 }
 
 function quickPay(){
