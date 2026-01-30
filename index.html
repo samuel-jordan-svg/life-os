@@ -317,6 +317,362 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);cursor:po
 </div>
 </div>
 
+
+<!-- Page: Financial V2 -->
+<div id="page-financial-v2" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">FINANCIAL COMMAND CENTER</div>
+<div class="time-display" id="clockF">--:--</div>
+<div class="day-info" id="dayInfoF">Loading...</div>
+</div>
+
+<!-- Cash Flow Summary -->
+<div class="section" style="background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(6,182,212,0.1));border-color:var(--accent-success)">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,var(--accent-success),var(--accent-secondary))">??</div>
+<div class="section-title">Monthly Cash Flow</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+<div style="background:rgba(16,185,129,0.15);border-radius:12px;padding:16px;text-align:center">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">INCOME (NET)</div>
+<div style="font-size:28px;font-weight:700;color:var(--accent-success)" id="monthlyIncome">1,872</div>
+<div style="font-size:10px;color:var(--text-secondary)">Base salary</div>
+</div>
+<div style="background:rgba(239,68,68,0.15);border-radius:12px;padding:16px;text-align:center">
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">FIXED OUTGOINGS</div>
+<div style="font-size:28px;font-weight:700;color:var(--accent-danger)" id="monthlyFixed">887</div>
+<div style="font-size:10px;color:var(--text-secondary)">Bills & minimums</div>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:16px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;margin-bottom:8px">
+<span style="font-size:12px;color:var(--text-secondary)">Available for spending</span>
+<span style="font-size:18px;font-weight:600;color:var(--accent-secondary)" id="availableForSpending">985</span>
+</div>
+<div style="height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden">
+<div id="spendingBar" style="height:100%;width:50%;background:linear-gradient(90deg,var(--accent-secondary),var(--accent-primary));border-radius:4px;transition:width 0.3s"></div>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--text-muted)">
+<span>500 spending cap (Zopa)</span>
+<span id="spendingRemaining">485 remaining</span>
+</div>
+</div>
+</div>
+
+<!-- Savings & Buffer -->
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">??</div>
+<div class="section-title">Savings & Buffer</div>
+</div>
+<span class="tag warning">Emergency Fund</span>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px">
+<div style="background:rgba(245,158,11,0.15);border-radius:12px;padding:14px;text-align:center">
+<div style="font-size:10px;color:var(--text-muted)">CURRENT</div>
+<div style="font-size:24px;font-weight:700;color:var(--accent-warning)" id="savingsCurrent">100</div>
+</div>
+<div style="background:rgba(255,255,255,0.05);border-radius:12px;padding:14px;text-align:center">
+<div style="font-size:10px;color:var(--text-muted)">TARGET</div>
+<div style="font-size:24px;font-weight:700;color:var(--text-primary)">1,000</div>
+</div>
+<div style="background:rgba(16,185,129,0.15);border-radius:12px;padding:14px;text-align:center">
+<div style="font-size:10px;color:var(--text-muted)">STRETCH</div>
+<div style="font-size:24px;font-weight:700;color:var(--accent-success)">2,000</div>
+</div>
+</div>
+<div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:12px">
+<div style="display:flex;justify-content:space-between;margin-bottom:6px">
+<span style="font-size:12px">Current Account Buffer</span>
+<span style="font-size:14px;font-weight:600;color:var(--accent-secondary)" id="currentBuffer">210.22</span>
+</div>
+<div style="font-size:10px;color:var(--text-muted)">Do not spend accidentally</div>
+</div>
+<div class="goal-bar" style="height:12px">
+<div id="savingsBar" class="goal-fill yellow" style="width:10%"></div>
+</div>
+<div style="text-align:center;margin-top:8px;font-size:11px;color:var(--text-secondary)">100 -> 1,000 -> 2,000</div>
+</div>
+
+<!-- Debt Overview -->
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(239,68,68,0.4),rgba(251,146,60,0.3))">??</div>
+<div class="section-title">Debt Overview</div>
+</div>
+<span class="tag danger" id="totalDebtTag">15,402</span>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+<div style="background:rgba(239,68,68,0.1);border-radius:12px;padding:12px;text-align:center;border:1px solid rgba(239,68,68,0.2)">
+<div style="font-size:10px;color:var(--text-muted)">TOTAL DEBT</div>
+<div style="font-size:22px;font-weight:700;color:var(--accent-danger)" id="totalDebt">15,402</div>
+</div>
+<div style="background:rgba(245,158,11,0.1);border-radius:12px;padding:12px;text-align:center;border:1px solid rgba(245,158,11,0.2)">
+<div style="font-size:10px;color:var(--text-muted)">MINIMUM/month</div>
+<div style="font-size:22px;font-weight:700;color:var(--accent-warning)" id="totalMinPayment">514</div>
+</div>
+</div>
+</div>
+
+<!-- Debt List -->
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">??</div>
+<div class="section-title">Debt Repayment Plan</div>
+</div>
+<span class="tag info">Priority Ordered</span>
+</div>
+
+<!-- Argos -->
+<div class="debt-card" onclick="toggleDebtDetail("argos")" style="background:linear-gradient(135deg,rgba(239,68,68,0.2),rgba(239,68,68,0.05));border:2px solid var(--accent-danger);border-radius:16px;padding:16px;margin-bottom:14px;cursor:pointer">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+<div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+<span style="font-size:16px">?? Argos Card</span>
+<span class="tag danger" style="font-size:8px">HIGH PRIORITY</span>
+</div>
+<div style="font-size:11px;color:var(--text-muted)">0% ends <span id="argos-promo-end" style="color:var(--accent-warning)">14 Jun 2026</span></div>
+</div>
+<div style="text-align:right">
+<div style="font-size:20px;font-weight:700;color:var(--accent-danger)" id="argos-balance">320</div>
+<div style="font-size:10px;color:var(--text-muted)">min 51.10/mo</div>
+</div>
+</div>
+<div style="font-size:10px;color:var(--text-muted)">Plan: Mar 110 -> Apr 110 -> May 100 -> Done</div>
+</div>
+
+<!-- Monzo -->
+<div class="debt-card" onclick="toggleDebtDetail("monzo")" style="background:linear-gradient(135deg,rgba(245,158,11,0.15),rgba(245,158,11,0.03));border-radius:16px;padding:16px;margin-bottom:14px;cursor:pointer;border:1px solid rgba(245,158,11,0.3)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+<div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+<span style="font-size:16px">?? Monzo IFL</span>
+<span class="tag warning" style="font-size:8px">DUE MARCH</span>
+</div>
+<div style="font-size:11px;color:var(--text-muted)">Interest free loan</div>
+</div>
+<div style="text-align:right">
+<div style="font-size:20px;font-weight:700;color:var(--accent-warning)" id="monzo-balance">40</div>
+<div style="font-size:10px;color:var(--text-muted)">remaining</div>
+</div>
+</div>
+<div style="font-size:11px;color:var(--accent-success)">110 paid Feb 2026</div>
+</div>
+
+<!-- Virgin -->
+<div class="debt-card" onclick="toggleDebtDetail("virgin")" style="background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(139,92,246,0.03));border-radius:16px;padding:16px;margin-bottom:14px;cursor:pointer;border:1px solid rgba(139,92,246,0.3)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+<div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+<span style="font-size:16px">?? Virgin Money</span>
+<span class="tag info" style="font-size:8px">0 UNTIL 2027</span>
+</div>
+<div style="font-size:11px;color:var(--text-muted)">0% ends <span id="virgin-promo-end" style="color:var(--accent-secondary)">16 Sep 2027</span></div>
+</div>
+<div style="text-align:right">
+<div style="font-size:20px;font-weight:700;color:var(--text-primary)" id="virgin-balance">2,555</div>
+<div style="font-size:10px;color:var(--text-muted)">min 51.10/mo</div>
+</div>
+</div>
+<div style="font-size:10px;color:var(--text-muted)">Feb-Mar: 51 -> Apr-Jul 2027: 145 -> Aug 2027: 133 (final)</div>
+</div>
+
+<!-- Lendable -->
+<div class="debt-card" onclick="toggleDebtDetail("lendable")" style="background:rgba(255,255,255,0.03);border-radius:16px;padding:16px;margin-bottom:14px;cursor:pointer;border:1px solid var(--border-subtle)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+<div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+<span style="font-size:16px">?? Lendable</span>
+<span class="tag" style="font-size:8px">HIGH APR</span>
+</div>
+<div style="font-size:11px;color:var(--text-muted)">Personal loan</div>
+</div>
+<div style="text-align:right">
+<div style="font-size:20px;font-weight:700;color:var(--accent-danger)" id="lendable-balance">11,877</div>
+<div style="font-size:10px;color:var(--text-muted)">min 264.25/mo</div>
+</div>
+</div>
+<div style="font-size:10px;color:var(--text-muted)">APR: 15.8% - Ends: Jan 2028</div>
+</div>
+
+<!-- Kia -->
+<div class="debt-card" onclick="toggleDebtDetail("kia")" style="background:linear-gradient(135deg,rgba(6,182,212,0.1),rgba(6,182,212,0.02));border-radius:16px;padding:16px;margin-bottom:14px;cursor:pointer;border:1px solid var(--border-subtle)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+<div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+<span style="font-size:16px">?? Kia Finance (PCP)</span>
+<span class="tag info" style="font-size:8px">PAY MINIMUM</span>
+</div>
+<div style="font-size:11px;color:var(--text-muted)">Kia Rio - NJ22 KWC - 2022</div>
+</div>
+<div style="text-align:right">
+<div style="font-size:20px;font-weight:700;color:var(--accent-secondary)" id="kia-balance">198</div>
+<div style="font-size:10px;color:var(--text-muted)">/mo</div>
+</div>
+</div>
+<div style="font-size:10px;color:var(--text-muted)">APR: 11.9% - Asset-backed - Pay minimum only</div>
+</div>
+
+<!-- Zopa -->
+<div class="debt-card" onclick="toggleDebtDetail("zopa")" style="background:linear-gradient(135deg,rgba(16,185,129,0.1),rgba(16,185,129,0.02));border-radius:16px;padding:16px;margin-bottom:14px;cursor:pointer;border:1px solid var(--border-subtle)">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+<div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+<span style="font-size:16px">?? Zopa Spend Card</span>
+<span class="tag success" style="font-size:8px">ALWAYS CLEAR</span>
+</div>
+<div style="font-size:11px;color:var(--text-muted)">Spending control tool</div>
+</div>
+<div style="text-align:right">
+<div style="font-size:20px;font-weight:700;color:var(--accent-success)" id="zopa-balance">0</div>
+<div style="font-size:10px;color:var(--text-muted)">of 500 cap</div>
+</div>
+</div>
+<div style="font-size:10px;color:var(--text-secondary)">Rule: Always clear on payday - Never carry balance</div>
+</div>
+
+</div>
+
+<!-- Payday Waterfall -->
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(139,92,246,0.4),rgba(6,182,212,0.3))">??</div>
+<div class="section-title">Payday Waterfall</div>
+</div>
+<span class="tag">Priority Order</span>
+</div>
+<div style="font-size:12px;color:var(--text-secondary);line-height:1.8">
+<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px">
+<span style="color:var(--accent-primary);font-weight:600">1</span>
+<span>Pay fixed bills first</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px">
+<span style="color:var(--accent-primary);font-weight:600">2</span>
+<span>Pay debt minimums</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px">
+<span style="color:var(--accent-primary);font-weight:600">3</span>
+<span><strong>Clear Zopa in full</strong> (always!)</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px">
+<span style="color:var(--accent-primary);font-weight:600">4</span>
+<span>Fund 500 spending cap</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(245,158,11,0.1);border-radius:8px;margin-bottom:8px;border:1px solid rgba(245,158,11,0.2)">
+<span style="color:var(--accent-warning);font-weight:600">5</span>
+<span><strong>Surplus -> Argos</strong> (protect promo!)</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(16,185,129,0.1);border-radius:8px;margin-bottom:8px;border:1px solid rgba(16,185,129,0.2)">
+<span style="color:var(--accent-success);font-weight:600">6</span>
+<span>Build savings to 1,000</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(139,92,246,0.1);border-radius:8px;margin-bottom:8px;border:1px solid rgba(139,92,246,0.2)">
+<span style="color:var(--accent-primary);font-weight:600">7</span>
+<span>Virgin promo protection</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(239,68,68,0.1);border-radius:8px;border:1px solid rgba(239,68,68,0.2)">
+<span style="color:var(--accent-danger);font-weight:600">8</span>
+<span><strong>Lendable overpay</strong> (after all above!)</span>
+</div>
+</div>
+</div>
+
+<!-- Alerts -->
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(239,68,68,0.4),rgba(251,146,60,0.3))">??</div>
+<div class="section-title">Alerts</div>
+</div>
+</div>
+<div style="padding:14px;background:rgba(239,68,68,0.15);border:1px solid var(--accent-danger);border-radius:12px;margin-bottom:10px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+<span style="color:var(--accent-danger);font-weight:600">HIGH</span>
+<span style="font-weight:500">Argos 0% Ends Soon</span>
+</div>
+<p style="font-size:12px;color:var(--text-secondary);margin:0">Clear before 14 Jun 2026 to avoid 26.49% APR. Increase payments now.</p>
+</div>
+<div style="padding:14px;background:rgba(245,158,11,0.15);border:1px solid var(--accent-warning);border-radius:12px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+<span style="color:var(--accent-warning);font-weight:600">MEDIUM</span>
+<span style="font-weight:500">Virgin 0% Ends 2027</span>
+</div>
+<p style="font-size:12px;color:var(--text-secondary);margin:0">On track for Aug 2027 payoff. Do not add new spend.</p>
+</div>
+</div>
+
+<!-- Fixed Bills -->
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">??</div>
+<div class="section-title">Fixed Monthly Bills</div>
+</div>
+<span class="tag">886.87/mo</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px">
+<span>?? Rent (to girlfriend)</span>
+<span style="color:var(--text-primary);font-weight:500">500</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px">
+<span>?? Phone</span>
+<span style="color:var(--text-primary);font-weight:500">48.09</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px">
+<span>?? Car Insurance</span>
+<span style="color:var(--text-primary);font-weight:500">32.50</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px">
+<span>?? Sky</span>
+<span style="color:var(--text-primary);font-weight:500">53.00</span>
+</div>
+<div style="display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px">
+<span>?? Life Insurance</span>
+<span style="color:var(--text-primary);font-weight:500">4.99</span>
+</div>
+</div>
+
+<div class="footer"><p>?? Financial Command Center - Updated in real-time</p></div>
+</div>
+</div>
+
+<script>
+const FINANCE_DATA = {
+income: { baseNetMonthly: 1872.44 },
+fixedBills: [
+{name: "Rent", amount: 500},
+{name: "Phone", amount: 48.09},
+{name: "Car Insurance", amount: 32.50},
+{name: "Sky", amount: 53.00},
+{name: "Life Insurance", amount: 4.99}
+],
+debts: [
+{id: "argos", name: "Argos Card", balance: 320, minPayment: 51.10, apr: 0, promoEnd: "2026-06-14", priority: 1, status: "on_track"},
+{id: "monzo", name: "Monzo IFL", balance: 40, minPayment: 40, apr: 0, priority: 2, status: "paid_feb"},
+{id: "virgin", name: "Virgin Money", balance: 2555.23, minPayment: 51.10, apr: 26.49, promoEnd: "2027-09-16", priority: 3, status: "on_track"},
+{id: "lendable", name: "Lendable", balance: 11876.71, minPayment: 264.25, apr: 15.8, priority: 4, status: "min_only"},
+{id: "kia", name: "Kia Finance", balance: "asset", minPayment: 198.29, apr: 11.9, priority: 5, status: "pay_min"},
+{id: "zopa", name: "Zopa", balance: 0, cap: 500, apr: 34.40, priority: 6, status: "clear_monthly"}
+],
+savings: { current: 100, target: 1000, stretch: 2000 },
+buffer: 210.22,
+spendingCap: 500
+};
+
+function updateFinancialPage(){const totalFixed=FINANCE_DATA.fixedBills.reduce((sum,b)=>sum+b.amount,0);const available=FINANCE_DATA.income.baseNetMonthly-totalFixed;const spendingUsed=FINANCE_DATA.spendingCap-(available-500);const spendingPct=Math.min(100,(spendingUsed/FINANCE_DATA.spendingCap)*100);document.getElementById("monthlyIncome").textContent="1,872";document.getElementById("monthlyFixed").textContent="887";document.getElementById("spendingBar").style.width=spendingPct+"%";document.getElementById("spendingRemaining").textContent=Math.max(0,FINANCE_DATA.spendingCap-spendingUsed)+" remaining";document.getElementById("savingsCurrent").textContent="100";document.getElementById("savingsBar").style.width=(FINANCE_DATA.savings.current/FINANCE_DATA.savings.stretch*100)+"%";document.getElementById("currentBuffer").textContent="210.22";const totalDebt=FINANCE_DATA.debts.filter(d=>typeof d.balance==="number").reduce((sum,d)=>sum+d.balance,0);const totalMin=FINANCE_DATA.debts.reduce((sum,d)=>sum+(d.minPayment||0),0);document.getElementById("totalDebt").textContent=totalDebt.toLocaleString("en-GB",{maximumFractionDigits:0});document.getElementById("totalDebtTag").textContent=totalDebt.toLocaleString("en-GB",{maximumFractionDigits:0});document.getElementById("totalMinPayment").textContent=totalMin.toFixed(0);document.getElementById("argos-balance").textContent="320";document.getElementById("virgin-balance").textContent="2,555";document.getElementById("lendable-balance").textContent="11,877";document.getElementById("kia-balance").textContent="198";updateClockF()}
+
+function updateClockF(){const now=new Date();const timeStr=now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});const dateStr=now.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});if(document.getElementById("clockF"))document.getElementById("clockF").textContent=timeStr;if(document.getElementById("dayInfoF"))document.getElementById("dayInfoF").textContent=dateStr}
+
+function toggleDebtDetail(debtId){const detail=document.getElementById(debtId+"-detail");if(detail){detail.style.display=detail.style.display==="none"?"block":"none"}}
+</script>
+
 <!-- Page: Settings -->
 <div id="page-settings" class="page">
 <div class="container">
@@ -366,7 +722,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1);cursor:po
 <!-- Navigation -->
 <nav class="nav-bar">
 <div class="nav-item active" onclick="switchPage('dashboard',this)"><i class="fas fa-home"></i><span>Home</span></div>
-<div class="nav-item" onclick="switchPage('financial',this)"><i class="fas fa-pound-sign"></i><span>Money</span></div>
+<div class="nav-item" onclick="switchPage('financial-v2',this)"><i class="fas fa-pound-sign"></i><span>Money</span></div>
 <div class="nav-item" onclick="switchPage('health',this)"><i class="fas fa-heart"></i><span>Health</span></div>
 <div class="nav-item" onclick="switchPage('todoist',this)"><i class="fas fa-tasks"></i><span>Tasks</span></div>
 <div class="nav-item" onclick="switchPage('settings',this)"><i class="fas fa-cog"></i><span>Settings</span></div>
@@ -402,7 +758,7 @@ const SPACE_FACTS=[
 function resetHabits(){localStorage.removeItem('morningHabits');localStorage.removeItem('eveningHabits');loadMorningHabits();loadEveningHabits();showToast('Habits reset!','info')}
 function checkMidnightReset(){const today=new Date().toISOString().split('T')[0];const lastReset=localStorage.getItem('lastResetDate');if(lastReset!==today){localStorage.removeItem('morningHabits');localStorage.removeItem('eveningHabits');localStorage.setItem('lastResetDate',today);loadMorningHabits();loadEveningHabits()}}
 setInterval(checkMidnightReset,60000);
-document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadMorningHabits();loadEveningHabits();loadSpaceFact();loadTodoistTasks();loadFinancial();loadWeight();loadBooks();loadRunning();setInterval(updateAllClocks,1000);});
+document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadMorningHabits();loadEveningHabits();loadSpaceFact();loadTodoistTasks();loadFinancial();loadWeight();loadBooks();loadRunning();updateFinancialPage();setInterval(updateClockF,1000);setInterval(updateAllClocks,1000);});
 
 function getUKTime(){const now=new Date();return now}
 function updateAllClocks(){const now=getUKTime();const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const months=['January','February','March','April','May','June','July','August','September','October','November','December'];const dayNum=now.getDate();const totalDays=(now.getFullYear()%4===0)?366:365;const yearProgress=Math.round((dayNum/totalDays)*100);const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});const dateStr=days[now.getDay()]+' '+dayNum+' '+months[now.getMonth()];['clock','clock2','clock3','clock4','clock5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=timeStr});['dayInfo','dayInfo2','dayInfo3','dayInfo4','dayInfo5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr});document.getElementById('yearProgress').textContent=yearProgress+'%';const march2=new Date('2026-03-02');const daysToGoal=Math.ceil((march2-now)/(1000*60*60*24));document.getElementById('daysToGoal').textContent=daysToGoal}
