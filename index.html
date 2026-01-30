@@ -74,8 +74,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .todo-input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:12px;color:var(--text-primary);font-size:14px;outline:none}
 .todo-add{width:48px;background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));border:none;border-radius:12px;color:white;font-size:20px;cursor:pointer}
 .todo-item{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px}
-.todo-text{flex:1;font-size:13px}
-.todo-text.done{text-decoration:line-through;color:var(--text-muted)}
+.todoist-item{display:flex;align-items:center;gap:12px;padding:14px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;cursor:pointer;transition:all 0.2s}
+.todoist-item:hover{background:rgba(255,255,255,0.06)}
+.todoist-check{width:24px;height:24px;border-radius:6px;border:2px solid var(--text-muted);flex-shrink:0;transition:all 0.2s}
+.todoist-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
+.todoist-check.checked::after{content:'✓';color:white;font-size:14px;display:flex;align-items:center;justify-content:center;height:100%}
+.todoist-text{flex:1;font-size:13px}
+.todoist-text.done{text-decoration:line-through;color:var(--text-muted)}
 .timeline{margin-left:8px;border-left:2px solid rgba(139,92,246,0.2);padding-left:20px}
 .timeline-item{position:relative;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-subtle)}
 .timeline-item::before{content:'';position:absolute;left:-25px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent-warning);box-shadow:0 0 15px rgba(245,158,11,0.5)}
@@ -316,9 +321,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 </div>
 <span class="tag" id="todoistCount">Loading...</span>
 </div>
+<div class="todo-input-group" style="margin-bottom:16px">
+<input type="text" class="todo-input" id="todoistInput" placeholder="Add task to Todoist...">
+<button class="todo-add" onclick="addTodoistTask()">+</button>
+</div>
 <div id="todoistTasks" style="font-size:13px;color:var(--text-secondary)">Loading from Todoist...</div>
 </div>
-<div class="footer"><p>📋 Synced with Todoist</p></div>
+<div class="footer"><p>📋 Synced with Todoist API</p></div>
 </div>
 </div>
 
@@ -420,7 +429,130 @@ function addTodo(){const input=document.getElementById('todoInput');const text=i
 function toggleTodo(i){const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved[i].done=!saved[i].done;localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
 function deleteTodo(i){const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved.splice(i,1);localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
 function loadSpaceFact(){document.getElementById('spaceFact').textContent=SPACE_FACTS[Math.floor(Math.random()*SPACE_FACTS.length)]}
-function loadTodoistTasks(){const tasks=[{content:'Create Daily Productivity Report',done:false},{content:'Plan Breaks & Lunches',done:false}];const completed=tasks.filter(t=>t.done).length;document.getElementById('todoistCount').textContent=completed+'/'+tasks.length;document.getElementById('todoistTasks').innerHTML=tasks.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-subtle)"><div style="width:16px;height:16px;border-radius:4px;border:2px solid ${t.done?'var(--accent-success)':'var(--text-muted)'}"></div><span style="${t.done?'text-decoration:line-through;color:var(--text-muted)':''}">${t.content}</span></div>`).join('')}
+// Todoist API Integration
+const TODOIST_TOKEN = 'd6d547ef2cf7e84a585acaecdee6447cece3c2af';
+const TODOIST_API = 'https://api.todoist.com/rest/v2';
+
+// Get all tasks
+async function fetchTodoistTasks() {
+  try {
+    const res = await fetch(`${TODOIST_API}/tasks`, {
+      headers: { 'Authorization': `Bearer ${TODOIST_TOKEN}` }
+    });
+    return await res.json();
+  } catch (e) {
+    console.error('Todoist fetch error:', e);
+    return [];
+  }
+}
+
+// Get today's tasks
+async function fetchTodaysTasks() {
+  try {
+    const res = await fetch(`${TODOIST_API}/tasks?filter=today`, {
+      headers: { 'Authorization': `Bearer ${TODOIST_TOKEN}` }
+    });
+    return await res.json();
+  } catch (e) {
+    return [];
+  }
+}
+
+// Complete a task
+async function completeTask(taskId) {
+  try {
+    await fetch(`${TODOIST_API}/tasks/${taskId}/close`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${TODOIST_TOKEN}` }
+    });
+    return true;
+  } catch (e) {
+    console.error('Complete error:', e);
+    return false;
+  }
+}
+
+// Create a task
+async function createTask(content, dueString = null) {
+  try {
+    const body = { content };
+    if (dueString) body.due_string = dueString;
+    
+    const res = await fetch(`${TODOIST_API}/tasks`, {
+      method: 'POST',
+      headers: { 
+        'Authorization': `Bearer ${TODOIST_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  } catch (e) {
+    console.error('Create error:', e);
+    return null;
+  }
+}
+
+// Sync morning/evening habits to Todoist
+async function syncHabitsToTodoist() {
+  const habits = [
+    ...MORNING_HABITS.map(h => ({ ...h, section: 'Morning' })),
+    ...EVENING_HABITS.map(h => ({ ...h, section: 'Evening' }))
+  ];
+  
+  for (const habit of habits) {
+    await createTask(`${habit.section}: ${habit.name}`, `every day at 7am`);
+  }
+}
+
+// Load Todoist tasks and display
+async function loadTodoistTasks() {
+  const tasks = await fetchTodaysTasks();
+  const container = document.getElementById('todoistTasks');
+  const countEl = document.getElementById('todoistCount');
+  
+  if (tasks.length === 0) {
+    container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px">No tasks for today. Add some in Todoist!</p>';
+    countEl.textContent = '0 tasks';
+    return;
+  }
+  
+  const completed = tasks.filter(t => t.is_completed).length;
+  countEl.textContent = `${completed}/${tasks.length} done`;
+  
+  container.innerHTML = tasks.map(t => `
+    <div class="todoist-item" onclick="toggleTodoistTask(${t.id}, ${t.is_completed})">
+      <div class="todoist-check ${t.is_completed ? 'checked' : ''}" id="check-${t.id}"></div>
+      <div class="todoist-text ${t.is_completed ? 'done' : ''}">${t.content}</div>
+    </div>
+  `).join('');
+}
+
+// Toggle Todoist task
+async function toggleTodoistTask(taskId, currentStatus) {
+  const checkEl = document.getElementById(`check-${taskId}`);
+  
+  if (!currentStatus) {
+    const success = await completeTask(taskId);
+    if (success) {
+      checkEl.classList.add('checked');
+      loadTodoistTasks();
+    }
+  }
+}
+
+// Add task from Life OS to Todoist
+async function addTodoistTask() {
+  const input = document.getElementById('todoistInput');
+  const text = input.value.trim();
+  if (!text) return;
+  
+  const task = await createTask(text, 'today');
+  if (task) {
+    input.value = '';
+    loadTodoistTasks();
+  }
+}
 </script>
 </body>
 </html>
