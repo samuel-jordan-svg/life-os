@@ -51,6 +51,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;cursor:pointer}
 .habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;background:transparent}
 .habit-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
+.habit-check.checked.amber{background:var(--accent-warning);border-color:var(--accent-warning)}
+.habit-check.amber{border-color:var(--accent-secondary)}
 .habit-check.checked::after{content:'✓';color:white;font-size:14px;font-weight:bold}
 .habit-info{flex:1}
 .habit-name{font-size:13px;font-weight:500}
@@ -150,6 +152,17 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 <span class="tag" id="habitProgress">0/5</span>
 </div>
 <div id="habits"></div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(139,92,246,0.4),rgba(168,85,247,0.3))">🌙</div>
+<div class="section-title">Evening Routine</div>
+</div>
+<span class="tag info" id="eveningProgress">0/5</span>
+</div>
+<div id="eveningHabits"></div>
 </div>
 
 <div class="section">
@@ -352,7 +365,14 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 </nav>
 
 <script>
-const HABITS=[
+const EVENING_HABITS=[
+{name:'🍽️ Final meal 4hrs before bed',streak:0,description:'Eat your final meal/snack of the day four hours before bed'},
+{name:'📵 Screens off 60min before bed',streak:0,description:'Screens off 60 minutes before bed'},
+{name:'📖 Read 10min before bed',streak:0,description:'Read a book ten minutes before bed'},
+{name:'☕ Avoid stimulants',streak:0,description:'Be mindful of stimulants like caffeine'},
+{name:'💡 Red/amber lights evening',streak:0,description:'Use red and amber lights in the evening'}
+];
+const DAY_HABITS=[
 {name:'🏃 Morning Exercise',streak:0},
 {name:'📚 Read 30 mins',streak:0},
 {name:'📵 No social media AM',streak:0},
@@ -369,15 +389,18 @@ const SPACE_FACTS=[
 "Mars has the tallest mountain in the solar system - 3x taller than Everest.",
 "The Great Red Spot on Jupiter is a storm that has raged for 350 years."
 ];
-document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadHabits();loadTodos();loadSpaceFact();loadTodoistTasks();setInterval(updateAllClocks,1000);setInterval(()=>location.reload(),300000)});
+document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadHabits();loadEveningHabits();loadTodos();loadSpaceFact();loadTodoistTasks();setInterval(updateAllClocks,1000);setInterval(()=>location.reload(),300000)});
 
-async function fetchUKTime(){try{const res=await fetch('https://worldtimeapi.org/api/timezone/Europe/London');const data=await res.json();return new Date(data.datetime)}catch(e){return new Date()}}
-async function updateAllClocks(){const now=await fetchUKTime();const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const months=['January','February','March','April','May','June','July','August','September','October','November','December'];const dayNum=now.getDate();const totalDays=(now.getFullYear()%4===0)?366:365;const yearProgress=Math.round((dayNum/totalDays)*100);const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});const dateStr=days[now.getDay()]+' '+dayNum+' '+months[now.getMonth()];['clock','clock2','clock3','clock4','clock5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=timeStr});['dayInfo','dayInfo2','dayInfo3','dayInfo4','dayInfo5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr});document.getElementById('yearProgress').textContent=yearProgress+'%';const march2=new Date('2026-03-02');const daysToGoal=Math.ceil((march2-now)/(1000*60*60*24));document.getElementById('daysToGoal').textContent=daysToGoal}
+// UK Time - Use browser timezone (automatically UK if browser set correctly)
+function getUKTime(){const now=new Date();return now}
+function updateAllClocks(){const now=getUKTime();const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const months=['January','February','March','April','May','June','July','August','September','October','November','December'];const dayNum=now.getDate();const totalDays=(now.getFullYear()%4===0)?366:365;const yearProgress=Math.round((dayNum/totalDays)*100);const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});const dateStr=days[now.getDay()]+' '+dayNum+' '+months[now.getMonth()];['clock','clock2','clock3','clock4','clock5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=timeStr});['dayInfo','dayInfo2','dayInfo3','dayInfo4','dayInfo5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr});document.getElementById('yearProgress').textContent=yearProgress+'%';const march2=new Date('2026-03-02');const daysToGoal=Math.ceil((march2-now)/(1000*60*60*24));document.getElementById('daysToGoal').textContent=daysToGoal}
 
 function switchPage(pageName,navEl){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+pageName).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));navEl.classList.add('active')}
 
-function loadHabits(){const container=document.getElementById('habits');let completed=0;const saved=JSON.parse(localStorage.getItem('habits')||'{}');container.innerHTML=HABITS.map(h=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleHabit('${h.name}',this)"><div class="habit-check ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div class="habit-streak">${h.streak} days</div></div></div>`}).join('');document.getElementById('habitProgress').textContent=completed+'/'+HABITS.length}
-function toggleHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('habits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('habits',JSON.stringify(saved));loadHabits()}
+function loadHabits(){const container=document.getElementById('habits');let completed=0;const saved=JSON.parse(localStorage.getItem('dayHabits')||'{}');container.innerHTML=DAY_HABITS.map(h=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleHabit('${h.name}',this)"><div class="habit-check ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div class="habit-streak">${h.streak} days</div></div></div>`}).join('');document.getElementById('habitProgress').textContent=completed+'/'+DAY_HABITS.length}
+function toggleHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('dayHabits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('dayHabits',JSON.stringify(saved));loadHabits()}
+function loadEveningHabits(){const container=document.getElementById('eveningHabits');let completed=0;const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');container.innerHTML=EVENING_HABITS.map((h,i)=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleEveningHabit('${h.name}',this)"><div class="habit-check amber ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">${h.description}</div></div></div>`}).join('');document.getElementById('eveningProgress').textContent=completed+'/'+EVENING_HABITS.length}
+function toggleEveningHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('eveningHabits',JSON.stringify(saved));loadEveningHabits()}
 function loadTodos(){const saved=JSON.parse(localStorage.getItem('todos')||'[]');const container=document.getElementById('todoList');const completed=saved.filter(t=>t.done).length;container.innerHTML=saved.map((t,i)=>`<div class="todo-item"><div class="todo-check ${t.done?'checked':''}" onclick="toggleTodo(${i})"></div><div class="todo-text ${t.done?'done':''}">${t.text}</div><div class="todo-delete" onclick="deleteTodo(${i})">×</div></div>`).join('');document.getElementById('todoCount').textContent=completed+'/'+saved.length;localStorage.setItem('todos',JSON.stringify(saved))}
 function addTodo(){const input=document.getElementById('todoInput');const text=input.value.trim();if(!text){return}const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved.push({text,done:false});input.value='';localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
 function toggleTodo(i){const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved[i].done=!saved[i].done;localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
