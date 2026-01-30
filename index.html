@@ -107,9 +107,25 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="nav-btn" onclick="go('settings')"><span>⚙️</span><span>Settings</span></div>
 </div>
 
+<!-- Todoist Due Today -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
+<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
+<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
+<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
+</div>
+
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div><div class="st">Morning</div></div><span class="tag orange" id="mornProg">0/6</span></div>
 <div id="mornHabits"></div>
+</div>
+
+<!-- Todoist Due Today -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
+<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
+<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
+<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
 </div>
 
 <div class="sec">
@@ -128,6 +144,14 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="d" id="dayInfoM">Loading...</div>
 </div>
 
+<!-- Todoist Due Today -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
+<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
+<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
+<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
+</div>
+
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
 <div class="s" style="margin-bottom:0">
@@ -138,9 +162,25 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 </div>
 </div>
 
+<!-- Todoist Due Today -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
+<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
+<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
+<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
+</div>
+
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
 <div id="billsList"></div>
+</div>
+
+<!-- Todoist Due Today -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
+<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
+<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
+<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
 </div>
 
 <div class="sec">
@@ -148,11 +188,27 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div id="debtsList"></div>
 </div>
 
+<!-- Todoist Due Today -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
+<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
+<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
+<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
+</div>
+
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">⚡</div><div class="st">Quick Payment</div></div></div>
 <input type="number" id="payAmt" placeholder="Amount">
 <select id="payDebt"><option value="">Select debt</option></select>
 <button class="btn" onclick="quickPay()">Pay Now</button>
+</div>
+
+<!-- Todoist Due Today -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
+<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
+<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
+<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
 </div>
 
 <div class="sec">
@@ -182,6 +238,12 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Export before clearing cache!</p>
 <button class="btn" onclick="exportData()" style="background:var(--green)">📥 Export Backup</button>
 <button class="btn" onclick="importData()" style="background:var(--cyan)">📤 Import Backup</button>
+</div>
+
+<div class="sec"><div class="st">🔗 Todoist API</div>
+<p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Get token from Todoist Settings → Integrations</p>
+<input type="password" id="todoist-token" placeholder="Paste API token here" onchange="saveTodoistToken()">
+<button class="btn" onclick="loadTodoist()" style="background:var(--purple)">📋 Load Today's Tasks</button>
 </div></div>
 </div>
 
@@ -472,6 +534,72 @@ function toast(msg){
   t.textContent=msg;
   document.body.appendChild(t);
   setTimeout(()=>t.remove(),3000);
+}
+
+
+// Todoist Integration
+function saveTodoistToken(){
+  let token=document.getElementById('todoist-token').value.trim();
+  localStorage.setItem('todoistToken',token);
+  if(token)loadTodoist();
+}
+
+async function loadTodoist(){
+  let token=localStorage.getItem('todoistToken');
+  if(!token){
+    document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--orange)">Add API token in Settings first</span>';
+    return;
+  }
+  document.getElementById('todoist-tasks').innerHTML='Loading...';
+  
+  try{
+    let resp=await fetch('https://api.todoist.com/rest/v2/tasks',{
+      headers:{'Authorization':'Bearer '+token}
+    });
+    if(!resp.ok)throw new Error('API error');
+    let tasks=await resp.json();
+    
+    // Filter for today's tasks (no date or due today)
+    let today=new Date().toISOString().split('T')[0];
+    let dueToday=tasks.filter(t=>!t.due||t.due.date===today);
+    
+    if(dueToday.length===0){
+      document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--green)">🎉 All caught up! No tasks due today.</span>';
+    }else{
+      document.getElementById('todoist-tasks').innerHTML=dueToday.map(t=>`
+        <div class="todoist-task" onclick="completeTodoistTask('${t.id}')" style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;margin-bottom:8px;cursor:pointer">
+          <div style="width:24px;height:24px;border-radius:6px;border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0">☐</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:500">${t.content}</div>
+            <div style="font-size:11px;color:var(--text-muted)">${t.project_id?'Project #'+t.project_id:''}${t.priority>1?' • '+'🔴🟠🟡'.slice(0,t.priority-1):''}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    document.getElementById('todoist-count').textContent=dueToday.length+' tasks';
+  }catch(e){
+    document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--red)">Error loading tasks. Check API token.</span>';
+  }
+}
+
+async function completeTodoistTask(taskId){
+  let token=localStorage.getItem('todoistToken');
+  if(!token)return;
+  
+  try{
+    let resp=await fetch('https://api.todoist.com/rest/v2/tasks/'+taskId+'/close',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+token}
+    });
+    if(resp.ok){
+      loadTodoist();
+      toast('Task completed!');
+    }else{
+      alert('Failed to complete task');
+    }
+  }catch(e){
+    alert('Error: '+e.message);
+  }
 }
 
 function updateClocks(){
