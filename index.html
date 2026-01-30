@@ -51,27 +51,6 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .hn{flex:1}
 .hn2{font-size:13px;font-weight:500}
 .hd{font-size:11px;color:var(--text2);margin-top:2px}
-.debt-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid var(--border)}
-.debt-item:hover{border-color:var(--purple)}
-.debt-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.debt-name{font-size:14px;font-weight:600}
-.debt-bal{font-size:18px;font-weight:700}
-.debt-bal.active{color:var(--orange)}
-.debt-bal.paid{color:var(--green)}
-.debt-meta{font-size:11px;color:var(--text2)}
-.debt-btns{display:flex;gap:8px;margin-top:10px}
-.debt-btn{flex:1;padding:8px;border-radius:8px;border:none;font-size:11px;font-weight:600;cursor:pointer}
-.debt-btn.pay{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
-.debt-btn.edit{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text2)}
-.hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
-.hist-item:last-child{border-bottom:none}
-.hist-info{font-size:12px}
-.hist-amt{color:var(--green);font-weight:600}
-.hist-date{font-size:11px;color:var(--text2)}
-.bill-item{display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px;cursor:pointer}
-.bill-name{font-size:13px}
-.bill-amt{font-size:13px;font-weight:600}
-.bill-paid{background:rgba(16,185,129,0.15);color:var(--green)}
 input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:14px;margin-bottom:10px}
 .btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px}
 .quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
@@ -107,6 +86,27 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="nav-btn" onclick="go('settings')"><span>⚙️</span><span>Settings</span></div>
 </div>
 
+<!-- Todoist Due Today -->
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">✅</div><div class="st">Due Today</div></div><span class="tag" id="todoist-count">0 tasks</span></div>
+<div id="todoist-tasks" style="font-size:13px;color:var(--text2)"></div>
+<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
+</div>
+
+<!-- Morning Habits -->
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div><div class="st">Morning</div></div><span class="tag orange" id="mornProg">0/6</span></div>
+<div id="mornHabits"></div>
+</div>
+
+<!-- Evening Habits -->
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div><div class="st">Evening</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
+<div id="eveHabits"></div>
+</div>
+</div>
+</div>
+
 <!-- Money -->
 <div id="page-money" class="page">
 <div class="c">
@@ -115,34 +115,57 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="t" id="clockM">--:--</div>
 <div class="d" id="dayInfoM">Loading...</div>
 </div>
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
+<div class="s" style="margin-bottom:0">
+<div class="si"><div class="sv green">£1,872</div><div class="sl">INCOME</div></div>
+<div class="si"><div class="sv red" id="fixedTotal">£0</div><div class="sl">PAID</div></div>
+<div class="si"><div class="sv orange" id="totalDebt">£15,402</div><div class="sl">DEBT</div></div>
+<div class="si"><div class="sv cyan" id="remaining">£1,872</div><div class="sl">AVAILABLE</div></div>
+</div>
+</div>
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
+<div id="billsList"></div>
+</div>
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5 debts</span></div>
+<div id="debtsList"></div>
+</div>
+</div>
+</div>
 
 <!-- Health -->
 <div id="page-health" class="page">
 <div class="c">
 <div class="h"><div class="g">HEALTH</div><div class="t" id="clockH">--:--</div><div class="d" id="dayInfoH">Loading...</div></div>
-<div class="sec"><div class="st">🏃 Running 500km</div><div style="margin:12px 0;color:var(--text2)">0 / 500km</div><div style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div style="height:100%;width:0%;background:linear-gradient(90deg,var(--purple),var(--cyan));border-radius:6px"></div></div></div>
-<div class="sec"><div class="st">📚 Reading 24 books</div><div style="margin:12px 0;color:var(--text2)">0 / 24</div><div style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div style="height:100%;width:0%;background:var(--orange);border-radius:6px"></div></div></div>
+<div class="sec"><div class="st">🏃 Running 500km</div><div style="margin:12px 0;color:var(--text2)">0 / 500km</div></div>
+<div class="sec"><div class="st">📚 Reading 24 books</div><div style="margin:12px 0;color:var(--text2)">0 / 24</div></div>
 </div>
 </div>
 
 <!-- Tasks -->
 <div id="page-tasks" class="page">
-<div class="c"><div class="h"><div class="g">TASKS</div><div class="t" id="clockT">--:--</div><div class="d" id="dayInfoT">Loading...</div></div><div class="sec"><div class="st">📋 Todoist</div><p style="color:var(--text2);margin-top:12px">Connect Todoist</p></div></div>
+<div class="c">
+<div class="h"><div class="g">TASKS</div><div class="t" id="clockT">--:--</div><div class="d" id="dayInfoT">Loading...</div></div>
+<div class="sec"><div class="st">📋 Todoist</div><p style="color:var(--text2);margin-top:12px">Full Todoist integration coming soon</p></div>
+</div>
 </div>
 
 <!-- Settings -->
 <div id="page-settings" class="page">
-<div class="c"><div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div><div class="sec"><div class="st">⚙️ Data Backup</div>
+<div class="c">
+<div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div>
+<div class="sec"><div class="st">⚙️ Data Backup</div>
 <p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Export before clearing cache!</p>
 <button class="btn" onclick="exportData()" style="background:var(--green)">📥 Export Backup</button>
 <button class="btn" onclick="importData()" style="background:var(--cyan)">📤 Import Backup</button>
 </div>
-
 <div class="sec"><div class="st">🔗 Todoist API</div>
-<p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Get token from Todoist Settings → Integrations</p>
-<input type="password" id="todoist-token" placeholder="Paste API token here" onchange="saveTodoistToken()">
-<button class="btn" onclick="loadTodoist()" style="background:var(--purple)">📋 Load Today's Tasks</button>
-</div></div>
+<p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Token saved automatically</p>
+<input type="password" id="todoist-token" placeholder="API token (optional)" onchange="saveTodoistToken()">
+</div>
+</div>
 </div>
 
 <!-- Nav -->
@@ -159,20 +182,7 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 const MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
 const EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
 
-// Auto-reset habits for new day
-function checkDayReset(){
-  let today=new Date().toISOString().split('T')[0];
-  let lastDate=localStorage.getItem('lifeOSlastDate');
-  if(lastDate!==today){
-    // New day - reset habits
-    localStorage.setItem('morn','{}');
-    localStorage.setItem('eve','{}');
-    localStorage.setItem('lifeOSlastDate',today);
-    console.log('Habits reset for '+today);
-  }
-}
-
-// Fixed Bills
+// Bills
 let bills=[
 {id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:false},
 {id:'phone',n:'📱 Phone',a:48.09,m:48.09,p:false},
@@ -197,7 +207,7 @@ function go(page,el){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
-  let navIndex={'dashboard':0,'money':1,'health':2,'tasks':3,'settings':4}[page];
+  let navIndex={dashboard:0,money:1,health:2,tasks:3,settings:4}[page];
   document.querySelectorAll('.nav-item').forEach((x,i)=>{if(i===navIndex)x.classList.add('active')});
   updateClocks();
 }
@@ -213,7 +223,7 @@ function loadAll(){
 }
 
 function saveAll(){
-  localStorage.setItem('lifeOSdebts',JSON.stringify(debts));
+Item('lifeOS  localStorage.setItem('lifeOSdebts',JSON.stringify(debts));
   localStorage.setItem('lifeOSbills',JSON.stringify(bills));
   localStorage.setItem('lifeOShistory',JSON.stringify(history));
   calcTotals();
@@ -232,6 +242,16 @@ function calcTotals(){
   document.getElementById('debt').textContent=totDebt<10000?'£'+(totDebt/1000).toFixed(1)+'k':'£'+(totDebt/1000).toFixed(1)+'k';
   document.getElementById('billCount').textContent=bills.filter(b=>b.p).length+' paid';
   document.getElementById('debtCount').textContent=debts.filter(d=>!d.paid).length+' debts';
+}
+
+function checkDayReset(){
+  let today=new Date().toISOString().split('T')[0];
+  let lastDate=localStorage.getItem('lifeOSlastDate');
+  if(lastDate!==today){
+    localStorage.setItem('morn','{}');
+    localStorage.setItem('eve','{}');
+    localStorage.setItem('lifeOSlastDate',today);
+  }
 }
 
 function renderHabits(){
@@ -277,126 +297,46 @@ function toggleBill(id){
 function renderDebts(){
   let d=document.getElementById('debtsList');
   let s=document.getElementById('payDebt');
-  d.innerHTML=debts.sort((a,b)=>(a.paid?1:0)-(b.paid?1:0)).map(x=>{
-    let paid=x.paid;
-    let bal=paid?'PAID':'£'+x.b.toLocaleString();
-    let balClass=paid?'paid':'active';
+  d.innerHTML=debts.map(x=>{
+    let bal=x.paid?'PAID':'£'+x.b.toLocaleString();
+    let balClass=x.paid?'paid':'active';
     let end=x.end?'0% ends '+x.end:x.apr+'% APR';
-    let last=x.h.length>0?'<div style="font-size:11px;color:var(--text2);margin-top:6px">Last: £'+x.h[x.h.length-1].a+'</div>':'';
-    return '<div class="debt-item" onclick="showDebtOpts(\''+x.id+'\')"><div class="debt-row"><div><div class="debt-name">'+x.n+'</div><div class="debt-meta">'+end+' • Min: £'+x.min+'</div></div><div class="debt-bal '+balClass+'">'+bal+'</div></div>'+(paid?'':'<div class="debt-btns"><button class="debt-btn pay" onclick="event.stopPropagation();payMin(\''+x.id+'\')">Pay Min</button><button class="debt-btn pay" onclick="event.stopPropagation();payCustom(\''+x.id+'\')">Custom</button><button class="debt-btn edit" onclick="event.stopPropagation();editBalance(\''+x.id+'\')">Edit</button></div>')+last+'</div>';
+    return '<div class="debt-item"><div class="debt-row"><div><div class="debt-name">'+x.n+'</div><div class="debt-meta">'+end+'</div></div><div class="debt-bal '+balClass+'">'+bal+'</div></div></div>';
   }).join('');
-  s.innerHTML='<option value="">Select debt</option>'+debts.filter(d=>!d.paid).map(x=>'<option value="'+x.id+'">'+x.n+' (£'+x.b+')</option>').join('');
 }
 
-function showDebtOpts(id){
-  let d=debts.find(x=>x.id===id);
-  if(!d||d.paid)return;
-  let m='Pay towards '+d.n+':\n\nBalance: £'+d.b+'\nMin: £'+d.min+'\n\n1. Pay Minimum\n2. Custom Amount\n3. Edit Balance\n\nCancel to close';
-  let r=prompt(m);
-  if(r==='1')payMin(id);
-  else if(r==='2')payCustom(id);
-  else if(r==='3')editBalance(id);
+function saveTodoistToken(){
+  localStorage.setItem('todoistToken',document.getElementById('todoist-token').value.trim());
+  loadTodoist();
 }
 
-function payMin(id){
-  let d=debts.find(x=>x.id===id);
-  if(!d||d.paid)return;
-  let a=d.b<d.min?d.b:d.min;
-  addPayment(d,a);
-}
-
-function payCustom(id){
-  let d=debts.find(x=>x.id===id);
-  if(!d||d.paid)return;
-  let a=prompt('Amount to pay '+d.n+'?',d.min);
-  if(a&&parseFloat(a)>0){
-    a=Math.min(parseFloat(a),d.b);
-    addPayment(d,a);
-  }
-}
-
-function editBalance(id){
-  let d=debts.find(x=>x.id===id);
-  if(!d)return;
-  let b=prompt('New balance for '+d.n+'?',d.b);
-  if(b&&parseFloat(b)>=0){
-    d.b=parseFloat(b);
-    if(d.b<0.01){d.b=0;d.paid=true;d.h=[];}
-    saveAll();
-    renderDebts();
-  }
-}
-
-function addPayment(d,amount){
-  if(amount>d.b)amount=d.b;
-  d.b-=amount;
-  d.h.push({a:amount,d:new Date().toLocaleDateString('en-GB'),t:Date.now()});
-  if(d.b<0.01){d.b=0;d.paid=true;}
-  history.unshift({n:d.n,a:amount,d:new Date().toLocaleDateString('en-GB'),t:Date.now()});
-  saveAll();
-  renderDebts();
-  renderHistory();
-  toast(amount>0?'Paid £'+amount:'Balance updated');
-}
-
-function undoPayment(idx){
-  let h=history[idx];
-  if(!h)return;
-  let amount=parseFloat(h.a);
-  if(!confirm('Undo payment of £'+amount.toFixed(2)+' to '+h.n+'?'))return;
-  let d=debts.find(x=>x.n.trim()===h.n.trim());
-  if(d){
-    d.b=d.b+amount;
-    d.paid=false;
-    d.h=d.h.filter(y=>y.t!==h.t);
-    d.b=Math.round(d.b*100)/100;
-  }
-  history.splice(idx,1);
-  saveAll();
-  renderDebts();
-  renderHistory();
-  toast('Payment undone - £'+amount.toFixed(2)+' restored');
-}
-
-function quickPay(){
-  let a=parseFloat(document.getElementById('payAmt').value);
-  let id=document.getElementById('payDebt').value;
-  if(!id||!a||a<=0)return alert('Select debt and amount');
-  let d=debts.find(x=>x.id===id);
-  if(!d||d.paid)return;
-  addPayment(d,a);
-  document.getElementById('payAmt').value='';
-}
-
-function renderHistory(){
-  let h=document.getElementById('histList');
-  if(history.length===0){
-    h.innerHTML='No payments';
-    return;
-  }
-  h.innerHTML=history.map((x,i)=>
-    '<div class="hist-item"><div class="hist-info"><div>'+x.n+'</div><div class="hist-date">'+x.d+'</div></div><div style="display:flex;align-items:center;gap:10px"><span class="hist-amt">-£'+x.a+'</span><button class="tag orange" onclick="undoPayment('+i+')" style="cursor:pointer">Undo</button></div></div>'
-  ).join('');
-}
-
-function clearHist(){
-  if(history.length===0)return;
-  if(confirm('Clear all history?')){
-    history=[];
-    saveAll();
-    renderHistory();
-  }
+function loadTodoist(){
+  let token=localStorage.getItem('todoistToken');
+  if(!token)return;
+  fetch('https://api.todoist.com/rest/v2/tasks',{headers:{'Authorization':'Bearer '+token}})
+    .then(r=>r.json()).then(tasks=>{
+      let today=new Date().toISOString().split('T')[0];
+      let overdue=tasks.filter(t=>t.due&&t.due.date<today);
+      let dueToday=tasks.filter(t=>t.due&&t.due.date===today);
+      let html='';
+      if(overdue.length>0){
+        html+=overdue.map(t=>'<div style="color:var(--red);padding:8px;margin-bottom:6px;background:rgba(239,68,68,0.1);border-radius:8px">⚠️ '+t.content+'</div>').join('');
+      }
+      if(dueToday.length>0){
+        html+=dueToday.map(t=>'<div style="padding:8px;margin-bottom:6px;background:rgba(139,92,246,0.15);border-radius:8px">○ '+t.content+'</div>').join('');
+      }
+      document.getElementById('todoist-tasks').innerHTML=html||'🎉 All caught up!';
+      document.getElementById('todoist-count').textContent=(overdue.length+dueToday.length)+(overdue.length+dueToday.length===1?' task':' tasks');
+    }).catch(e=>document.getElementById('todoist-tasks').innerHTML='Error loading tasks');
 }
 
 function exportData(){
   let data={bills:bills,debts:debts,history:history,exported:new Date().toISOString()};
   let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  let url=URL.createObjectURL(blob);
   let a=document.createElement('a');
-  a.href=url;
+  a.href=URL.createObjectURL(blob);
   a.download='life-os-backup-'+new Date().toISOString().split('T')[0]+'.json';
   a.click();
-  toast('Backup downloaded!');
 }
 
 function importData(){
@@ -404,7 +344,6 @@ function importData(){
   input.type='file';
   input.accept='.json';
   input.onchange=e=>{
-    let file=e.target.files[0];
     let reader=new FileReader();
     reader.onload=ev=>{
       try{
@@ -415,114 +354,18 @@ function importData(){
         saveAll();
         renderBills();
         renderDebts();
-        renderHistory();
-        toast('Data imported successfully!');
-      }catch(err){
-        alert('Invalid backup file');
-      }
+      }catch(err){alert('Invalid file');}
     };
-    reader.readAsText(file);
+    reader.readAsText(e.target.files[0]);
   };
   input.click();
-}
-
-function toast(msg){
-  let t=document.createElement('div');
-  t.style.cssText='position:fixed;bottom:140px;left:50%;transform:translateX(-50%);padding:12px 24px;background:var(--green);color:#fff;border-radius:10px;font-size:14px;z-index:9999';
-  t.textContent=msg;
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),3000);
-}
-
-
-// Todoist Integration
-function saveTodoistToken(){
-  let token=document.getElementById('todoist-token').value.trim();
-  localStorage.setItem('todoistToken',token);
-  if(token)loadTodoist();
-}
-
-async function loadTodoist(){
-  let token=localStorage.getItem('todoistToken');
-  if(!token){
-    document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--orange)">Add API token in Settings first</span>';
-    return;
-  }
-  document.getElementById('todoist-tasks').innerHTML='';
-  
-  try{
-    let resp=await fetch('https://api.todoist.com/rest/v2/tasks',{
-      headers:{'Authorization':'Bearer '+token}
-    });
-    if(!resp.ok)throw new Error('API error');
-    let tasks=await resp.json();
-    
-    // Filter for overdue + due today (NOT tasks with no due date)
-    let today=new Date().toISOString().split('T')[0];
-    let overdue=tasks.filter(t=>t.due&&t.due.date<today);
-    let dueToday=tasks.filter(t=>t.due&&t.due.date===today);
-    let allDue=[...overdue,...dueToday];
-    
-    if(overdue.length>0){
-      document.getElementById('todoist-tasks').innerHTML=overdue.map(t=>`
-        <div class="todoist-task" onclick="completeTodoistTask('${t.id}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(239,68,68,0.15);border-radius:10px;margin-bottom:6px;cursor:pointer;border:1px solid var(--red)">
-          <div style="font-size:14px;color:var(--red)">⚠️</div>
-          <div style="flex:1">
-            <div style="font-size:14px;font-weight:500;color:var(--red)">${t.content}</div>
-            <div style="font-size:11px;color:var(--red)">Overdue: ${t.due.date}</div>
-          </div>
-          <div style="font-size:16px;color:var(--red)">✓</div>
-        </div>
-      `).join('');
-    }
-    if(dueToday.length===0 && overdue.length===0){
-      document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--green)">🎉 All caught up! Nothing overdue or due today.</span>';
-    }else if(dueToday.length>0){
-      let html=document.getElementById('todoist-tasks').innerHTML;
-      if(overdue.length>0)html+='<div style="margin:16px 0 8px;font-size:12px;color:var(--text-muted)">DUE TODAY</div>';
-      document.getElementById('todoist-tasks').innerHTML=html+dueToday.map(t=>`
-        <div class="todoist-task" onclick="completeTodoistTask('${t.id}')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(139,92,246,0.15);border-radius:10px;margin-bottom:6px;cursor:pointer">
-          <div style="font-size:14px">${t.priority>3?'🔴':t.priority>2?'🟠':t.priority>1?'🟡':'○'}</div>
-          <div style="flex:1;font-size:14px;font-weight:500">${t.content}</div>
-          <div style="font-size:16px;color:var(--purple)">✓</div>
-        </div>
-      `).join('');
-}
-    let total=overdue.length+dueToday.length;
-    document.getElementById('todoist-count').textContent=total+' task'+(total!==1?'s':'');
-    document.getElementById('todoist-count').style.color='#fff';
-    document.getElementById('todoist-count').style.background=overdue.length>0?'var(--red)':'var(--green)';
-  }catch(e){
-    document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--red)">Error loading tasks. Check API token.</span>';
-  }
-}
-
-async function completeTodoistTask(taskId){
-  let token=localStorage.getItem('todoistToken');
-  if(!token)return;
-  
-  try{
-    let resp=await fetch('https://api.todoist.com/rest/v2/tasks/'+taskId+'/close',{
-      method:'POST',
-      headers:{'Authorization':'Bearer '+token}
-    });
-    if(resp.ok){
-      loadTodoist();
-      toast('Task completed!');
-    }else{
-      alert('Failed to complete task');
-    }
-  }catch(e){
-    alert('Error: '+e.message);
-  }
 }
 
 function updateClocks(){
   let n=new Date(),t=n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),d=n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
   ['clock','clockM','clockH','clockT','clockS'].forEach(x=>{let e=document.getElementById(x);if(e)e.textContent=t});
   ['dayInfo','dayInfoM','dayInfoH','dayInfoT','dayInfoS'].forEach(x=>{let e=document.getElementById(x);if(e)e.textContent=d});
-  let dn=n.getDate(),td=(n.getFullYear()%4===0)?366:365;
-  document.getElementById('yearPct').textContent=Math.round((dn/td)*100)+'%';
+  document.getElementById('yearPct').textContent=Math.round((n.getDate()/365)*100)+'%';
   document.getElementById('daysTo').textContent=Math.ceil((new Date('2026-03-02')-n)/(1000*60*60*24));
 }
 
@@ -531,7 +374,10 @@ loadAll();
 renderHabits();
 renderBills();
 renderDebts();
-renderHistory();
+if(localStorage.getItem('todoistToken')){
+  document.getElementById('todoist-token').value=localStorage.getItem('todoistToken');
+  loadTodoist();
+}
 setInterval(updateClocks,1000);
 updateClocks();
 </script>
