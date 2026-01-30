@@ -1,613 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🚀 Sam's Life OS</title>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sam's Life OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---bg-primary:#0d0d12;--bg-secondary:#13131a;--bg-card:#1a1a24;--accent-primary:#8b5cf6;--accent-secondary:#06b6d4;--accent-success:#10b981;--accent-warning:#f59e0b;--accent-danger:#ef4444;
---text-primary:#ffffff;--text-secondary:#9ca3af;--text-muted:#6b7280;--border-subtle:rgba(255,255,255,0.08)
+--bg:#0d0d12;--card:#1a1a24;--purple:#8b5cf6;--cyan:#06b6d4;--green:#10b981;--orange:#f59e0b;--red:#ef4444;
+--text:#fff;--text2:#9ca3af;--border:rgba(255,255,255,0.08)
 }
-body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding-bottom:100px}
-.nav-bar{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,var(--bg-secondary),var(--bg-primary));border-top:1px solid var(--border-subtle);display:flex;justify-content:space-around;padding:12px 8px 25px;z-index:1000;backdrop-filter:blur(20px)}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text-muted);text-decoration:none;font-size:10px;cursor:pointer;transition:all 0.3s}
-.nav-item.active{color:var(--accent-primary)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:100px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,#13131a,#0d0d12);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:12px 8px 25px;z-index:100;backdrop-filter:blur(20px)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text2);font-size:10px;cursor:pointer}
+.nav-item.active{color:var(--purple)}
 .nav-item i{font-size:20px}
-.nav-item span{font-size:9px;font-weight:500}
 .page{display:none;padding-bottom:80px}
 .page.active{display:block}
-.container{max-width:420px;margin:0 auto;padding:20px;padding-bottom:100px}
-.header{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px;border:1px solid var(--border-accent)}
-.greeting{font-size:14px;color:var(--text-secondary);font-weight:500}
-.time-display{font-size:48px;font-weight:700;color:#ffffff}
-.day-info{font-size:13px;color:var(--text-muted);margin-top:4px}
-.header-stats{display:flex;justify-content:space-between;margin-top:24px}
-.header-stat{text-align:center;flex:1}
-.header-stat:not(:last-child){border-right:1px solid var(--border-subtle)}
-.header-stat .value{font-size:20px;font-weight:700}
-.header-stat .label{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
-.header-stat.success .value{color:var(--accent-success)}
-.header-stat.cyan .value{color:var(--accent-secondary)}
-.section{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:24px;padding:24px;margin-bottom:18px;border:1px solid var(--border-subtle)}
-.section-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
-.section-left{display:flex;align-items:center;gap:14px}
-.section-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));border:1px solid rgba(139,92,246,0.2)}
-.section-title{font-size:16px;font-weight:600}
-.habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;cursor:pointer}
-.habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;background:transparent}
-.habit-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
-.habit-check.checked.morning{background:linear-gradient(135deg,var(--accent-warning),#fbbf24);border-color:var(--accent-warning)}
-.habit-check.checked.evening{background:linear-gradient(135deg,var(--accent-secondary),#22d3ee);border-color:var(--accent-secondary)}
-.habit-check.morning{border-color:var(--accent-warning)}
-.habit-check.evening{border-color:var(--accent-secondary)}
-.habit-check.checked::after{content:'✓';color:white;font-size:14px;font-weight:bold}
-.habit-info{flex:1}
-.habit-name{font-size:13px;font-weight:500}
-.tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:var(--accent-primary);border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase}
-.tag.success{background:rgba(16,185,129,0.15);color:var(--accent-success)}
-.tag.warning{background:rgba(245,158,11,0.15);color:var(--accent-warning)}
-.tag.info{background:rgba(6,182,212,0.15);color:var(--accent-secondary)}
-.tag.danger{background:rgba(239,68,68,0.15);color:var(--accent-danger)}
-.debt-card{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:16px;padding:16px;margin-bottom:12px;border:1px solid var(--border-subtle);cursor:pointer;transition:all 0.2s}
-.debt-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-.debt-card.paid{opacity:0.6;border-color:var(--accent-success)}
-.debt-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.debt-name{font-size:14px;font-weight:600}
-.debt-balance{font-size:20px;font-weight:700}
-.debt-balance.active{color:var(--accent-danger)}
-.debt-balance.paid{color:var(--accent-success)}
-.debt-meta{font-size:11px;color:var(--text-muted);margin-bottom:8px}
-.debt-actions{display:flex;gap:8px;margin-top:12px}
-.debt-btn{flex:1;padding:10px;border-radius:8px;border:none;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
-.debt-btn.pay{background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));color:white}
-.debt-btn.pay:hover{transform:scale(1.02)}
-.debt-btn.history{background:rgba(255,255,255,0.05);color:var(--text-secondary);border:1px solid var(--border-subtle)}
-.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.summary-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;text-align:center}
-.summary-label{font-size:10px;color:var(--text-muted);margin-bottom:4px}
-.summary-value{font-size:18px;font-weight:700}
-.summary-value.income{color:var(--accent-success)}
-.summary-value.fixed{color:var(--accent-danger)}
-.summary-value.total-debt{color:var(--accent-warning)}
-.summary-value.remaining{color:var(--accent-secondary)}
-.payment-history{background:rgba(255,255,255,0.03);border-radius:8px;padding:10px;margin-top:8px;font-size:11px;color:var(--text-secondary)}
-@media (min-width:1024px){.container{max-width:900px;padding:40px}}
-@media (max-width:767px){.container{max-width:100%;padding:16px}.header{padding:24px 20px;border-radius:20px}.time-display{font-size:40px}.section{padding:20px;border-radius:20px}}
+.c{max-width:420px;margin:0 auto;padding:20px}
+.h{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px;border:1px solid var(--border)}
+.g{font-size:14px;color:var(--text2);font-weight:500}
+.t{font-size:48px;font-weight:700;color:#fff;margin-top:8px}
+.d{font-size:13px;color:var(--text2);margin-top:4px}
+.s{display:flex;justify-content:space-between;margin-top:24px}
+.si{text-align:center;flex:1}
+.si:not(:last-child){border-right:1px solid var(--border)}
+.sv{font-size:20px;font-weight:700}
+.sl{font-size:9px;color:var(--text2);text-transform:uppercase;margin-top:4px}
+.sv.green{color:var(--green)}
+.sv.cyan{color:var(--cyan)}
+.sec{background:linear-gradient(145deg,var(--card),#13131a);border-radius:24px;padding:24px;margin-bottom:18px;border:1px solid var(--border)}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.slft{display:flex;align-items:center;gap:14px}
+.si2{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));border:1px solid rgba(139,92,246,0.2)}
+.st{font-size:16px;font-weight:600}
+.tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:var(--purple);border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase}
+.tag.green{background:rgba(16,185,129,0.15);color:var(--green)}
+.tag.orange{background:rgba(245,158,11,0.15);color:var(--orange)}
+.tag.cyan{background:rgba(6,182,212,0.15);color:var(--cyan)}
+.tag.red{background:rgba(239,68,68,0.15);color:var(--red)}
+.hi{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;cursor:pointer}
+.hc{width:28px;height:28px;border-radius:8px;border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:transparent}
+.hc.checked{background:var(--green);border-color:var(--green)}
+.hc.evening{border-color:var(--cyan)}
+.hc.evening.checked{background:linear-gradient(135deg,var(--cyan),#22d3ee);border-color:var(--cyan)}
+.hc.checked::after{content:'✓';color:white;font-size:14px;font-weight:bold}
+.hn{flex:1}
+.hn2{font-size:13px;font-weight:500}
+.hd{font-size:11px;color:var(--text2);margin-top:2px}
+@media(max-width:767px){.c{padding:16px}.h{padding:24px 20px;border-radius:20px}.t{font-size:40px}}
 </style>
 </head>
 <body>
 
-<!-- Page: Dashboard -->
+<!-- Dashboard -->
 <div id="page-dashboard" class="page active">
-<div class="container">
-<div class="header">
-<div class="greeting">SAM'S LIFE OS</div>
-<div class="time-display" id="clock">--:--</div>
-<div class="day-info" id="dayInfo">Loading...</div>
-<div class="header-stats">
-<div class="header-stat"><div class="value" id="yearProgress">--%</div><div class="label">YEAR</div></div>
-<div class="header-stat cyan"><div class="value" id="daysToGoal">--</div><div class="label">DAYS TO GOAL</div></div>
-<div class="header-stat success"><div class="value" id="debtDisplay">£15.4k</div><div class="label">TOTAL DEBT</div></div>
+<div class="c">
+<div class="h">
+<div class="g">SAM'S LIFE OS</div>
+<div class="t" id="clock">--:--</div>
+<div class="d" id="dayInfo">Loading...</div>
+<div class="s">
+<div class="si"><div class="sv" id="yearPct">--%</div><div class="sl">YEAR</div></div>
+<div class="si"><div class="sv cyan" id="daysTo">--</div><div class="sl">DAYS</div></div>
+<div class="si"><div class="sv green" id="debt">£15.4k</div><div class="sl">DEBT</div></div>
 </div>
 </div>
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div>
-<div class="section-title">Morning Routine</div>
+
+<div class="sec">
+<div class="sh">
+<div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div><div class="st">Morning</div></div>
+<span class="tag orange" id="mornProg">0/6</span>
 </div>
-<span class="tag warning" id="morningProgress">0/6</span>
+<div id="mornHabits"></div>
 </div>
-<div id="morningHabits"></div>
+
+<div class="sec">
+<div class="sh">
+<div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div><div class="st">Evening</div></div>
+<span class="tag cyan" id="eveProg">0/5</span>
 </div>
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div>
-<div class="section-title">Evening Routine</div>
-</div>
-<span class="tag info" id="eveningProgress">0/5</span>
-</div>
-<div id="eveningHabits"></div>
+<div id="eveHabits"></div>
 </div>
 </div>
 </div>
 
-<!-- Page: Money -->
-<div id="page-financial-v2" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">FINANCIAL COMMAND CENTER</div>
-<div class="time-display" id="clockF">--:--</div>
-<div class="day-info" id="dayInfoF">Loading...</div>
+<!-- Money -->
+<div id="page-money" class="page">
+<div class="c">
+<div class="h">
+<div class="g">FINANCIAL</div>
+<div class="t" id="clockM">--:--</div>
+<div class="d" id="dayInfoM">Loading...</div>
 </div>
 
-<!-- -->
-<div class=" Summarysection">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">📊</div>
-<div class="section-title">Monthly Summary</div>
-</div>
-</div>
-<div class="summary-grid">
-<div class="summary-item">
-<div class="summary-label">INCOME</div>
-<div class="summary-value income" id="incomeDisplay">£1,872</div>
-</div>
-<div class="summary-item">
-<div class="summary-label">FIXED BILLS</div>
-<div class="summary-value fixed" id="fixedDisplay">£639</div>
-</div>
-<div class="summary-item">
-<div class="summary-label">TOTAL DEBT</div>
-<div class="summary-value total-debt" id="totalDebtDisplay">£15,402</div>
-</div>
-<div class="summary-item">
-<div class="summary-label">REMAINING</div>
-<div class="summary-value remaining" id="remainingDisplay">£985</div>
-</div>
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Summary</div></div></div>
+<div class="s" style="margin-bottom:0">
+<div class="si"><div class="sv green">£1,872</div><div class="sl">INCOME</div></div>
+<div class="si"><div class="sv red">£639</div><div class="sl">FIXED</div></div>
+<div class="si"><div class="sv orange" id="totDebt">£15,402</div><div class="sl">DEBT</div></div>
+<div class="si"><div class="sv cyan">£985</div><div class="sl">LEFT</div></div>
 </div>
 </div>
 
-<!-- Debts -->
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">💳</div>
-<div class="section-title">Debts</div>
-</div>
-<span class="tag danger" id="debtCount">6 debts</span>
-</div>
-<div id="debtsContainer"></div>
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag" id="debtCount">6 debts</span></div>
+<div id="debtsList"></div>
 </div>
 
-<!-- Quick Payment -->
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">⚡</div>
-<div class="section-title">Quick Payment</div>
-</div>
-</div>
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">⚡</div><div class="st">Quick Pay</div></div></div>
 <div style="display:flex;gap:10px;margin-bottom:12px">
-<input type="number" id="quickAmount" placeholder="Amount" style="flex:1;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:10px;color:var(--text-primary)">
-<select id="quickDebt" style="flex:1;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:10px;color:var(--text-primary)">
-<option value="">Select debt</option>
-<option value="argos">Argos</option>
-<option value="monzo">Monzo</option>
-<option value="virgin">Virgin</option>
-<option value="lendable">Lendable</option>
+<input type="number" id="payAmt" placeholder="Amount" style="flex:1;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff">
+<select id="payDebt" style="flex:1;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff">
+<option value="">Select</option>
 </select>
 </div>
-<button onclick="quickPayment()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));border:none;border-radius:10px;color:white;font-size:14px;font-weight:600;cursor:pointer">Pay Now</button>
+<button onclick="quickPay()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer">Pay Now</button>
 </div>
 
-<!-- Payment History -->
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">📜</div>
-<div class="section-title">Recent Payments</div>
-</div>
-<button onclick="clearHistory()" style="padding:4px 10px;background:rgba(239,68,68,0.2);border:1px solid var(--accent-danger);border-radius:6px;color:var(--accent-danger);font-size:10px;cursor:pointer">Clear</button>
-</div>
-<div id="paymentHistory" style="font-size:12px;color:var(--text-muted)">No payments yet</div>
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">📜</div><div class="st">History</div></div></div>
+<div id="hist" style="font-size:12px;color:var(--text2)">No payments</div>
 </div>
 </div>
 </div>
 
-<!-- Page: Health -->
+<!-- Health -->
 <div id="page-health" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">HEALTH</div>
-<div class="time-display" id="clockH">--:--</div>
-<div class="day-info" id="dayInfoH">Loading...</div>
+<div class="c">
+<div class="h">
+<div class="g">HEALTH</div>
+<div class="t" id="clockH">--:--</div>
+<div class="d" id="dayInfoH">Loading...</div>
 </div>
-<div class="section">
-<div class="section-title">🏃 Running Goal 2026</div>
-<div style="font-size:14px;color:var(--text-secondary);margin:12px 0">0 / 500km</div>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div class="goal-fill purple" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
-<div class="section">
-<div class="section-title">📚 Reading Challenge</div>
-<div style="font-size:14px;color:var(--text-secondary);margin:12px 0">0 / 24 books</div>
-<div class="goal-bar" style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div class="goal-fill yellow" style="height:100%;width:0%;border-radius:6px"></div></div>
-</div>
+<div class="sec"><div class="st">🏃 Running 500km</div><div style="margin:12px 0;color:var(--text2)">0 / 500km</div>
+<div style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div style="height:100%;width:0%;background:linear-gradient(90deg,var(--purple),var(--cyan));border-radius:6px"></div></div></div>
+<div class="sec"><div class="st">📚 Reading 24 books</div><div style="margin:12px 0;color:var(--text2)">0 / 24</div>
+<div style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div style="height:100%;width:0%;background:var(--orange);border-radius:6px"></div></div></div>
 </div>
 </div>
 
-<!-- Page: Tasks -->
-<div id="page-todoist" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">TASKS</div>
-<div class="time-display" id="clockT">--:--</div>
-<div class="day-info" id="dayInfoT">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">📋 Todoist</div>
-<p style="color:var(--text-secondary);margin-top:12px">Connect Todoist for task management.</p>
-</div>
+<!-- Tasks -->
+<div id="page-tasks" class="page">
+<div class="c">
+<div class="h"><div class="g">TASKS</div><div class="t" id="clockT">--:--</div><div class="d" id="dayInfoT">Loading...</div></div>
+<div class="sec"><div class="st">📋 Todoist</div><p style="color:var(--text2);margin-top:12px">Connect Todoist</p></div>
 </div>
 </div>
 
-<!-- Page: Settings -->
+<!-- Settings -->
 <div id="page-settings" class="page">
-<div class="container">
-<div class="header">
-<div class="greeting">SETTINGS</div>
-<div class="time-display" id="clockS">--:--</div>
-<div class="day-info" id="dayInfoS">Loading...</div>
-</div>
-<div class="section">
-<div class="section-title">⚙️ Settings</div>
-<p style="color:var(--text-secondary);margin-top:12px">Configure your Life OS preferences.</p>
-</div>
+<div class="c">
+<div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div>
+<div class="sec"><div class="st">⚙️ Settings</div><p style="color:var(--text2);margin-top:12px">Configure preferences</p></div>
 </div>
 </div>
 
 <!-- Nav -->
-<nav class="nav-bar">
-<div class="nav-item active" onclick="switchPage('dashboard',this)"><i class="fas fa-home"></i><span>Home</span></div>
-<div class="nav-item" onclick="switchPage('financial-v2',this)"><i class="fas fa-pound-sign"></i><span>Money</span></div>
-<div class="nav-item" onclick="switchPage('health',this)"><i class="fas fa-heart"></i><span>Health</span></div>
-<div class="nav-item" onclick="switchPage('todoist',this)"><i class="fas fa-tasks"></i><span>Tasks</span></div>
-<div class="nav-item" onclick="switchPage('settings',this)"><i class="fas fa-cog"></i><span>Settings</span></div>
+<nav class="nav">
+<div class="nav-item active" onclick="go('dashboard',this)"><i class="fas fa-home"></i><span>Home</span></div>
+<div class="nav-item" onclick="go('money',this)"><i class="fas fa-pound-sign"></i><span>Money</span></div>
+<div class="nav-item" onclick="go('health',this)"><i class="fas fa-heart"></i><span>Health</span></div>
+<div class="nav-item" onclick="go('tasks',this)"><i class="fas fa-tasks"></i><span>Tasks</span></div>
+<div class="nav-item" onclick="go('settings',this)"><i class="fas fa-cog"></i><span>Settings</span></div>
 </nav>
 
 <script>
-// Financial Data
-const INCOME_MONTHLY = 1872.44;
-const FIXED_BILLS = 638.58;
-const REMAINING = INCOME_MONTHLY - FIXED_BILLS;
-
-let debts = [
-  {id:'argos',name:'🏪 Argos Card',balance:320,minPayment:51.10,apr:0,promoEnd:'2026-06-14',priority:1,history:[]},
-  {id:'monzo',name:'🏦 Monzo IFL',balance:40,minPayment:40,apr:0,promoEnd:null,priority:2,history:[]},
-  {id:'virgin',name:'💳 Virgin Money',balance:2555.23,minPayment:51.10,apr:26.49,promoEnd:'2027-09-16',priority:3,history:[]},
-  {id:'lendable',name:'🏦 Lendable',balance:11876.71,minPayment:264.25,apr:15.8,promoEnd:null,priority:4,history:[]},
-  {id:'kia',name:'🚗 Kia Finance',balance:0,minPayment:198.29,apr:11.9,promoEnd:null,priority:5,paid:true,history:[]},
-  {id:'zopa',name:'💳 Zopa',balance:0,minPayment:0,apr:34.4,promoEnd:null,priority:6,paid:true,history:[]}
+// Data
+const MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
+const EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
+let debts=[
+{id:'argos',n:'🏪 Argos',b:320,min:51.10,apr:0,end:'2026-06-14',h:[]},
+{id:'monzo',n:'🏦 Monzo',b:40,min:40,apr:0,end:null,h:[]},
+{id:'virgin',n:'💳 Virgin',b:2555.23,min:51.10,apr:26.49,end:'2027-09-16',h:[]},
+{id:'lendable',n:'🏦 Lendable',b:11876.71,min:264.25,apr:15.8,end:null,h:[]},
+{id:'kia',n:'🚗 Kia',b:0,min:198.29,apr:11.9,end:null,paid:true,h:[]},
+{id:'zopa',n:'💳 Zopa',b:0,min:0,apr:34.4,end:null,paid:true,h:[]}
 ];
 
-// Load saved data
-function loadFinancialData(){
-  const saved = localStorage.getItem('debts');
-  if(saved){
-    debts = JSON.parse(saved);
-  }
-  updateSummary();
-  renderDebts();
-  renderPaymentHistory();
+// Init
+loadData();
+renderHabits();
+renderDebts();
+
+function go(p,el){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+  el.classList.add('active');
+  updateClocks();
 }
 
-// Save data
-function saveFinancialData(){
+function renderHabits(){
+  let mc=0,ec=0;
+  let ms=JSON.parse(localStorage.getItem('morn')||'{}'),es=JSON.parse(localStorage.getItem('eve')||'{}');
+  document.getElementById('mornHabits').innerHTML=MORN.map((x,i)=>{
+    let c=ms[i]||false;if(c)mc++;
+    return '<div class="hi" onclick="toggleM('+i+',this)"><div class="hc '+(c?'checked':'')+'"></div><div class="hn"><div class="hn2">'+x.n+'</div><div class="hd">'+x.d+'</div></div></div>';
+  }).join('');
+  document.getElementById('eveHabits').innerHTML=EVE.map((x,i)=>{
+    let c=es[i]||false;if(c)ec++;
+    return '<div class="hi" onclick="toggleE('+i+',this)"><div class="hc evening '+(c?'checked':'')+'"></div><div class="hn"><div class="hn2">'+x.n+'</div><div class="hd">'+x.d+'</div></div></div>';
+  }).join('');
+  document.getElementById('mornProg').textContent=mc+'/6';
+  document.getElementById('eveProg').textContent=ec+'/5';
+}
+
+function toggleM(i,el){
+  let s=JSON.parse(localStorage.getItem('morn')||'{}');
+  s[i]=!s[i];
+  localStorage.setItem('morn',JSON.stringify(s));
+  renderHabits();
+}
+
+function toggleE(i,el){
+  let s=JSON.parse(localStorage.getItem('eve')||'{}');
+  s[i]=!s[i];
+  localStorage.setItem('eve',JSON.stringify(s));
+  renderHabits();
+}
+
+function loadData(){
+  let sd=localStorage.getItem('debts');
+  if(sd)debts=JSON.parse(sd);
+  updateDebtTotals();
+}
+
+function saveData(){
   localStorage.setItem('debts',JSON.stringify(debts));
-  updateSummary();
-  renderDebts();
+  updateDebtTotals();
 }
 
-// Update summary
-function updateSummary(){
-  const totalDebt = debts.filter(d=>!d.paid).reduce((sum,d)=>sum+d.balance,0);
-  document.getElementById('totalDebtDisplay').textContent = '£' + totalDebt.toLocaleString('en-GB',{maximumFractionDigits:0});
-  document.getElementById('incomeDisplay').textContent = '£' + INCOME_MONTHLY.toLocaleString('en-GB',{maximumFractionDigits:0});
-  document.getElementById('fixedDisplay').textContent = '£' + FIXED_BILLS.toLocaleString('en-GB',{maximumFractionDigits:0});
-  document.getElementById('remainingDisplay').textContent = '£' + REMAINING.toLocaleString('en-GB',{maximumFractionDigits:0});
-  document.getElementById('debtCount').textContent = debts.filter(d=>!d.paid).length + ' debts';
-  
-  // Update dashboard debt display
-  const debtDisplay = document.getElementById('debtDisplay');
-  if(debtDisplay){
-    if(totalDebt < 1000) debtDisplay.textContent = '£' + totalDebt.toFixed(0);
-    else if(totalDebt < 10000) debtDisplay.textContent = '£' + (totalDebt/1000).toFixed(1) + 'k';
-    else debtDisplay.textContent = '£' + (totalDebt/1000).toFixed(1) + 'k';
-  }
+function updateDebtTotals(){
+  let tot=debts.filter(d=>!d.paid).reduce((a,b)=>a+b.b,0);
+  document.getElementById('totDebt').textContent='£'+tot.toLocaleString();
+  document.getElementById('debt').textContent=tot<10000?'£'+(tot/1000).toFixed(1)+'k':'£'+(tot/1000).toFixed(1)+'k';
+  document.getElementById('debtCount').textContent=debts.filter(d=>!d.paid).length+' debts';
 }
 
-// Render debts
 function renderDebts(){
-  const container = document.getElementById('debtsContainer');
-  const sortedDebts = [...debts].sort((a,b)=>a.priority - b.priority);
-  
-  container.innerHTML = sortedDebts.map(d => {
-    const balanceClass = d.paid ? 'paid' : 'active';
-    const cardClass = d.paid ? 'paid' : '';
-    const promoText = d.promoEnd ? `0% ends ${d.promoEnd}` : `${d.apr}% APR`;
-    
-    return `<div class="debt-card ${cardClass}" onclick="showDebtOptions('${d.id}')">
-      <div class="debt-header">
-        <div>
-          <div class="debt-name">${d.name}</div>
-          <div class="debt-meta">${promoText} • Min: £${d.minPayment}</div>
-        </div>
-        <div class="debt-balance ${balanceClass}">${d.paid ? 'PAID' : '£' + d.balance.toLocaleString('en-GB',{maximumFractionDigits:0})}</div>
-      </div>
-      ${!d.paid ? `<div class="debt-actions">
-        <button class="debt-btn pay" onclick="event.stopPropagation();payDebt('${d.id}')">Pay Minimum</button>
-        <button class="debt-btn pay" style="background:linear-gradient(135deg,var(--accent-success),#34d399)" onclick="event.stopPropagation();payCustomAmount('${d.id}')">Custom Amount</button>
-        <button class="debt-btn history" onclick="event.stopPropagation();showHistory('${d.id}')">History</button>
-      </div>` : ''}
-      ${d.history.length > 0 ? `<div class="payment-history">Last: £${d.history[d.history.length-1].amount} on ${d.history[d.history.length-1].date}</div>` : ''}
-    </div>`;
+  let d=document.getElementById('debtsList');
+  let s=document.getElementById('payDebt');
+  d.innerHTML=debts.sort((a,b)=>(a.paid?1:0)-(b.paid?1:0)).map(x=>{
+    let p=x.paid?'opacity:0.6':'';
+    let bc=x.paid?'color:var(--green)':'color:var(--red)';
+    let txt=x.paid?'PAID':'£'+x.b.toLocaleString();
+    let end=x.end?'0% ends '+x.end:x.apr+'% APR';
+    let actions=x.paid?'':'<div style="display:flex;gap:8px;margin-top:12px"><button onclick="payMin(\''+x.id+'\')" style="flex:1;padding:10px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:8px;color:#fff;cursor:pointer">Pay Min</button><button onclick="payCust(\''+x.id+'\')" style="flex:1;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;color:var(--text2);cursor:pointer">Custom</button></div>';
+    let last=x.h.length>0?'<div style="font-size:11px;color:var(--text2);margin-top:8px">Last: £'+x.h[x.h.length-1].a+' on '+x.h[x.h.length-1].d+'</div>':'';
+    return '<div class="sec" style="'+p+';cursor:pointer" onclick="showOpts(\''+x.id+'\')"><div style="display:flex;justify-content:space-between"><div><div style="font-weight:600">'+x.n+'</div><div style="font-size:11px;color:var(--text2)">'+end+' • Min: £'+x.min+'</div></div><div style="font-size:20px;font-weight:700;'+bc+'">'+txt+'</div></div>'+actions+last+'</div>';
   }).join('');
-  
-  // Update select dropdown
-  const select = document.getElementById('quickDebt');
-  select.innerHTML = '<option value="">Select debt</option>' + 
-    sortedDebts.filter(d=>!d.paid).map(d=>`<option value="${d.id}">${d.name} (${d.balance})</option>`).join('');
+  s.innerHTML='<option value="">Select</option>'+debts.filter(d=>!d.paid).map(x=>'<option value="'+x.id+'">'+x.n+' (£'+x.b+')</option>').join('');
 }
 
-// Pay minimum
-function payDebt(id){
-  const debt = debts.find(d=>d.id===id);
-  if(!debt || debt.paid) return;
-  
-  const amount = debt.balance < debt.minPayment ? debt.balance : debt.minPayment;
-  processPayment(debt, amount);
+function payMin(id){
+  let d=debts.find(x=>x.id===id);
+  if(!d||d.paid)return;
+  let a=d.b<d.min?d.b:d.min;
+  d.b-=a;
+  d.h.push({a:a,d:new Date().toLocaleDateString('en-GB')});
+  if(d.b<0.01){d.b=0;d.paid=true;}
+  saveData();
+  renderDebts();
+  renderHist();
+  alert('Paid £'+a+' to '+d.n);
 }
 
-// Custom amount payment
-function payCustomAmount(id){
-  const debt = debts.find(d=>d.id===id);
-  if(!debt || debt.paid) return;
-  
-  const amount = prompt(`Enter amount to pay towards ${debt.name} (Balance: £${debt.balance}):`);
-  if(amount && parseFloat(amount) > 0){
-    processPayment(debt, parseFloat(amount));
-  }
+function payCust(id){
+  let d=debts.find(x=>x.id===id);
+  if(!d||d.paid)return;
+  let a=prompt('Amount for '+d.n+' (Balance: £'+d.b+')');
+  if(!a||parseFloat(a)<=0)return;
+  a=parseFloat(a);
+  if(a>d.b)a=d.b;
+  d.b-=a;
+  d.h.push({a:a,d:new Date().toLocaleDateString('en-GB')});
+  if(d.b<0.01){d.b=0;d.paid=true;}
+  saveData();
+  renderDebts();
+  renderHist();
+  alert('Paid £'+a+' to '+d.n);
 }
 
-// Quick payment
-function quickPayment(){
-  const amount = parseFloat(document.getElementById('quickAmount').value);
-  const debtId = document.getElementById('quickDebt').value;
-  
-  if(!debtId){
-    alert('Please select a debt');
-    return;
-  }
-  if(!amount || amount <= 0){
-    alert('Please enter a valid amount');
-    return;
-  }
-  
-  const debt = debts.find(d=>d.id===debtId);
-  if(debt){
-    processPayment(debt, amount);
-    document.getElementById('quickAmount').value = '';
-  }
+function showOpts(id){
+  let d=debts.find(x=>x.id===id);
+  if(!d||d.paid)return;
+  if(confirm('Pay minimum (£'+d.min+') to '+d.n+'? OK for min, Cancel for custom'))payMin(id);
+  else payCust(id);
 }
 
-// Process payment
-function processPayment(debt, amount){
-  if(amount > debt.balance){
-    amount = debt.balance;
-  }
-  
-  debt.balance -= amount;
-  debt.history.push({
-    amount: amount,
-    date: new Date().toLocaleDateString('en-GB'),
-    remaining: debt.balance
-  });
-  
-  if(debt.balance <= 0.01){
-    debt.balance = 0;
-    debt.paid = true;
-    showToast(`${debt.name} is now PAID OFF! 🎉`);
-  } else {
-    showToast(`Paid £${amount} to ${debt.name}`);
-  }
-  
-  saveFinancialData();
-  renderPaymentHistory();
+function quickPay(){
+  let a=parseFloat(document.getElementById('payAmt').value);
+  let id=document.getElementById('payDebt').value;
+  if(!id||!a||a<=0)return alert('Select debt and amount');
+  let d=debts.find(x=>x.id===id);
+  if(!d||d.paid)return;
+  if(a>d.b)a=d.b;
+  d.b-=a;
+  d.h.push({a:a,d:new Date().toLocaleDateString('en-GB')});
+  if(d.b<0.01){d.b=0;d.paid=true;}
+  saveData();
+  renderDebts();
+  renderHist();
+  document.getElementById('payAmt').value='';
+  alert('Paid £'+a);
 }
 
-// Show debt options
-function showDebtOptions(id){
-  const debt = debts.find(d=>d.id===id);
-  if(!debt || debt.paid) return;
-  
-  const options = `Pay towards ${debt.name}:
-
-` +
-    `Balance: £${debt.balance}
-` +
-    `Minimum: £${debt.minPayment}
-
-` +
-    `1. Pay Minimum (£${debt.minPayment})
-` +
-    `2. Custom Amount
-
-` +
-    `Or click buttons below`;
-  
-  if(confirm(options + '
-
-Click OK to pay minimum, Cancel for custom amount')){
-    payDebt(id);
-  } else {
-    payCustomAmount(id);
-  }
+function renderHist(){
+  let all=[];
+  debts.forEach(d=>d.h.forEach(h=>all.push({n:d.n,a:h.a,d:h.d})));
+  all.sort((a,b)=>new Date(b.d)-new Date(a.d));
+  document.getElementById('hist').innerHTML=all.length?all.slice(0,5).map(x=>'<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>'+x.n+'</span><span><span style="color:var(--green)">-£'+x.a+'</span> <span style="color:var(--text2)">'+x.d+'</span></span></div>').join(''):'No payments';
 }
 
-// Show history
-function showHistory(id){
-  const debt = debts.find(d=>d.id===id);
-  if(!debt) return;
-  
-  if(debt.history.length === 0){
-    alert('No payment history yet');
-    return;
-  }
-  
-  const history = debt.history.map(h => `£${h.amount} on ${h.date}`).join('
-');
-  alert(`${debt.name} Payment History:
-
-${history}`);
+function updateClocks(){
+  let n=new Date(),t=n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),d=n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  ['clock','clockM','clockH','clockT','clockS'].forEach(x=>{let e=document.getElementById(x);if(e)e.textContent=t});
+  ['dayInfo','dayInfoM','dayInfoH','dayInfoT','dayInfoS'].forEach(x=>{let e=document.getElementById(x);if(e)e.textContent=d});
+  let dn=n.getDate(),td=(n.getFullYear()%4===0)?366:365;
+  document.getElementById('yearPct').textContent=Math.round((dn/td)*100)+'%';
+  let m2=new Date('2026-03-02');
+  document.getElementById('daysTo').textContent=Math.ceil((m2-n)/(1000*60*60*24));
 }
 
-// Render payment history
-function renderPaymentHistory(){
-  const allPayments = [];
-  debts.forEach(d => {
-    d.history.forEach(h => {
-      allPayments.push({name:d.name, amount:h.amount, date:h.date});
-    });
-  });
-  
-  allPayments.sort((a,b) => new Date(b.date) - new Date(a.date));
-  
-  const container = document.getElementById('paymentHistory');
-  if(allPayments.length === 0){
-    container.innerHTML = 'No payments yet';
-  } else {
-    container.innerHTML = allPayments.slice(0,5).map(p => 
-      `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border-subtle)">
-        <span>${p.name}</span>
-        <span><span style="color:var(--accent-success)">-£${p.amount}</span> <span style="color:var(--text-muted)">${p.date}</span></span>
-      </div>`
-    ).join('');
-  }
-}
-
-// Clear history
-function clearHistory(){
-  if(confirm('Clear all payment history?')){
-    debts.forEach(d => d.history = []);
-    saveFinancialData();
-    renderPaymentHistory();
-    showToast('Payment history cleared');
-  }
-}
-
-// Toast notification
-function showToast(message){
-  const toast = document.createElement('div');
-  toast.style.cssText = 'position:fixed;bottom:140px;left:50%;transform:translateX(-50%);padding:12px 24px;background:var(--accent-success);color:white;border-radius:10px;font-size:14px;z-index:9999';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 3000);
-}
-
-// Habits (same as before)
-const MORNING_HABITS=[
-{name:'⏰ Wake up at 6am',description:'Wake up at 6am every day'},
-{name:'🌳 Stand outside 10min',description:'Stand outside for 10 minutes'},
-{name:'💧 Drink big glass of water',description:'Drink a big glass of water'},
-{name:'🧘 Complete stretching routine',description:'Complete stretching routine'},
-{name:'☕ Drink coffee',description:'Drink coffee (1 hour after waking)'},
-{name:'✍️ Write 3 things',description:"Today's Win, One Thing, Obstacle + Response"}
-];
-const EVENING_HABITS=[
-{name:'🍽️ Final meal 4hrs before bed',description:'Eat your final meal 4 hours before bed'},
-{name:'📵 Screens off 60min before bed',description:'Screens off 60 minutes before bed'},
-{name:'📖 Read 10min before bed',description:'Read a book 10 minutes before bed'},
-{name:'☕ Avoid stimulants',description:'Be mindful of caffeine'},
-{name:'💡 Red/amber lights evening',description:'Use red and amber lights'}
-];
-
-function switchPage(pageName,navEl){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+pageName).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  navEl.classList.add('active');
-  updateAllClocks();
-}
-
-function loadMorningHabits(){
-  const container=document.getElementById('morningHabits');
-  const saved=JSON.parse(localStorage.getItem('morningHabits')||'{}');
-  let completed=0;
-  container.innerHTML=MORNING_HABITS.map(h=>{
-    const isCompleted=saved[h.name]||false;
-    if(isCompleted)completed++;
-    return '<div class="habit-item" onclick="toggleMorningHabit(''+h.name.replace(/'/g,"\'")+'',this)"><div class="habit-check morning '+(isCompleted?'checked':'')+'"></div><div class="habit-info"><div class="habit-name">'+h.name+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">'+h.description+'</div></div></div>';
-  }).join('');
-  document.getElementById('morningProgress').textContent=completed+'/'+MORNING_HABITS.length;
-}
-
-function toggleMorningHabit(name,el){
-  const check=el.querySelector('.habit-check');
-  check.classList.toggle('checked');
-  const saved=JSON.parse(localStorage.getItem('morningHabits')||'{}');
-  saved[name]=check.classList.contains('checked');
-  localStorage.setItem('morningHabits',JSON.stringify(saved));
-  loadMorningHabits();
-}
-
-function loadEveningHabits(){
-  const container=document.getElementById('eveningHabits');
-  const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');
-  let completed=0;
-  container.innerHTML=EVENING_HABITS.map(h=>{
-    const isCompleted=saved[h.name]||false;
-    if(isCompleted)completed++;
-    return '<div class="habit-item" onclick="toggleEveningHabit(''+h.name.replace(/'/g,"\'")+'',this)"><div class="habit-check evening '+(isCompleted?'checked':'')+'"></div><div class="habit-info"><div class="habit-name">'+h.name+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">'+h.description+'</div></div></div>';
-  }).join('');
-  document.getElementById('eveningProgress').textContent=completed+'/'+EVENING_HABITS.length;
-}
-
-function toggleEveningHabit(name,el){
-  const check=el.querySelector('.habit-check');
-  check.classList.toggle('checked');
-  const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');
-  saved[name]=check.classList.contains('checked');
-  localStorage.setItem('eveningHabits',JSON.stringify(saved));
-  loadEveningHabits();
-}
-
-function updateAllClocks(){
-  try{
-    var now=new Date();
-    var timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-    var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-    var dateStr=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
-    
-    var clockEl=document.getElementById('clock');
-    if(clockEl)clockEl.textContent=timeStr;
-    
-    var dayEl=document.getElementById('dayInfo');
-    if(dayEl)dayEl.textContent=dateStr;
-    
-    var clockF=document.getElementById('clockF');
-    if(clockF)clockF.textContent=timeStr;
-    
-    var dayF=document.getElementById('dayInfoF');
-    if(dayF)dayF.textContent=dateStr;
-    
-    var yearPct=document.getElementById('yearProgress');
-    var dayNum=now.getDate();
-    var totalDays=(now.getFullYear()%4===0)?366:365;
-    if(yearPct)yearPct.textContent=Math.round((dayNum/totalDays)*100)+'%';
-    
-    var daysTo=document.getElementById('daysToGoal');
-    var march2=new Date('2026-03-02');
-    if(daysTo)daysTo.textContent=Math.ceil((march2-now)/(1000*60*60*24));
-  }catch(e){
-    console.log('Clock error:',e);
-  }
-}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  loadMorningHabits();
-  loadEveningHabits();
-  loadFinancialData();
-  updateAllClocks();
-  setInterval(updateAllClocks,1000);
-});
+setInterval(updateClocks,1000);
+updateClocks();
+renderHist();
 </script>
 </body>
 </html>
