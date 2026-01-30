@@ -26,6 +26,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .sv.green{color:var(--green)}
 .sv.cyan{color:var(--cyan)}
 .sv.orange{color:var(--orange)}
+.sv.red{color:var(--red)}
 .sec{background:var(--card);border-radius:24px;padding:20px;margin-bottom:16px}
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .slft{display:flex;align-items:center;gap:12px}
@@ -36,7 +37,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .tag.orange{background:rgba(245,158,11,0.15);color:var(--orange)}
 .tag.cyan{background:rgba(6,182,212,0.15);color:var(--cyan)}
 .tag.red{background:rgba(239,68,68,0.15);color:var(--red)}
-.hi{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px}
+.hi{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;cursor:pointer}
 .hc{width:26px;height:26px;border-radius:6px;border:2px solid var(--orange);display:flex;align-items:center;justify-content:center}
 .hc.checked{background:var(--green);border-color:var(--green)}
 .hc.evening{border-color:var(--cyan)}
@@ -57,6 +58,23 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .nav-item i{font-size:20px}
 input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:14px;margin-bottom:10px}
 .btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px}
+.bill-item{display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px;cursor:pointer}
+.bill-paid{background:rgba(16,185,129,0.15);color:var(--green)}
+.debt-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid var(--border)}
+.debt-row{display:flex;justify-content:space-between;margin-bottom:8px}
+.debt-name{font-size:14px;font-weight:600}
+.debt-bal{font-size:18px;font-weight:700}
+.debt-bal.active{color:var(--orange)}
+.debt-bal.paid{color:var(--green)}
+.debt-meta{font-size:11px;color:var(--text2)}
+.debt-btns{display:flex;gap:8px;margin-top:10px}
+.debt-btn{flex:1;padding:8px;border-radius:8px;border:none;font-size:11px;font-weight:600;cursor:pointer}
+.debt-btn.pay{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
+.debt-btn.edit{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text2)}
+.hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.hist-info{font-size:12px}
+.hist-amt{color:var(--green);font-weight:600}
+.hist-date{font-size:11px;color:var(--text2)}
 @media(max-width:767px){.c{padding:16px}.h{padding:24px 20px;border-radius:20px}.t{font-size:40px}}
 </style>
 </head>
@@ -113,6 +131,7 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="t" id="clockM">--:--</div>
 <div class="d" id="dayInfoM">Loading...</div>
 </div>
+
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
 <div class="s" style="margin-bottom:0">
@@ -122,13 +141,27 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="si"><div class="sv cyan" id="remaining">£1,872</div><div class="sl">AVAILABLE</div></div>
 </div>
 </div>
+
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
 <div id="billsList"></div>
 </div>
+
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5 debts</span></div>
 <div id="debtsList"></div>
+</div>
+
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">⚡</div><div class="st">Quick Payment</div></div></div>
+<input type="number" id="payAmt" placeholder="Amount">
+<select id="payDebt"><option value="">Select debt</option></select>
+<button class="btn" onclick="quickPay()">Pay Now</button>
+</div>
+
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">📜</div><div class="st">Payment History</div></div><button class="tag" onclick="clearHist()">Clear</button></div>
+<div id="histList" style="font-size:12px;color:var(--text2)">No payments</div>
 </div>
 </div>
 </div>
@@ -177,11 +210,11 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 
 <script>
 // Habits
-const MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
-const EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
+var MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
+var EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
 
 // Bills
-let bills=[
+var bills=[
 {id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:false},
 {id:'phone',n:'📱 Phone',a:48.09,m:48.09,p:false},
 {id:'carIns',n:'🚗 Car Insurance',a:32.50,m:32.50,p:false},
@@ -191,15 +224,15 @@ let bills=[
 ];
 
 // Debts
-let debts=[
-{id:'argos',n:'🏪 Argos Card',b:320,min:51.10,apr:0,end:'2026-06-14'},
-{id:'monzo',n:'🏦 Monzo IFL',b:40,min:40,apr:0,end:null},
-{id:'virgin',n:'💳 Virgin Money',b:2555.23,min:51.10,apr:26.49,end:'2027-09-16'},
-{id:'lendable',n:'🏦 Lendable',b:11876.71,min:264.25,apr:15.8,end:null},
-{id:'zopa',n:'💳 Zopa Spend',b:0,min:0,apr:34.4,end:null}
+var debts=[
+{id:'argos',n:'🏪 Argos Card',b:320,min:51.10,apr:0,end:'2026-06-14',h:[]},
+{id:'monzo',n:'🏦 Monzo IFL',b:40,min:40,apr:0,end:null,h:[]},
+{id:'virgin',n:'💳 Virgin Money',b:2555.23,min:51.10,apr:26.49,end:'2027-09-16',h:[]},
+{id:'lendable',n:'🏦 Lendable',b:11876.71,min:264.25,apr:15.8,end:null,h:[]},
+{id:'zopa',n:'💳 Zopa Spend',b:0,min:0,apr:34.4,end:null,h:[]}
 ];
 
-let history=[];
+var history=[];
 
 function showPage(pageName,el){
   document.querySelectorAll('.page').forEach(function(p){p.style.display='none'});
@@ -276,7 +309,7 @@ function toggleHabit(type,i){
 
 function renderBills(){
   document.getElementById('billsList').innerHTML=bills.map(function(b){
-    return '<div class="hi" onclick="toggleBill(\''+b.id+'\')"><span>'+b.n+'</span><span>£'+b.m.toFixed(2)+'</span></div>';
+    return '<div class="bill-item '+(b.p?'bill-paid':'')+'" onclick="toggleBill(\''+b.id+'\')"><span class="bill-name">'+b.n+'</span><span class="bill-amt">£'+b.m.toFixed(2)+'</span></div>';
   }).join('');
 }
 
@@ -290,12 +323,117 @@ function toggleBill(id){
 }
 
 function renderDebts(){
-  document.getElementById('debtsList').innerHTML=debts.map(function(x){
-    var bal=x.paid?'PAID':'£'+x.b.toLocaleString();
-    var balClass=x.paid?'paid':'active';
+  var d=document.getElementById('debtsList');
+  var s=document.getElementById('payDebt');
+  d.innerHTML=debts.sort(function(a,b){return (a.paid?1:0)-(b.paid?1:0)}).map(function(x){
+    var paid=x.paid;
+    var bal=paid?'PAID':'£'+x.b.toLocaleString();
+    var balClass=paid?'paid':'active';
     var end=x.end?'0% ends '+x.end:x.apr+'% APR';
-    return '<div class="hi"><span>'+x.n+'</span><span class="'+balClass+'">'+bal+'</span></div>';
+    var last=x.h&&x.h.length>0?'<div style="font-size:11px;color:var(--text2);margin-top:6px">Last: £'+x.h[x.h.length-1].a+'</div>':'';
+    return '<div class="debt-item" onclick="showDebtOpts(\''+x.id+'\')"><div class="debt-row"><div><div class="debt-name">'+x.n+'</div><div class="debt-meta">'+end+' • Min: £'+x.min+'</div></div><div class="debt-bal '+balClass+'">'+bal+'</div></div>'+(paid?'':'<div class="debt-btns"><button class="debt-btn pay" onclick="event.stopPropagation();payMin(\''+x.id+'\')">Pay Min</button><button class="debt-btn pay" onclick="event.stopPropagation();payCustom(\''+x.id+'\')">Custom</button><button class="debt-btn edit" onclick="event.stopPropagation();editBalance(\''+x.id+'\')">Edit</button></div>')+last+'</div>';
   }).join('');
+  s.innerHTML='<option value="">Select debt</option>'+debts.filter(function(d){return !d.paid}).map(function(x){return '<option value="'+x.id+'">'+x.n+' (£'+x.b+')</option>'}).join('');
+}
+
+function showDebtOpts(id){
+  var d=debts.find(function(x){return x.id===id});
+  if(!d||d.paid)return;
+  var m='Pay towards '+d.n+':\n\nBalance: £'+d.b+'\nMin: £'+d.min+'\n\n1. Pay Minimum\n2. Custom Amount\n3. Edit Balance\n\nCancel to close';
+  var r=prompt(m);
+  if(r==='1')payMin(id);
+  else if(r==='2')payCustom(id);
+  else if(r==='3')editBalance(id);
+}
+
+function payMin(id){
+  var d=debts.find(function(x){return x.id===id});
+  if(!d||d.paid)return;
+  var a=d.b<d.min?d.b:d.min;
+  addPayment(d,a);
+}
+
+function payCustom(id){
+  var d=debts.find(function(x){return x.id===id});
+  if(!d||d.paid)return;
+  var a=prompt('Amount to pay '+d.n+'?',d.min);
+  if(a&&parseFloat(a)>0){
+    a=Math.min(parseFloat(a),d.b);
+    addPayment(d,a);
+  }
+}
+
+function editBalance(id){
+  var d=debts.find(function(x){return x.id===id});
+  if(!d)return;
+var b=prompt('New balance for '+d.n+'?',d.b);
+  if(b&&parseFloat(b)>=0){
+    d.b=parseFloat(b);
+    if(d.b<0.01){d.b=0;d.paid=true;d.h=[];}
+    saveAll();
+    renderDebts();
+  }
+}
+
+function addPayment(d,amount){
+  if(amount>d.b)amount=d.b;
+  d.b-=amount;
+  d.h.push({a:amount,d:new Date().toLocaleDateString('en-GB'),t:Date.now()});
+  if(d.b<0.01){d.b=0;d.paid=true;}
+  history.unshift({n:d.n,a:amount,d:new Date().toLocaleDateString('en-GB'),t:Date.now()});
+  saveAll();
+  renderDebts();
+  renderHistory();
+  toast(amount>0?'Paid £'+amount:'Balance updated');
+}
+
+function undoPayment(idx){
+  var h=history[idx];
+  if(!h)return;
+  var amount=parseFloat(h.a);
+  if(!confirm('Undo payment of £'+amount.toFixed(2)+' to '+h.n+'?'))return;
+  var d=debts.find(function(x){return x.n.trim()===h.n.trim()});
+  if(d){
+    d.b=d.b+amount;
+    d.paid=false;
+    d.h=d.h.filter(function(y){return y.t!==h.t});
+    d.b=Math.round(d.b*100)/100;
+  }
+  history.splice(idx,1);
+  saveAll();
+  renderDebts();
+  renderHistory();
+  toast('Payment undone - £'+amount.toFixed(2)+' restored');
+}
+
+function quickPay(){
+  var a=parseFloat(document.getElementById('payAmt').value);
+  var id=document.getElementById('payDebt').value;
+  if(!id||!a||a<=0)return alert('Select debt and amount');
+  var d=debts.find(function(x){return x.id===id});
+  if(!d||d.paid)return;
+  addPayment(d,a);
+  document.getElementById('payAmt').value='';
+}
+
+function renderHistory(){
+  var h=document.getElementById('histList');
+  if(history.length===0){
+    h.innerHTML='No payments';
+    return;
+  }
+  h.innerHTML=history.map(function(x,i){
+    return '<div class="hist-item"><div class="hist-info"><div>'+x.n+'</div><div class="hist-date">'+x.d+'</div></div><div style="display:flex;align-items:center;gap:10px"><span class="hist-amt">-£'+x.a+'</span><button class="tag orange" onclick="undoPayment('+i+')" style="cursor:pointer">Undo</button></div></div>';
+  }).join('');
+}
+
+function clearHist(){
+  if(history.length===0)return;
+  if(confirm('Clear all history?')){
+    history=[];
+    saveAll();
+    renderHistory();
+  }
 }
 
 function saveTodoistToken(){
@@ -357,6 +495,14 @@ function importData(){
   input.click();
 }
 
+function toast(msg){
+  var t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:140px;left:50%;transform:translateX(-50%);padding:12px 24px;background:var(--green);color:#fff;border-radius:10px;font-size:14px;z-index:9999';
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(function(){t.remove()},3000);
+}
+
 function updateClocks(){
   var n=new Date();
   var t=n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
@@ -372,6 +518,7 @@ loadAll();
 renderHabits();
 renderBills();
 renderDebts();
+renderHistory();
 if(localStorage.getItem('todoistToken')){
   document.getElementById('todoist-token').value=localStorage.getItem('todoistToken');
   loadTodoist();
