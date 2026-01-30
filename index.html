@@ -241,11 +241,18 @@ function saveAll(){
 function calcTotals(){
   let totDebt=debts.reduce((a,b)=>a+(b.paid?0:b.b),0);
   let totBill=bills.filter(b=>!b.p).reduce((a,b)=>a+b.m,0);
+  
+  // Calculate today's debt payments (from history today)
+  let today=new Date().toLocaleDateString('en-GB');
+  let todayPayments=history.filter(h=>h.d===today).reduce((a,h)=>a+parseFloat(h.a),0);
+  
   let inc=1872.44;
-  let left=inc-totBill;
+  let left=inc-totBill-todayPayments;
+  
   document.getElementById('totalDebt').textContent='£'+totDebt.toLocaleString();
   document.getElementById('fixedTotal').textContent='£'+totBill.toFixed(2);
   document.getElementById('remaining').textContent='£'+left.toFixed(2);
+  document.getElementById('remaining').style.color=todayPayments>0?'var(--orange)':'var(--cyan)';
   document.getElementById('debt').textContent=totDebt<10000?'£'+(totDebt/1000).toFixed(1)+'k':'£'+(totDebt/1000).toFixed(1)+'k';
   document.getElementById('billCount').textContent=bills.filter(b=>!b.p).length+' bills';
   document.getElementById('debtCount').textContent=debts.filter(d=>!d.paid).length+' debts';
