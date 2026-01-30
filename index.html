@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🚀 Sam's Life</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+--bg-primary:#0a0a0f;--bg-secondary:#12121a;--bg-card:#1a1a24;--bg-card-hover:#22222e;
+--accent-primary:#8b5cf6;--accent-secondary:#06b6d4;--accent-success:#10b981;--accent-warning:#f59e0b;--accent-danger:#ef4444;
+--text-primary:#ffffff;--text-secondary:#9ca3af;--text-muted:#6b7280;
+--gradient-purple:linear-gradient(135deg,#8b5cf6,#a78bfa);--gradient-cyan:linear-gradient(135deg,#06b6d4,#22d3ee);--gradient-green:linear-gradient(135deg,#10b981,#34d399);--gradient-red:linear-gradient(135deg,#ef4444,#f87171);--gradient-gold:linear-gradient(135deg,#f59e0b,#fbbf24)
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
+.animated-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(ellipse at 20% 20%,rgba(139,92,246,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(6,182,212,0.1) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(16,185,129,0.05) 0%,transparent 70%);animation:bgPulse 15s ease-in-out infinite}
+@keyframes bgPulse{0%,100%{opacity:1}50%{opacity:0.7}}
+
+.container{max-width:480px;margin:0 auto;padding:20px}
+
+/* Header */
+.header{text-align:center;padding:30px 20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.2));border-radius:24px;margin-bottom:20px;backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 50%);animation:headerShine 10s linear infinite}
+@keyframes headerShine{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.header h1{font-size:28px;font-weight:700;margin-bottom:8px;background:linear-gradient(90deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative}
+.header .subtitle{color:var(--text-secondary);font-size:14px;position:relative}
+.header-stats{display:flex;justify-content:center;gap:24px;margin-top:20px;position:relative}
+.header-stat{text-align:center}
+.header-stat .value{font-size:24px;font-weight:700;color:var(--accent-success)}
+.header-stat .label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+
+/* Quote Card */
+.quote-card{background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(6,182,212,0.1));border-radius:20px;padding:24px;margin-bottom:20px;border:1px solid rgba(139,92,246,0.2);position:relative}
+.quote-card::before{content:'"' ;font-size:60px;color:var(--accent-primary);opacity:0.3;position:absolute;top:5px;left:15px;font-family:Georgia,serif}
+.quote-text{font-size:16px;line-height:1.6;color:var(--text-primary);font-style:italic;padding-left:20px}
+.quote-author{text-align:right;color:var(--text-secondary);font-size:13px;margin-top:12px;padding-left:20px}
+
+/* Stats Grid */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.stat-card{background:var(--bg-card);border-radius:16px;padding:20px;text-align:center;transition:all 0.3s;border:1px solid rgba(255,255,255,0.05)}
+.stat-card:hover{background:var(--bg-card-hover);transform:translateY(-2px)}
+.stat-card .icon{font-size:28px;margin-bottom:8px}
+.stat-card .value{font-size:26px;font-weight:700;background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-card .label{font-size:12px;color:var(--text-muted);margin-top:4px}
+.stat-card.success .value{background:linear-gradient(90deg,var(--accent-success),#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-card.warning .value{background:linear-gradient(90deg,var(--accent-warning),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* Sections */
+.section{background:var(--bg-card);border-radius:20px;padding:20px;margin-bottom:16px;border:1px solid rgba(255,255,255,0.05)}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.section-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.section-title{font-size:16px;font-weight:600}
+
+/* Career Timeline */
+.timeline{margin-left:8px;border-left:2px solid rgba(139,92,246,0.3);padding-left:20px}
+.timeline-item{position:relative;margin-bottom:20px}
+.timeline-item::before{content:'';position:absolute;left:-26px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent-success)}
+.timeline-item.pending::before{background:var(--text-muted)}
+.timeline-item h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.timeline-item p{font-size:12px;color:var(--text-secondary)}
+.timeline-item .date{font-size:11px;color:var(--text-muted);margin-top:4px}
+
+/* Habits */
+.habit-list{space-y:8px}
+.habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;transition:all 0.2s}
+.habit-item:active{background:rgba(255,255,255,0.08);transform:scale(0.98)}
+.habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0}
+.habit-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
+.habit-check.checked::after{content:'✓';color:white;font-size:16px;font-weight:bold}
+.habit-info{flex:1}
+.habit-name{font-size:14px;font-weight:500}
+.habit-streak{font-size:12px;color:var(--accent-warning);margin-top:2px}
+.habit-streak::before{content:'🔥 '}
+
+/* Space Widget */
+.space-widget{background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(6,182,212,0.1));border-radius:16px;padding:20px;border:1px solid rgba(139,92,246,0.2)}
+.space-fact{font-size:14px;line-height:1.6;color:var(--text-primary);padding:12px;background:rgba(0,0,0,0.2);border-radius:12px;border-left:3px solid var(--accent-primary)}
+.space-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.space-stat{text-align:center;padding:12px;background:rgba(255,255,255,0.05);border-radius:10px}
+.space-stat .value{font-size:16px;font-weight:700;color:var(--accent-secondary)}
+.space-stat .label{font-size:10px;color:var(--text-muted);margin-top:4px}
+
+/* Goals */
+.goal-item{margin-bottom:16px}
+.goal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.goal-name{font-size:14px;font-weight:500}
+.goal-progress{font-size:12px;color:var(--text-secondary)}
+.goal-bar{height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden}
+.goal-fill{height:100%;border-radius:4px;transition:width 0.5s ease}
+.goal-fill.green{background:var(--gradient-green)}.goal-fill.yellow{background:var(--gradient-gold)}.goal-fill.red{background:var(--gradient-red)}
+
+/* Challenge */
+.challenge-box{background:linear-gradient(135deg,rgba(6,182,212,0.15),rgba(139,92,246,0.1));border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(6,182,212,0.2)}
+.challenge-badge{display:inline-block;padding:6px 16px;background:var(--gradient-cyan);color:var(--bg-primary);border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.challenge-title{font-size:18px;font-weight:700;margin:16px 0 8px;background:linear-gradient(90deg,var(--accent-secondary),var(--accent-primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.challenge-desc{font-size:13px;color:var(--text-secondary);line-height:1.5}
+.challenge-progress{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:13px;color:var(--text-secondary)}
+.challenge-progress span{color:var(--accent-success);font-weight:600}
+
+/* Weather */
+.weather-main{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 0}
+.weather-temp{font-size:48px;font-weight:200;color:var(--accent-warning)}
+.weather-icon{font-size:48px}
+.weather-details{display:flex;justify-content:center;gap:30px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1)}
+.weather-detail{text-align:center}
+.weather-detail .value{font-size:16px;font-weight:600;color:var(--accent-secondary)}
+.weather-detail .label{font-size:11px;color:var(--text-muted)}
+
+/* Footer */
+.footer{text-align:center;padding:30px 20px;color:var(--text-muted);font-size:12px}
+.footer p{margin-bottom:4px}
+.footer .brand{color:var(--accent-primary);font-weight:600}
+
+/* Animations */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.section{animation:fadeInUp 0.5s ease forwards}
+.section:nth-child(2){animation-delay:0.1s}.section:nth-child(3){animation-delay:0.2s}.section:nth-child(4){animation-delay:0.3s}.section:nth-child(5){animation-delay:0.4s}.section:nth-child(6){animation-delay:0.5s}.section:nth-child(7){animation-delay:0.6s}
+
+/* Quick Actions */
+.quick-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.quick-btn{flex:1;min-width:70px;padding:12px 8px;background:rgba(255,255,255,0.05);border:none;border-radius:12px;color:var(--text-primary);font-size:12px;text-align:center;cursor:pointer;transition:all 0.2s}
+.quick-btn:active{background:rgba(255,255,255,0.1);transform:scale(0.95)}
+.quick-btn .icon{display:block;font-size:20px;margin-bottom:4px}
+
+/* Responsive */
+@media(max-width:380px){.header-stats{gap:16px}.header-stat .value{font-size:20px}.stats-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="animated-bg"></div>
+<div class="container">
+<!-- Header -->
+<div class="header">
+<h1>🚀 Sam's Life</h1>
+<p class="subtitle">Your command center</p>
+<div class="header-stats">
+<div class="header-stat"><div class="value" id="clock">--:--</div><div class="label">Friday</div></div>
+<div class="header-stat"><div class="value">6%</div><div class="label">YEAR</div></div>
+<div class="header-stat"><div class="value">30</div><div class="label">DAYS TO GOAL</div></div>
+</div>
+</div>
+
+<!-- Quote -->
+<div class="quote-card">
+<p class="quote-text">"The future depends on what you do today."</p>
+<p class="quote-author">— Mahatma Gandhi</p>
+</div>
+
+<!-- Quick Stats -->
+<div class="stats-grid">
+<div class="stat-card success"><div class="icon">💰</div><div class="value">£7850</div><div class="label">Debt Remaining</div></div>
+<div class="stat-card warning"><div class="icon">🔥</div><div class="value">7</div><div class="label">Habit Streak</div></div>
+</div>
+
+<!-- Career -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">💼</div><div class="section-title">Infinite Energy</div></div>
+<div class="timeline">
+<div class="timeline-item"><h4>CRM Manager</h4><p>Reports to Ben • Started March 2nd</p></div>
+<div class="timeline-item pending"><h4>90-Day Review</h4><p>Target: May 31st</p><div class="date">61 days away</div></div>
+<div class="timeline-item pending"><h4>Promotion Opportunity</h4><p>Target: September 1st</p><div class="date">154 days away</div></div>
+</div>
+</div>
+
+<!-- Habits -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-gold)">✅</div><div class="section-title">Today's Habits</div></div>
+<div class="habit-list" id="habits">
+<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">🏃 Morning Exercise</div><div class="habit-streak">3 days</div></div></div>
+<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📚 Read 30 mins</div><div class="habit-streak">7 days</div></div></div>
+<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📵 No social media AM</div><div class="habit-streak">5 days</div></div></div>
+<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📝 Plan tomorrow</div><div class="habit-streak">2 days</div></div></div>
+<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">🧘 Meditate</div><div class="habit-streak">4 days</div></div></div>
+</div>
+</div>
+
+<!-- Space -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">🌌</div><div class="section-title">Space & Astronomy</div></div>
+<div class="space-widget">
+<div class="space-fact">A day on Venus is longer than a year on Venus.</div>
+<div class="space-stats">
+<div class="space-stat"><div class="value">107,000</div><div class="label">km/h Earth</div></div>
+<div class="space-stat"><div class="value">384,400</div><div class="label">km to Moon</div></div>
+<div class="space-stat"><div class="value">149.6M</div><div class="label">km to Sun</div></div>
+</div>
+</div>
+</div>
+
+<!-- Goals -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-green)">🎯</div><div class="section-title">Active Goals</div></div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Emergency Fund</span><span class="goal-progress">£1,200 / £3,000</span></div><div class="goal-bar"><div class="goal-fill green" style="width:40%"></div></div></div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Read 24 Books</span><span class="goal-progress">8 / 24</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:33%"></div></div></div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Run 500km</span><span class="goal-progress">127 / 500km</span></div><div class="goal-bar"><div class="goal-fill red" style="width:25%"></div></div></div>
+</div>
+
+<!-- Challenge -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-cyan)">🏆</div><div class="section-title">Weekly Challenge</div></div>
+<div class="challenge-box">
+<span class="challenge-badge">productivity</span>
+<div class="challenge-title">Master Your Time</div>
+<div class="challenge-desc">Implement the Pomodoro technique (25 min work, 5 min break) for all tasks. Complete your most important task first thing each morning.</div>
+<div class="challenge-progress">Progress: <span>0/7 days</span></div>
+</div>
+</div>
+
+<!-- Weather -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:var(--gradient-gold)">🌤️</div><div class="section-title">Sunderland</div></div>
+<div class="weather-main"><div class="weather-temp">7°</div><div class="weather-icon">☁️</div></div>
+<div class="weather-details">
+<div class="weather-detail"><div class="value">08:02</div><div class="label">Sunrise</div></div>
+<div class="weather-detail"><div class="value">16:45</div><div class="label">Sunset</div></div>
+<div class="weather-detail"><div class="value">87%</div><div class="label">Humidity</div></div>
+</div>
+</div>
+
+<!-- Quick Actions -->
+<div class="section">
+<div class="section-header"><div class="section-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">⚡</div><div class="section-title">Quick Actions</div></div>
+<div class="quick-actions">
+<button class="quick-btn" onclick="logAction('exercise')"><span class="icon">🏃</span>Exercise</button>
+<button class="quick-btn" onclick="logAction('read')"><span class="icon">📚</span>Read</button>
+<button class="quick-btn" onclick="logAction('expense')"><span class="icon">💸</span>Expense</button>
+<button class="quick-btn" onclick="logAction('focus')"><span class="icon">🎯</span>Focus</button>
+</div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+<p>🌙 Auto-updates hourly</p>
+<p>Built with 🤖 Clawdbot • Generated: 2026-01-30 12:00</p>
+</div>
+</div>
+
+<script>
+function updateClock(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}
+updateClock();setInterval(updateClock,1000);
+function toggleHabit(e){e.querySelector('.habit-check').classList.toggle('checked')}
+function logAction(a){console.log('Action:',a)}
+setInterval(()=>location.reload(),300000);
+</script>
+</body>
+</html>
