@@ -590,16 +590,7 @@ async function loadTodoist(){
           </div>
         </div>
       `).join('');
-    }
-        <div class="todoist-task" onclick="completeTodoistTask('${t.id}')" style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;margin-bottom:8px;cursor:pointer">
-          <div style="width:24px;height:24px;border-radius:6px;border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0">☐</div>
-          <div style="flex:1">
-            <div style="font-size:14px;font-weight:500">${t.content}</div>
-            <div style="font-size:11px;color:var(--text-muted)">${t.project_id?'Project #'+t.project_id:''}${t.priority>1?' • '+'🔴🟠🟡'.slice(0,t.priority-1):''}</div>
-          </div>
-        </div>
-      `).join('');
-    }
+}
     let total=overdue.length+dueToday.length;
     document.getElementById('todoist-count').textContent=total+' tasks';
     document.getElementById('todoist-count').style.background=overdue.length>0?'var(--red)':'var(--purple)';
