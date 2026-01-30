@@ -203,7 +203,7 @@ let debts=[
 {id:'monzo',n:'🏦 Monzo IFL',b:40,min:40,apr:0,end:null,h:[]},
 {id:'virgin',n:'💳 Virgin Money',b:2555.23,min:51.10,apr:26.49,end:'2027-09-16',h:[]},
 {id:'lendable',n:'🏦 Lendable',b:11876.71,min:264.25,apr:15.8,end:null,h:[]},
-{id:'kia',n:'🚗 Kia Finance',b:198.29,min:198.29,apr:11.9,end:null,h:[]},
+,
 {id:'zopa',n:'💳 Zopa Spend',b:0,min:0,apr:34.4,end:null,h:[]}
 ];
 
@@ -362,18 +362,23 @@ function addPayment(d,amount){
 function undoPayment(idx){
   let h=history[idx];
   if(!h)return;
-  if(!confirm('Undo payment of £'+parseFloat(h.a).toFixed(2)+' to '+h.n+'?'))return;
-  let d=debts.find(x=>x.n===h.n);
+  let amount=parseFloat(h.a);
+  if(!confirm('Undo payment of £'+amount.toFixed(2)+' to '+h.n+'?'))return;
+  // Find debt by matching the name (trim both)
+  let d=debts.find(x=>x.n.trim()===h.n.trim());
   if(d){
-    d.b=parseFloat(d.b)+parseFloat(h.a);
+    d.b=d.b+amount;
     d.paid=false;
-    d.h=d.h.filter(x=>x.t!==h.t);
+    // Remove this payment from debt's history
+    d.h=d.h.filter(y=>y.t!==h.t);
+    // Ensure balance doesn't have floating point errors
+    d.b=Math.round(d.b*100)/100;
   }
   history.splice(idx,1);
   saveAll();
   renderDebts();
   renderHistory();
-  toast('Payment undone - £'+parseFloat(h.a).toFixed(2)+' restored');
+  toast('Payment undone - £'+amount.toFixed(2)+' restored');
 }
 
 function quickPay(){
