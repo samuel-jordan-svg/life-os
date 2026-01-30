@@ -23,32 +23,60 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .g{font-size:14px;color:var(--text2);font-weight:500}
 .t{font-size:48px;font-weight:700;color:#fff;margin-top:8px}
 .d{font-size:13px;color:var(--text2);margin-top:4px}
-.s{display:flex;justify-content:space-between;margin-top:24px}
-.si{text-align:center;flex:1}
+.s{display:flex;justify-content:space-between;margin-top:24px;flex-wrap:wrap;gap:8px}
+.si{text-align:center;flex:1;min-width:80px}
 .si:not(:last-child){border-right:1px solid var(--border)}
-.sv{font-size:20px;font-weight:700}
+.sv{font-size:18px;font-weight:700}
 .sl{font-size:9px;color:var(--text2);text-transform:uppercase;margin-top:4px}
 .sv.green{color:var(--green)}
 .sv.cyan{color:var(--cyan)}
-.sec{background:linear-gradient(145deg,var(--card),#13131a);border-radius:24px;padding:24px;margin-bottom:18px;border:1px solid var(--border)}
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.slft{display:flex;align-items:center;gap:14px}
-.si2{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));border:1px solid rgba(139,92,246,0.2)}
-.st{font-size:16px;font-weight:600}
+.sv.orange{color:var(--orange)}
+.sv.red{color:var(--red)}
+.sec{background:linear-gradient(145deg,var(--card),#13131a);border-radius:24px;padding:20px;margin-bottom:16px;border:1px solid var(--border)}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.slft{display:flex;align-items:center;gap:12px}
+.si2{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));border:1px solid rgba(139,92,246,0.2)}
+.st{font-size:15px;font-weight:600}
 .tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:var(--purple);border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase}
 .tag.green{background:rgba(16,185,129,0.15);color:var(--green)}
 .tag.orange{background:rgba(245,158,11,0.15);color:var(--orange)}
 .tag.cyan{background:rgba(6,182,212,0.15);color:var(--cyan)}
 .tag.red{background:rgba(239,68,68,0.15);color:var(--red)}
-.hi{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;cursor:pointer}
-.hc{width:28px;height:28px;border-radius:8px;border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:transparent}
+.hi{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;cursor:pointer}
+.hc{width:26px;height:26px;border-radius:6px;border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:transparent}
 .hc.checked{background:var(--green);border-color:var(--green)}
 .hc.evening{border-color:var(--cyan)}
 .hc.evening.checked{background:linear-gradient(135deg,var(--cyan),#22d3ee);border-color:var(--cyan)}
-.hc.checked::after{content:'✓';color:white;font-size:14px;font-weight:bold}
+.hc.checked::after{content:'✓';color:white;font-size:12px;font-weight:bold}
 .hn{flex:1}
 .hn2{font-size:13px;font-weight:500}
 .hd{font-size:11px;color:var(--text2);margin-top:2px}
+.debt-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid var(--border)}
+.debt-item:hover{border-color:var(--purple)}
+.debt-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.debt-name{font-size:14px;font-weight:600}
+.debt-bal{font-size:18px;font-weight:700}
+.debt-bal.active{color:var(--orange)}
+.debt-bal.paid{color:var(--green)}
+.debt-meta{font-size:11px;color:var(--text2)}
+.debt-btns{display:flex;gap:8px;margin-top:10px}
+.debt-btn{flex:1;padding:8px;border-radius:8px;border:none;font-size:11px;font-weight:600;cursor:pointer}
+.debt-btn.pay{background:linear-gradient(135deg,var(--purple),var(--cyan));color:#fff}
+.debt-btn.edit{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text2)}
+.debt-btn.undo{background:rgba(245,158,11,0.15);color:var(--orange)}
+.hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.hist-item:last-child{border-bottom:none}
+.hist-info{font-size:12px}
+.hist-amt{color:var(--green);font-weight:600}
+.hist-date{font-size:11px;color:var(--text2)}
+.bill-item{display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px}
+.bill-name{font-size:13px}
+.bill-amt{font-size:13px;font-weight:600}
+.bill-paid{background:rgba(16,185,129,0.15);color:var(--green)}
+input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:14px;margin-bottom:10px}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px}
+.btn.green{background:linear-gradient(135deg,var(--green),#34d399)}
+.btn.orange{background:linear-gradient(135deg,var(--orange),#fbbf24);color:#000}
 @media(max-width:767px){.c{padding:16px}.h{padding:24px 20px;border-radius:20px}.t{font-size:40px}}
 </style>
 </head>
@@ -69,18 +97,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 </div>
 
 <div class="sec">
-<div class="sh">
-<div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div><div class="st">Morning</div></div>
-<span class="tag orange" id="mornProg">0/6</span>
-</div>
+<div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div><div class="st">Morning</div></div><span class="tag orange" id="mornProg">0/6</span></div>
 <div id="mornHabits"></div>
 </div>
 
 <div class="sec">
-<div class="sh">
-<div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div><div class="st">Evening</div></div>
-<span class="tag cyan" id="eveProg">0/5</span>
-</div>
+<div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div><div class="st">Evening</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
 <div id="eveHabits"></div>
 </div>
 </div>
@@ -90,40 +112,45 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 <div id="page-money" class="page">
 <div class="c">
 <div class="h">
-<div class="g">FINANCIAL</div>
+<div class="g">FINANCIAL COMMAND CENTER</div>
 <div class="t" id="clockM">--:--</div>
 <div class="d" id="dayInfoM">Loading...</div>
 </div>
 
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Summary</div></div></div>
+<div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
 <div class="s" style="margin-bottom:0">
 <div class="si"><div class="sv green">£1,872</div><div class="sl">INCOME</div></div>
-<div class="si"><div class="sv red">£639</div><div class="sl">FIXED</div></div>
-<div class="si"><div class="sv orange" id="totDebt">£15,402</div><div class="sl">DEBT</div></div>
-<div class="si"><div class="sv cyan">£985</div><div class="sl">LEFT</div></div>
+<div class="si"><div class="sv red" id="fixedTotal">£639</div><div class="sl">BILLS</div></div>
+<div class="si"><div class="sv orange" id="totalDebt">£15,402</div><div class="sl">DEBT</div></div>
+<div class="si"><div class="sv cyan" id="remaining">£985</div><div class="sl">LEFT</div></div>
 </div>
 </div>
 
+<!-- Fixed Bills -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag" id="debtCount">6 debts</span></div>
+<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">5 bills</span></div>
+<div id="billsList"></div>
+</div>
+
+<!-- Debts -->
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">6 debts</span></div>
 <div id="debtsList"></div>
 </div>
 
+<!-- Quick Pay -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">⚡</div><div class="st">Quick Pay</div></div></div>
-<div style="display:flex;gap:10px;margin-bottom:12px">
-<input type="number" id="payAmt" placeholder="Amount" style="flex:1;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff">
-<select id="payDebt" style="flex:1;padding:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;color:#fff">
-<option value="">Select</option>
-</select>
-</div>
-<button onclick="quickPay()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:600;cursor:pointer">Pay Now</button>
+<div class="sh"><div class="slft"><div class="si2">⚡</div><div class="st">Quick Payment</div></div></div>
+<input type="number" id="payAmt" placeholder="Amount">
+<select id="payDebt"><option value="">Select debt</option></select>
+<button class="btn" onclick="quickPay()">Pay Now</button>
 </div>
 
+<!-- History -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📜</div><div class="st">History</div></div></div>
-<div id="hist" style="font-size:12px;color:var(--text2)">No payments</div>
+<div class="sh"><div class="slft"><div class="si2">📜</div><div class="st">Payment History</div></div><button class="tag" onclick="clearHist()">Clear All</button></div>
+<div id="histList" style="font-size:12px;color:var(--text2)">No payments</div>
 </div>
 </div>
 </div>
@@ -131,32 +158,20 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 <!-- Health -->
 <div id="page-health" class="page">
 <div class="c">
-<div class="h">
-<div class="g">HEALTH</div>
-<div class="t" id="clockH">--:--</div>
-<div class="d" id="dayInfoH">Loading...</div>
-</div>
-<div class="sec"><div class="st">🏃 Running 500km</div><div style="margin:12px 0;color:var(--text2)">0 / 500km</div>
-<div style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div style="height:100%;width:0%;background:linear-gradient(90deg,var(--purple),var(--cyan));border-radius:6px"></div></div></div>
-<div class="sec"><div class="st">📚 Reading 24 books</div><div style="margin:12px 0;color:var(--text2)">0 / 24</div>
-<div style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div style="height:100%;width:0%;background:var(--orange);border-radius:6px"></div></div></div>
+<div class="h"><div class="g">HEALTH</div><div class="t" id="clockH">--:--</div><div class="d" id="dayInfoH">Loading...</div></div>
+<div class="sec"><div class="st">🏃 Running 500km</div><div style="margin:12px 0;color:var(--text2)">0 / 500km</div><div style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div style="height:100%;width:0%;background:linear-gradient(90deg,var(--purple),var(--cyan));border-radius:6px"></div></div></div>
+<div class="sec"><div class="st">📚 Reading 24 books</div><div style="margin:12px 0;color:var(--text2)">0 / 24</div><div style="height:8px;background:rgba(255,255,255,0.08);border-radius:6px"><div style="height:100%;width:0%;background:var(--orange);border-radius:6px"></div></div></div>
 </div>
 </div>
 
 <!-- Tasks -->
 <div id="page-tasks" class="page">
-<div class="c">
-<div class="h"><div class="g">TASKS</div><div class="t" id="clockT">--:--</div><div class="d" id="dayInfoT">Loading...</div></div>
-<div class="sec"><div class="st">📋 Todoist</div><p style="color:var(--text2);margin-top:12px">Connect Todoist</p></div>
-</div>
+<div class="c"><div class="h"><div class="g">TASKS</div><div class="t" id="clockT">--:--</div><div class="d" id="dayInfoT">Loading...</div></div><div class="sec"><div class="st">📋 Todoist</div><p style="color:var(--text2);margin-top:12px">Connect Todoist</p></div></div>
 </div>
 
 <!-- Settings -->
 <div id="page-settings" class="page">
-<div class="c">
-<div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div>
-<div class="sec"><div class="st">⚙️ Settings</div><p style="color:var(--text2);margin-top:12px">Configure preferences</p></div>
-</div>
+<div class="c"><div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div><div class="sec"><div class="st">⚙️ Settings</div><p style="color:var(--text2);margin-top:12px">Configure preferences</p></div></div>
 </div>
 
 <!-- Nav -->
@@ -169,22 +184,37 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 </nav>
 
 <script>
-// Data
+// Habits
 const MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
 const EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
-let debts=[
-{id:'argos',n:'🏪 Argos',b:320,min:51.10,apr:0,end:'2026-06-14',h:[]},
-{id:'monzo',n:'🏦 Monzo',b:40,min:40,apr:0,end:null,h:[]},
-{id:'virgin',n:'💳 Virgin',b:2555.23,min:51.10,apr:26.49,end:'2027-09-16',h:[]},
-{id:'lendable',n:'🏦 Lendable',b:11876.71,min:264.25,apr:15.8,end:null,h:[]},
-{id:'kia',n:'🚗 Kia',b:0,min:198.29,apr:11.9,end:null,paid:true,h:[]},
-{id:'zopa',n:'💳 Zopa',b:0,min:0,apr:34.4,end:null,paid:true,h:[]}
+
+// Fixed Bills
+let bills=[
+{id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:true},
+{id:'phone',n:'📱 Phone',a:48.09,m:48.09,p:true},
+{id:'carIns',n:'🚗 Car Insurance',a:32.50,m:32.50,p:true},
+{id:'sky',n:'📺 Sky',a:53.00,m:53.00,p:true}, // £24 from March
+{id:'life',n:'❤️ Life Insurance',a:4.99,m:4.99,p:true}
 ];
 
+// Debts
+let debts=[
+{id:'argos',n:'🏪 Argos Card',b:320,min:51.10,apr:0,end:'2026-06-14',h:[]},
+{id:'monzo',n:'🏦 Monzo IFL',b:40,min:40,apr:0,end:null,h:[]},
+{id:'virgin',n:'💳 Virgin Money',b:2555.23,min:51.10,apr:26.49,end:'2027-09-16',h:[]},
+{id:'lendable',n:'🏦 Lendable',b:11876.71,min:264.25,apr:15.8,end:null,h:[]},
+{id:'kia',n:'🚗 Kia Finance',b:198.29,min:198.29,apr:11.9,end:null,h:[]},
+{id:'zopa',n:'💳 Zopa Spend',b:0,min:0,apr:34.4,end:null,h:[]}
+];
+
+let history=[];
+
 // Init
-loadData();
+loadAll();
 renderHabits();
+renderBills();
 renderDebts();
+renderHistory();
 
 function go(p,el){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
@@ -194,102 +224,155 @@ function go(p,el){
   updateClocks();
 }
 
+function loadAll(){
+  let ld=localStorage.getItem('lifeOSdebts');
+  if(ld)debts=JSON.parse(ld);
+  let lb=localStorage.getItem('lifeOSbills');
+  if(lb)bills=JSON.parse(lb);
+  let lh=localStorage.getItem('lifeOShistory');
+  if(lh)history=JSON.parse(lh);
+  calcTotals();
+}
+
+function saveAll(){
+  localStorage.setItem('lifeOSdebts',JSON.stringify(debts));
+  localStorage.setItem('lifeOSbills',JSON.stringify(bills));
+  localStorage.setItem('lifeOShistory',JSON.stringify(history));
+  calcTotals();
+}
+
+function calcTotals(){
+  let totDebt=debts.reduce((a,b)=>a+(b.paid?0:b.b),0);
+  let totBill=bills.filter(b=>b.p).reduce((a,b)=>a+b.m,0);
+  let inc=1872.44;
+  let left=inc-totBill;
+  document.getElementById('totalDebt').textContent='£'+totDebt.toLocaleString();
+  document.getElementById('fixedTotal').textContent='£'+totBill.toFixed(2);
+  document.getElementById('remaining').textContent='£'+left.toFixed(2);
+  document.getElementById('debt').textContent=totDebt<10000?'£'+(totDebt/1000).toFixed(1)+'k':'£'+(totDebt/1000).toFixed(1)+'k';
+  document.getElementById('billCount').textContent=bills.filter(b=>b.p).length+' bills';
+  document.getElementById('debtCount').textContent=debts.filter(d=>!d.paid).length+' debts';
+}
+
 function renderHabits(){
-  let mc=0,ec=0;
   let ms=JSON.parse(localStorage.getItem('morn')||'{}'),es=JSON.parse(localStorage.getItem('eve')||'{}');
-  document.getElementById('mornHabits').innerHTML=MORN.map((x,i)=>{
-    let c=ms[i]||false;if(c)mc++;
-    return '<div class="hi" onclick="toggleM('+i+',this)"><div class="hc '+(c?'checked':'')+'"></div><div class="hn"><div class="hn2">'+x.n+'</div><div class="hd">'+x.d+'</div></div></div>';
-  }).join('');
-  document.getElementById('eveHabits').innerHTML=EVE.map((x,i)=>{
-    let c=es[i]||false;if(c)ec++;
-    return '<div class="hi" onclick="toggleE('+i+',this)"><div class="hc evening '+(c?'checked':'')+'"></div><div class="hn"><div class="hn2">'+x.n+'</div><div class="hd">'+x.d+'</div></div></div>';
-  }).join('');
+  let mc=MORN.reduce((a,x,i)=>a+(ms[i]?1:0),0),ec=EVE.reduce((a,x,i)=>a+(es[i]?1:0),0);
+  document.getElementById('mornHabits').innerHTML=MORN.map((x,i)=>
+    '<div class="hi" onclick="toggleM('+i+',this)"><div class="hc '+(ms[i]?'checked':'')+'"></div><div class="hn"><div class="hn2">'+x.n+'</div><div class="hd">'+x.d+'</div></div></div>').join('');
+  document.getElementById('eveHabits').innerHTML=EVE.map((x,i)=>
+    '<div class="hi" onclick="toggleE('+i+',this)"><div class="hc evening '+(es[i]?'checked':'')+'"></div><div class="hn"><div class="hn2">'+x.n+'</div><div class="hd">'+x.d+'</div></div></div>').join('');
   document.getElementById('mornProg').textContent=mc+'/6';
   document.getElementById('eveProg').textContent=ec+'/5';
 }
 
-function toggleM(i,el){
+function toggleM(i){
   let s=JSON.parse(localStorage.getItem('morn')||'{}');
   s[i]=!s[i];
   localStorage.setItem('morn',JSON.stringify(s));
   renderHabits();
 }
 
-function toggleE(i,el){
+function toggleE(i){
   let s=JSON.parse(localStorage.getItem('eve')||'{}');
   s[i]=!s[i];
   localStorage.setItem('eve',JSON.stringify(s));
   renderHabits();
 }
 
-function loadData(){
-  let sd=localStorage.getItem('debts');
-  if(sd)debts=JSON.parse(sd);
-  updateDebtTotals();
+function renderBills(){
+  document.getElementById('billsList').innerHTML=bills.map(b=>
+    '<div class="bill-item '+(!b.p?'bill-paid':'')+'" onclick="toggleBill(\''+b.id+'\')" style="cursor:pointer"><span class="bill-name">'+b.n+'</span><span class="bill-amt">£'+b.m.toFixed(2)+'</span></div>'
+  ).join('');
 }
 
-function saveData(){
-  localStorage.setItem('debts',JSON.stringify(debts));
-  updateDebtTotals();
-}
-
-function updateDebtTotals(){
-  let tot=debts.filter(d=>!d.paid).reduce((a,b)=>a+b.b,0);
-  document.getElementById('totDebt').textContent='£'+tot.toLocaleString();
-  document.getElementById('debt').textContent=tot<10000?'£'+(tot/1000).toFixed(1)+'k':'£'+(tot/1000).toFixed(1)+'k';
-  document.getElementById('debtCount').textContent=debts.filter(d=>!d.paid).length+' debts';
+function toggleBill(id){
+  let b=bills.find(x=>x.id===id);
+  if(b){
+    b.p=!b.p;
+    saveAll();
+    renderBills();
+  }
 }
 
 function renderDebts(){
   let d=document.getElementById('debtsList');
   let s=document.getElementById('payDebt');
   d.innerHTML=debts.sort((a,b)=>(a.paid?1:0)-(b.paid?1:0)).map(x=>{
-    let p=x.paid?'opacity:0.6':'';
-    let bc=x.paid?'color:var(--green)':'color:var(--red)';
-    let txt=x.paid?'PAID':'£'+x.b.toLocaleString();
+    let paid=x.paid;
+    let bal=paid?'PAID':'£'+x.b.toLocaleString();
+    let balClass=paid?'paid':'active';
     let end=x.end?'0% ends '+x.end:x.apr+'% APR';
-    let actions=x.paid?'':'<div style="display:flex;gap:8px;margin-top:12px"><button onclick="payMin(\''+x.id+'\')" style="flex:1;padding:10px;background:linear-gradient(135deg,var(--purple),var(--cyan));border:none;border-radius:8px;color:#fff;cursor:pointer">Pay Min</button><button onclick="payCust(\''+x.id+'\')" style="flex:1;padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;color:var(--text2);cursor:pointer">Custom</button></div>';
-    let last=x.h.length>0?'<div style="font-size:11px;color:var(--text2);margin-top:8px">Last: £'+x.h[x.h.length-1].a+' on '+x.h[x.h.length-1].d+'</div>':'';
-    return '<div class="sec" style="'+p+';cursor:pointer" onclick="showOpts(\''+x.id+'\')"><div style="display:flex;justify-content:space-between"><div><div style="font-weight:600">'+x.n+'</div><div style="font-size:11px;color:var(--text2)">'+end+' • Min: £'+x.min+'</div></div><div style="font-size:20px;font-weight:700;'+bc+'">'+txt+'</div></div>'+actions+last+'</div>';
+    let last=x.h.length>0?'<div style="font-size:11px;color:var(--text2);margin-top:6px">Last: £'+x.h[x.h.length-1].a+'</div>':'';
+    return '<div class="debt-item" onclick="showDebtOpts(\''+x.id+'\')"><div class="debt-row"><div><div class="debt-name">'+x.n+'</div><div class="debt-meta">'+end+' • Min: £'+x.min+'</div></div><div class="debt-bal '+balClass+'">'+bal+'</div></div>'+(paid?'':'<div class="debt-btns"><button class="debt-btn pay" onclick="event.stopPropagation();payMin(\''+x.id+'\')">Pay Min</button><button class="debt-btn pay" onclick="event.stopPropagation();payCustom(\''+x.id+'\')">Custom</button><button class="debt-btn edit" onclick="event.stopPropagation();editBalance(\''+x.id+'\')">Edit</button></div>')+last+'</div>';
   }).join('');
-  s.innerHTML='<option value="">Select</option>'+debts.filter(d=>!d.paid).map(x=>'<option value="'+x.id+'">'+x.n+' (£'+x.b+')</option>').join('');
+  s.innerHTML='<option value="">Select debt</option>'+debts.filter(d=>!d.paid).map(x=>'<option value="'+x.id+'">'+x.n+' (£'+x.b+')</option>').join('');
+}
+
+function showDebtOpts(id){
+  let d=debts.find(x=>x.id===id);
+  if(!d||d.paid)return;
+  let m='Pay towards '+d.n+':\n\nBalance: £'+d.b+'\nMin: £'+d.min+'\n\n1. Pay Minimum\n2. Custom Amount\n3. Edit Balance\n\nCancel to close';
+  let r=prompt(m);
+  if(r==='1')payMin(id);
+  else if(r==='2')payCustom(id);
+  else if(r==='3')editBalance(id);
 }
 
 function payMin(id){
   let d=debts.find(x=>x.id===id);
   if(!d||d.paid)return;
   let a=d.b<d.min?d.b:d.min;
-  d.b-=a;
-  d.h.push({a:a,d:new Date().toLocaleDateString('en-GB')});
-  if(d.b<0.01){d.b=0;d.paid=true;}
-  saveData();
-  renderDebts();
-  renderHist();
-  alert('Paid £'+a+' to '+d.n);
+  addPayment(d,a);
 }
 
-function payCust(id){
+function payCustom(id){
   let d=debts.find(x=>x.id===id);
   if(!d||d.paid)return;
-  let a=prompt('Amount for '+d.n+' (Balance: £'+d.b+')');
-  if(!a||parseFloat(a)<=0)return;
-  a=parseFloat(a);
-  if(a>d.b)a=d.b;
-  d.b-=a;
-  d.h.push({a:a,d:new Date().toLocaleDateString('en-GB')});
-  if(d.b<0.01){d.b=0;d.paid=true;}
-  saveData();
-  renderDebts();
-  renderHist();
-  alert('Paid £'+a+' to '+d.n);
+  let a=prompt('Amount to pay '+d.n+'?',d.min);
+  if(a&&parseFloat(a)>0){
+    a=Math.min(parseFloat(a),d.b);
+    addPayment(d,a);
+  }
 }
 
-function showOpts(id){
+function editBalance(id){
   let d=debts.find(x=>x.id===id);
-  if(!d||d.paid)return;
-  if(confirm('Pay minimum (£'+d.min+') to '+d.n+'? OK for min, Cancel for custom'))payMin(id);
-  else payCust(id);
+  if(!d)return;
+  let b=prompt('New balance for '+d.n+'?',d.b);
+  if(b&&parseFloat(b)>=0){
+    d.b=parseFloat(b);
+    if(d.b<0.01){d.b=0;d.paid=true;d.h=[];}
+    saveAll();
+    renderDebts();
+  }
+}
+
+function addPayment(d,amount){
+  if(amount>d.b)amount=d.b;
+  d.b-=amount;
+  d.h.push({a:amount,d:new Date().toLocaleDateString('en-GB'),t:Date.now()});
+  if(d.b<0.01){d.b=0;d.paid=true;}
+  history.unshift({n:d.n,a:amount,d:new Date().toLocaleDateString('en-GB'),t:Date.now()});
+  saveAll();
+  renderDebts();
+  renderHistory();
+  toast(amount>0?'Paid £'+amount:'Balance updated');
+}
+
+function undoPayment(idx){
+  let h=history[idx];
+  if(!h)return;
+  if(!confirm('Undo payment of £'+h.a+' to '+h.n+'?'))return;
+  let d=debts.find(x=>x.n===h.n);
+  if(d){
+    d.b+=h.a;
+    d.paid=false;
+  }
+  history.splice(idx,1);
+  saveAll();
+  renderDebts();
+  renderHistory();
+  toast('Payment undone');
 }
 
 function quickPay(){
@@ -298,22 +381,36 @@ function quickPay(){
   if(!id||!a||a<=0)return alert('Select debt and amount');
   let d=debts.find(x=>x.id===id);
   if(!d||d.paid)return;
-  if(a>d.b)a=d.b;
-  d.b-=a;
-  d.h.push({a:a,d:new Date().toLocaleDateString('en-GB')});
-  if(d.b<0.01){d.b=0;d.paid=true;}
-  saveData();
-  renderDebts();
-  renderHist();
+  addPayment(d,a);
   document.getElementById('payAmt').value='';
-  alert('Paid £'+a);
 }
 
-function renderHist(){
-  let all=[];
-  debts.forEach(d=>d.h.forEach(h=>all.push({n:d.n,a:h.a,d:h.d})));
-  all.sort((a,b)=>new Date(b.d)-new Date(a.d));
-  document.getElementById('hist').innerHTML=all.length?all.slice(0,5).map(x=>'<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)"><span>'+x.n+'</span><span><span style="color:var(--green)">-£'+x.a+'</span> <span style="color:var(--text2)">'+x.d+'</span></span></div>').join(''):'No payments';
+function renderHistory(){
+  let h=document.getElementById('histList');
+  if(history.length===0){
+    h.innerHTML='No payments';
+    return;
+  }
+  h.innerHTML=history.map((x,i)=>
+    '<div class="hist-item"><div class="hist-info"><div>'+x.n+'</div><div class="hist-date">'+x.d+'</div></div><div style="display:flex;align-items:center;gap:10px"><span class="hist-amt">-£'+x.a+'</span><button class="tag orange" onclick="undoPayment('+i+')" style="cursor:pointer">Undo</button></div></div>'
+  ).join('');
+}
+
+function clearHist(){
+  if(history.length===0)return;
+  if(confirm('Clear all history?')){
+    history=[];
+    saveAll();
+    renderHistory();
+  }
+}
+
+function toast(msg){
+  let t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:140px;left:50%;transform:translateX(-50%);padding:12px 24px;background:var(--green);color:#fff;border-radius:10px;font-size:14px;z-index:9999';
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
 }
 
 function updateClocks(){
@@ -322,13 +419,11 @@ function updateClocks(){
   ['dayInfo','dayInfoM','dayInfoH','dayInfoT','dayInfoS'].forEach(x=>{let e=document.getElementById(x);if(e)e.textContent=d});
   let dn=n.getDate(),td=(n.getFullYear()%4===0)?366:365;
   document.getElementById('yearPct').textContent=Math.round((dn/td)*100)+'%';
-  let m2=new Date('2026-03-02');
-  document.getElementById('daysTo').textContent=Math.ceil((m2-n)/(1000*60*60*24));
+  document.getElementById('daysTo').textContent=Math.ceil((new Date('2026-03-02')-n)/(1000*60*60*24));
 }
 
 setInterval(updateClocks,1000);
 updateClocks();
-renderHist();
 </script>
 </body>
 </html>
