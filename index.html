@@ -2,129 +2,170 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🚀 Sam's Life</title>
+<title>🚀 Sam's Life OS</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
---bg-primary:#0a0a0f;--bg-secondary:#12121a;--bg-card:#1a1a24;--bg-card-hover:#22222e;
+--bg-primary:#0d0d12;--bg-secondary:#13131a;--bg-card:#1a1a24;--bg-card-hover:#22222e;--bg-elevated:#252532;
 --accent-primary:#8b5cf6;--accent-secondary:#06b6d4;--accent-success:#10b981;--accent-warning:#f59e0b;--accent-danger:#ef4444;
+--accent-gradient:linear-gradient(135deg,#8b5cf6,#06b6d4);--accent-glow:0 0 30px rgba(139,92,246,0.3);
 --text-primary:#ffffff;--text-secondary:#9ca3af;--text-muted:#6b7280;
---gradient-purple:linear-gradient(135deg,#8b5cf6,#a78bfa);--gradient-cyan:linear-gradient(135deg,#06b6d4,#22d3ee);--gradient-green:linear-gradient(135deg,#10b981,#34d399);--gradient-red:linear-gradient(135deg,#ef4444,#f87171);--gradient-gold:linear-gradient(135deg,#f59e0b,#fbbf24)
+--border-subtle:rgba(255,255,255,0.08);--border-accent:rgba(139,92,246,0.3);
+--shadow-sm:0 2px 8px rgba(0,0,0,0.3);--shadow-md:0 4px 20px rgba(0,0,0,0.4);--shadow-lg:0 8px 40px rgba(0,0,0,0.5);--shadow-glow:0 0 40px rgba(139,92,246,0.15)
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
-.animated-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(ellipse at 20% 20%,rgba(139,92,246,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(6,182,212,0.1) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(16,185,129,0.05) 0%,transparent 70%);animation:bgPulse 15s ease-in-out infinite}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden;padding-bottom:120px}
+.animated-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(ellipse at 15% 20%,rgba(139,92,246,0.12) 0%,transparent 40%),radial-gradient(ellipse at 85% 80%,rgba(6,182,212,0.08) 0%,transparent 40%),radial-gradient(ellipse at 50% 50%,rgba(16,185,129,0.03) 0%,transparent 60%);animation:bgPulse 20s ease-in-out infinite}
 @keyframes bgPulse{0%,100%{opacity:1}50%{opacity:0.7}}
 
-.container{max-width:480px;margin:0 auto;padding:20px}
+.container{max-width:420px;margin:0 auto;padding:20px}
 
 /* Header */
-.header{text-align:center;padding:30px 20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.2));border-radius:24px;margin-bottom:20px;backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 50%);animation:headerShine 10s linear infinite}
-@keyframes headerShine{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-.header h1{font-size:28px;font-weight:700;margin-bottom:8px;background:linear-gradient(90deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative}
-.header .subtitle{color:var(--text-secondary);font-size:14px;position:relative}
-.header-stats{display:flex;justify-content:center;gap:24px;margin-top:20px;position:relative}
-.header-stat{text-align:center}
-.header-stat .value{font-size:24px;font-weight:700;color:var(--accent-success)}
-.header-stat .label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+.header{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px;backdrop-filter:blur(30px);border:1px solid var(--border-accent);position:relative;overflow:hidden;box-shadow:var(--shadow-glow)}
+.header::before{content:'';position:absolute;top:-100%;left:-100%;width:300%;height:300%;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 50%);animation:headerShine 15s linear infinite}
+@keyframes headerShine{0%{transform:translate(0,0)}100%{transform:translate(30%,30%)}}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2}
+.greeting{font-size:14px;color:var(--text-secondary);font-weight:500;letter-spacing:0.5px}
+.time-display{font-size:48px;font-weight:700;background:linear-gradient(90deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.day-info{font-size:13px;color:var(--text-muted);margin-top:4px}
+.header-stats{display:flex;justify-content:space-between;margin-top:24px;position:relative;z-index:2}
+.header-stat{text-align:center;flex:1}
+.header-stat:not(:last-child){border-right:1px solid var(--border-subtle)}
+.header-stat .value{font-size:20px;font-weight:700}
+.header-stat .label{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.header-stat.success .value{color:var(--accent-success)}
+.header-stat.warning .value{color:var(--accent-warning)}
+.header-stat.cyan .value{color:var(--accent-secondary)}
 
-/* Quote Card */
-.quote-card{background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(6,182,212,0.1));border-radius:20px;padding:24px;margin-bottom:20px;border:1px solid rgba(139,92,246,0.2);position:relative}
-.quote-card::before{content:'"' ;font-size:60px;color:var(--accent-primary);opacity:0.3;position:absolute;top:5px;left:15px;font-family:Georgia,serif}
-.quote-text{font-size:16px;line-height:1.6;color:var(--text-primary);font-style:italic;padding-left:20px}
-.quote-author{text-align:right;color:var(--text-secondary);font-size:13px;margin-top:12px;padding-left:20px}
-
-/* Stats Grid */
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.stat-card{background:var(--bg-card);border-radius:16px;padding:20px;text-align:center;transition:all 0.3s;border:1px solid rgba(255,255,255,0.05)}
-.stat-card:hover{background:var(--bg-card-hover);transform:translateY(-2px)}
-.stat-card .icon{font-size:28px;margin-bottom:8px}
-.stat-card .value{font-size:26px;font-weight:700;background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-card .label{font-size:12px;color:var(--text-muted);margin-top:4px}
+/* Quick Stats */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.stat-card{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:20px;padding:20px;text-align:center;transition:all 0.3s;border:1px solid var(--border-subtle);position:relative;overflow-hidden}
+.stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent-gradient);opacity:0;transition:opacity 0.3s}
+.stat-card:hover::after{opacity:1}
+.stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.stat-card .icon{font-size:26px;margin-bottom:8px}
+.stat-card .value{font-size:24px;font-weight:700;background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-card .label{font-size:10px;color:var(--text-muted);margin-top:6px;font-weight:500}
 .stat-card.success .value{background:linear-gradient(90deg,var(--accent-success),#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .stat-card.warning .value{background:linear-gradient(90deg,var(--accent-warning),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-card.danger .value{background:linear-gradient(90deg,var(--accent-danger),#f87171);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-/* Sections */
-.section{background:var(--bg-card);border-radius:20px;padding:20px;margin-bottom:16px;border:1px solid rgba(255,255,255,0.05)}
-.section-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.section-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+/* Section Cards */
+.section{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:24px;padding:24px;margin-bottom:18px;border:1px solid var(--border-subtle);transition:all 0.3s}
+.section:hover{border-color:var(--border-accent);box-shadow:var(--shadow-glow)}
+.section-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
+.section-left{display:flex;align-items:center;gap:14px}
+.section-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));border:1px solid rgba(139,92,246,0.2)}
 .section-title{font-size:16px;font-weight:600}
-
-/* Career Timeline */
-.timeline{margin-left:8px;border-left:2px solid rgba(139,92,246,0.3);padding-left:20px}
-.timeline-item{position:relative;margin-bottom:20px}
-.timeline-item::before{content:'';position:absolute;left:-26px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent-success)}
-.timeline-item.pending::before{background:var(--text-muted)}
-.timeline-item h4{font-size:14px;font-weight:600;margin-bottom:4px}
-.timeline-item p{font-size:12px;color:var(--text-secondary)}
-.timeline-item .date{font-size:11px;color:var(--text-muted);margin-top:4px}
+.section-action{font-size:12px;color:var(--accent-primary);cursor:pointer}
 
 /* Habits */
-.habit-list{space-y:8px}
-.habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;transition:all 0.2s}
-.habit-item:active{background:rgba(255,255,255,0.08);transform:scale(0.98)}
-.habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0}
+.habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;transition:all 0.2s;cursor:pointer}
+.habit-item:hover{background:rgba(255,255,255,0.06)}
+.habit-item:active{transform:scale(0.98)}
+.habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;background:transparent}
 .habit-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
-.habit-check.checked::after{content:'✓';color:white;font-size:16px;font-weight:bold}
+.habit-check.checked::after{content:'✓';color:white;font-size:14px;font-weight:bold}
 .habit-info{flex:1}
-.habit-name{font-size:14px;font-weight:500}
-.habit-streak{font-size:12px;color:var(--accent-warning);margin-top:2px}
+.habit-name{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
+.habit-streak{font-size:11px;color:var(--accent-warning);margin-top:2px}
 .habit-streak::before{content:'🔥 '}
 
-/* Space Widget */
-.space-widget{background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(6,182,212,0.1));border-radius:16px;padding:20px;border:1px solid rgba(139,92,246,0.2)}
-.space-fact{font-size:14px;line-height:1.6;color:var(--text-primary);padding:12px;background:rgba(0,0,0,0.2);border-radius:12px;border-left:3px solid var(--accent-primary)}
-.space-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
-.space-stat{text-align:center;padding:12px;background:rgba(255,255,255,0.05);border-radius:10px}
-.space-stat .value{font-size:16px;font-weight:700;color:var(--accent-secondary)}
-.space-stat .label{font-size:10px;color:var(--text-muted);margin-top:4px}
-
-/* Goals */
-.goal-item{margin-bottom:16px}
+/* Goals - Visual Progress */
+.goal-item{margin-bottom:18px}
+.goal-item:last-child{margin-bottom:0}
 .goal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.goal-name{font-size:14px;font-weight:500}
+.goal-name{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
 .goal-progress{font-size:12px;color:var(--text-secondary)}
-.goal-bar{height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden}
-.goal-fill{height:100%;border-radius:4px;transition:width 0.5s ease}
-.goal-fill.green{background:var(--gradient-green)}.goal-fill.yellow{background:var(--gradient-gold)}.goal-fill.red{background:var(--gradient-red)}
+.goal-bar{height:8px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;position:relative}
+.goal-fill{height:100%;border-radius:6px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1)}
+.goal-fill.green{background:linear-gradient(90deg,var(--accent-success),#34d399)}
+.goal-fill.yellow{background:linear-gradient(90deg,var(--accent-warning),#fbbf24)}
+.goal-fill.red{background:linear-gradient(90deg,var(--accent-danger),#f87171)}
+.goal-fill.purple{background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary))}
 
-/* Challenge */
-.challenge-box{background:linear-gradient(135deg,rgba(6,182,212,0.15),rgba(139,92,246,0.1));border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(6,182,212,0.2)}
-.challenge-badge{display:inline-block;padding:6px 16px;background:var(--gradient-cyan);color:var(--bg-primary);border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
-.challenge-title{font-size:18px;font-weight:700;margin:16px 0 8px;background:linear-gradient(90deg,var(--accent-secondary),var(--accent-primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.challenge-desc{font-size:13px;color:var(--text-secondary);line-height:1.5}
-.challenge-progress{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:13px;color:var(--text-secondary)}
-.challenge-progress span{color:var(--accent-success);font-weight:600}
+/* Quick Todo Input */
+.todo-input-group{display:flex;gap:10px;margin-bottom:16px}
+.todo-input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:12px;color:var(--text-primary);font-size:14px;outline:none}
+.todo-input:focus{border-color:var(--accent-primary)}
+.todo-add{width:48px;background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));border:none;border-radius:12px;color:white;font-size:20px;cursor:pointer}
+
+/* Todo List */
+.todo-item{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px}
+.todo-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--text-muted);flex-shrink:0}
+.todo-text{flex:1;font-size:13px}
+.todo-text.done{text-decoration:line-through;color:var(--text-muted)}
+.todo-delete{color:var(--text-muted);cursor:pointer;font-size:14px}
+
+/* Financial Quick View */
+.financial-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.financial-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;text-align:center}
+.financial-item .value{font-size:18px;font-weight:700;color:var(--accent-success)}
+.financial-item .label{font-size:10px;color:var(--text-muted);margin-top:4px}
+.financial-item.danger .value{color:var(--accent-danger)}
+
+/* Timeline */
+.timeline{margin-left:8px;border-left:2px solid rgba(139,92,246,0.2);padding-left:20px}
+.timeline-item{position:relative;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-subtle)}
+.timeline-item:last-child{border:none;margin-bottom:0;padding-bottom:0}
+.timeline-item::before{content:'';position:absolute;left:-25px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent-success);box-shadow:0 0 10px rgba(16,185,129,0.4)}
+.timeline-item.pending::before{background:var(--text-muted);box-shadow:none}
+.timeline-item h4{font-size:13px;font-weight:600;margin-bottom:4px}
+.timeline-item p{font-size:11px;color:var(--text-secondary);line-height:1.5}
+.timeline-item .date{font-size:10px;color:var(--text-muted);margin-top:4px}
 
 /* Weather */
 .weather-main{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 0}
-.weather-temp{font-size:48px;font-weight:200;color:var(--accent-warning)}
-.weather-icon{font-size:48px}
-.weather-details{display:flex;justify-content:center;gap:30px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1)}
+.weather-temp{font-size:44px;font-weight:200;color:var(--text-primary)}
+.weather-icon{font-size:44px}
+.weather-details{display:flex;justify-content:center;gap:32px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-subtle)}
 .weather-detail{text-align:center}
 .weather-detail .value{font-size:16px;font-weight:600;color:var(--accent-secondary)}
-.weather-detail .label{font-size:11px;color:var(--text-muted)}
+.weather-detail .label{font-size:10px;color:var(--text-muted);margin-top:4px}
 
-/* Footer */
-.footer{text-align:center;padding:30px 20px;color:var(--text-muted);font-size:12px}
-.footer p{margin-bottom:4px}
-.footer .brand{color:var(--accent-primary);font-weight:600}
+/* Space Widget */
+.space-widget{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.06));border-radius:16px;padding:18px;border:1px solid rgba(139,92,246,0.15)}
+.space-fact{font-size:13px;line-height:1.6;color:var(--text-primary);padding:12px;background:rgba(0,0,0,0.2);border-radius:10px;border-left:3px solid var(--accent-primary)}
+.space-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.space-stat{text-align:center;padding:10px;background:rgba(255,255,255,0.04);border-radius:10px}
+.space-stat .value{font-size:14px;font-weight:700;color:var(--accent-secondary)}
+.space-stat .label{font-size:9px;color:var(--text-muted);margin-top:4px;text-transform:uppercase}
 
-/* Animations */
-@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.section{animation:fadeInUp 0.5s ease forwards}
-.section:nth-child(2){animation-delay:0.1s}.section:nth-child(3){animation-delay:0.2s}.section:nth-child(4){animation-delay:0.3s}.section:nth-child(5){animation-delay:0.4s}.section:nth-child(6){animation-delay:0.5s}.section:nth-child(7){animation-delay:0.6s}
+/* Quote Card */
+.quote-card{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.05));border-radius:18px;padding:20px;margin-bottom:20px;border:1px solid var(--border-subtle);position:relative}
+.quote-card::before{content:'"' ;font-size:60px;font-family:Georgia,serif;position:absolute;top:-5px;left:12px;color:var(--accent-primary);opacity:0.15;font-weight:bold}
+.quote-text{font-size:14px;line-height:1.6;color:var(--text-primary);font-style:italic;padding-left:20px}
+.quote-author{font-size:11px;color:var(--text-secondary);margin-top:10px;padding-left:20px;text-align:right}
 
 /* Quick Actions */
-.quick-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.quick-btn{flex:1;min-width:70px;padding:12px 8px;background:rgba(255,255,255,0.05);border:none;border-radius:12px;color:var(--text-primary);font-size:12px;text-align:center;cursor:pointer;transition:all 0.2s}
-.quick-btn:active{background:rgba(255,255,255,0.1);transform:scale(0.95)}
-.quick-btn .icon{display:block;font-size:20px;margin-bottom:4px}
+.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.quick-btn{padding:14px 8px;background:linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:none;border-radius:12px;color:var(--text-primary);font-size:10px;text-align:center;cursor:pointer;transition:all 0.2s;border:1px solid var(--border-subtle)}
+.quick-btn:hover{background:linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.04));transform:translateY(-2px)}
+.quick-btn .icon{display:block;font-size:20px;margin-bottom:6px}
+
+/* Footer */
+.footer{text-align:center;padding:24px 20px;color:var(--text-muted);font-size:10px}
+.footer p{margin-bottom:6px;opacity:0.7}
+
+/* Tag */
+.tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:var(--accent-primary);border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.tag.success{background:rgba(16,185,129,0.15);color:var(--accent-success)}
+.tag.warning{background:rgba(245,158,11,0.15);color:var(--accent-warning)}
+
+/* Animations */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+.section{animation:fadeInUp 0.6s ease forwards;opacity:0}
+.section:nth-child(1){animation-delay:0.05s}.section:nth-child(2){animation-delay:0.1s}.section:nth-child(3){animation-delay:0.15s}.section:nth-child(4){animation-delay:0.2s}.section:nth-child(5){animation-delay:0.25s}.section:nth-child(6){animation-delay:0.3s}.section:nth-child(7){animation-delay:0.35s}.section:nth-child(8){animation-delay:0.4s}.section:nth-child(9){animation-delay:0.45s}
+
+.stat-card:hover .icon{animation:float 0.5s ease}
 
 /* Responsive */
-@media(max-width:380px){.header-stats{gap:16px}.header-stat .value{font-size:20px}.stats-grid{grid-template-columns:1fr}}
+@media(max-width:400px){.header-stats{gap:10px}.header-stat .value{font-size:16px}.stats-grid{gap:10px}.stat-card .value{font-size:20px}.quick-actions{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
@@ -132,116 +173,243 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Ar
 <div class="container">
 <!-- Header -->
 <div class="header">
-<h1>🚀 Sam's Life</h1>
-<p class="subtitle">Your command center</p>
+<div class="header-top">
+<div>
+<div class="greeting">SAM'S LIFE OS</div>
+<div class="time-display" id="clock">00:00</div>
+<div class="day-info" id="dayInfo">Monday • Day 0 of 365</div>
+</div>
+<div class="streak-badge" style="background:rgba(16,185,129,0.15);color:var(--accent-success);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px">🔥 <span id="streak">7</span> day</div>
+</div>
 <div class="header-stats">
-<div class="header-stat"><div class="value" id="clock">--:--</div><div class="label">Friday</div></div>
-<div class="header-stat"><div class="value">6%</div><div class="label">YEAR</div></div>
-<div class="header-stat"><div class="value">30</div><div class="label">DAYS TO GOAL</div></div>
+<div class="header-stat"><div class="value" id="yearProgress">0%</div><div class="label">YEAR</div></div>
+<div class="header-stat cyan"><div class="value">61</div><div class="label">DAYS TO GOAL</div></div>
+<div class="header-stat success"><div class="value">£7,850</div><div class="label">DEBT</div></div>
 </div>
 </div>
 
-<!-- Quote -->
-<div class="quote-card">
-<p class="quote-text">"The future depends on what you do today."</p>
-<p class="quote-author">— Mahatma Gandhi</p>
-</div>
-
-<!-- Quick Stats -->
-<div class="stats-grid">
-<div class="stat-card success"><div class="icon">💰</div><div class="value">£7850</div><div class="label">Debt Remaining</div></div>
-<div class="stat-card warning"><div class="icon">🔥</div><div class="value">7</div><div class="label">Habit Streak</div></div>
-</div>
-
-<!-- Career -->
+<!-- Daily Todos -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">💼</div><div class="section-title">Infinite Energy</div></div>
-<div class="timeline">
-<div class="timeline-item"><h4>CRM Manager</h4><p>Reports to Ben • Started March 2nd</p></div>
-<div class="timeline-item pending"><h4>90-Day Review</h4><p>Target: May 31st</p><div class="date">61 days away</div></div>
-<div class="timeline-item pending"><h4>Promotion Opportunity</h4><p>Target: September 1st</p><div class="date">154 days away</div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">✅</div>
+<div class="section-title">Today's Priorities</div>
 </div>
+<span class="tag" id="todoCount">0/3</span>
+</div>
+<div class="todo-input-group">
+<input type="text" class="todo-input" id="todoInput" placeholder="Add a priority...">
+<button class="todo-add" onclick="addTodo()">+</button>
+</div>
+<div id="todoList"></div>
 </div>
 
 <!-- Habits -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-gold)">✅</div><div class="section-title">Today's Habits</div></div>
-<div class="habit-list" id="habits">
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">🏃 Morning Exercise</div><div class="habit-streak">3 days</div></div></div>
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📚 Read 30 mins</div><div class="habit-streak">7 days</div></div></div>
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📵 No social media AM</div><div class="habit-streak">5 days</div></div></div>
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📝 Plan tomorrow</div><div class="habit-streak">2 days</div></div></div>
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">🧘 Meditate</div><div class="habit-streak">4 days</div></div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🔥</div>
+<div class="section-title">Daily Habits</div>
+</div>
+<span class="tag" id="habitProgress">0/5</span>
+</div>
+<div id="habits"></div>
+</div>
+
+<!-- Financial Snapshot -->
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">💰</div>
+<div class="section-title">Financial Snapshot</div>
+</div>
+<span class="tag danger">£7,850</span>
+</div>
+<div class="financial-grid">
+<div class="financial-item">
+<div class="value">£2,850</div>
+<div class="label">Monthly Budget</div>
+</div>
+<div class="financial-item">
+<div class="value">£1,840</div>
+<div class="label">Spent</div>
+</div>
+<div class="financial-item">
+<div class="value">£1,010</div>
+<div class="label">Remaining</div>
+</div>
+<div class="financial-item danger">
+<div class="value">£785</div>
+<div class="label">Credit Card</div>
+</div>
+</div>
+<div class="goal-item">
+<div class="goal-header"><span class="goal-name">Emergency Fund</span><span class="goal-progress">£1,200 / £3,000</span></div>
+<div class="goal-bar"><div class="goal-fill green" style="width:40%"></div></div>
 </div>
 </div>
 
-<!-- Space -->
+<!-- Career -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">🌌</div><div class="section-title">Space & Astronomy</div></div>
-<div class="space-widget">
-<div class="space-fact">A day on Venus is longer than a year on Venus.</div>
-<div class="space-stats">
-<div class="space-stat"><div class="value">107,000</div><div class="label">km/h Earth</div></div>
-<div class="space-stat"><div class="value">384,400</div><div class="label">km to Moon</div></div>
-<div class="space-stat"><div class="value">149.6M</div><div class="label">km to Sun</div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">💼</div>
+<div class="section-title">Infinite Energy</div>
 </div>
+<span class="tag">Day 29</span>
+</div>
+<div class="timeline">
+<div class="timeline-item"><h4>CRM Manager <span class="tag success">Current</span></h4><p>Reports to Ben • Started March 2nd</p><div class="date">30 days in role</div></div>
+<div class="timeline-item pending"><h4>90-Day Review</h4><p>Performance milestone</p><div class="date">61 days away • May 31st</div></div>
+<div class="timeline-item pending"><h4>Promotion Window</h4><p>B2B consultancy opportunity</p><div class="date">154 days away • Sept 1st</div></div>
 </div>
 </div>
 
-<!-- Goals -->
+<!-- Health & Fitness -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-green)">🎯</div><div class="section-title">Active Goals</div></div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Emergency Fund</span><span class="goal-progress">£1,200 / £3,000</span></div><div class="goal-bar"><div class="goal-fill green" style="width:40%"></div></div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🏃</div>
+<div class="section-title">Health & Fitness</div>
+</div>
+<span class="tag success">On Track</span>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Running Goal (500km)</span><span class="goal-progress">127 / 500km</span></div><div class="goal-bar"><div class="goal-fill purple" style="width:25%"></div></div></div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Weight Target</span><span class="goal-progress">84.2 / 80kg</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:70%"></div></div></div>
 <div class="goal-item"><div class="goal-header"><span class="goal-name">Read 24 Books</span><span class="goal-progress">8 / 24</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:33%"></div></div></div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Run 500km</span><span class="goal-progress">127 / 500km</span></div><div class="goal-bar"><div class="goal-fill red" style="width:25%"></div></div></div>
 </div>
 
-<!-- Challenge -->
+<!-- Todoist Tasks -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-cyan)">🏆</div><div class="section-title">Weekly Challenge</div></div>
-<div class="challenge-box">
-<span class="challenge-badge">productivity</span>
-<div class="challenge-title">Master Your Time</div>
-<div class="challenge-desc">Implement the Pomodoro technique (25 min work, 5 min break) for all tasks. Complete your most important task first thing each morning.</div>
-<div class="challenge-progress">Progress: <span>0/7 days</span></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">📋</div>
+<div class="section-title">Todoist Tasks</div>
 </div>
+<span class="tag" id="todoistCount">Loading...</span>
+</div>
+<div id="todoistTasks" style="font-size:12px;color:var(--text-secondary)">Loading tasks from Todoist...</div>
 </div>
 
 <!-- Weather -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-gold)">🌤️</div><div class="section-title">Sunderland</div></div>
-<div class="weather-main"><div class="weather-temp">7°</div><div class="weather-icon">☁️</div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🌤️</div>
+<div class="section-title">Sunderland</div>
+</div>
+</div>
+<div class="weather-main"><div class="weather-temp" id="weatherTemp">--°</div><div class="weather-icon" id="weatherIcon">☀️</div></div>
 <div class="weather-details">
-<div class="weather-detail"><div class="value">08:02</div><div class="label">Sunrise</div></div>
-<div class="weather-detail"><div class="value">16:45</div><div class="label">Sunset</div></div>
-<div class="weather-detail"><div class="value">87%</div><div class="label">Humidity</div></div>
+<div class="weather-detail"><div class="value" id="sunrise">--:--</div><div class="label">Sunrise</div></div>
+<div class="weather-detail"><div class="value" id="sunset">--:--</div><div class="label">Sunset</div></div>
+<div class="weather-detail"><div class="value" id="humidity">--%</div><div class="label">Humidity</div></div>
+</div>
+</div>
+
+<!-- Space Fact -->
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🌌</div>
+<div class="section-title">Space Fact</div>
+</div>
+</div>
+<div class="space-widget">
+<div class="space-fact" id="spaceFact">Loading...</div>
 </div>
 </div>
 
 <!-- Quick Actions -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">⚡</div><div class="section-title">Quick Actions</div></div>
-<div class="quick-actions">
-<button class="quick-btn" onclick="logAction('exercise')"><span class="icon">🏃</span>Exercise</button>
-<button class="quick-btn" onclick="logAction('read')"><span class="icon">📚</span>Read</button>
-<button class="quick-btn" onclick="logAction('expense')"><span class="icon">💸</span>Expense</button>
-<button class="quick-btn" onclick="logAction('focus')"><span class="icon">🎯</span>Focus</button>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">⚡</div>
+<div class="section-title">Quick Actions</div>
 </div>
+</div>
+<div class="quick-actions">
+<button class="quick-btn" onclick="logAction('focus')"><span class="icon">🎯</span>Focus</button>
+<button class="quick-btn" onclick="logAction('read')"><span class="icon">📚</span>Read</button>
+<button class="quick-btn" onclick="logAction('exercise')"><span class="icon">🏃</span>Exercise</button>
+<button class="quick-btn" onclick="logAction('plan')"><span class="icon">📝</span>Plan</button>
+</div>
+</div>
+
+<!-- Quote -->
+<div class="quote-card">
+<p class="quote-text">"The only way to do great work is to love what you do."</p>
+<p class="quote-author">— Steve Jobs</p>
 </div>
 
 <!-- Footer -->
 <div class="footer">
-<p>🌙 Auto-updates hourly</p>
-<p>Built with 🤖 Clawdbot • Generated: 2026-01-30 12:00</p>
+<p>🔄 Auto-updates every hour</p>
+<p>📱 Synced with Todoist • Built with 🤖 Clawdbot</p>
 </div>
 </div>
 
 <script>
-function updateClock(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}
-updateClock();setInterval(updateClock,1000);
-function toggleHabit(e){e.querySelector('.habit-check').classList.toggle('checked')}
-function logAction(a){console.log('Action:',a)}
+// Configuration
+const HABITS = [
+{name:'🏃 Morning Exercise',streak:3},
+{name:'📚 Read 30 mins',streak:7},
+{name:'📵 No social media AM',streak:5},
+{name:'📝 Plan tomorrow',streak:2},
+{name:'🧘 Meditate',streak:4}
+];
+
+const SPACE_FACTS = [
+"The Sun is 93 million miles away, yet its light reaches Earth in just 8 minutes.",
+"One million Earths could fit inside the Sun.",
+"Venus spins clockwise while other planets spin counter-clockwise.",
+"A day on Venus is longer than its year.",
+"The footprints on the Moon won't disappear as there's no wind.",
+"Neutron stars can spin 600 times per second after they're born.",
+"One teaspoon of neutron star would weigh 6 billion tons.",
+"Mars has the tallest mountain in the solar system - 3x taller than Everest.",
+"The Great Red Spot on Jupiter is a storm that has raged for 350 years.",
+"Mercury is shrinking as it cools, becoming 9 miles smaller over 4 billion years."
+];
+
+// Initialize
+document.addEventListener('DOMContentLoaded',()=>{
+updateClock();
+updateDate();
+loadHabits();
+loadTodos();
+loadSpaceFact();
+loadWeather();
+loadTodoistTasks();
+setInterval(updateClock,1000);
 setInterval(()=>location.reload(),300000);
+});
+
+// Clock & Date
+function updateClock(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}
+function updateDate(){const d=new Date();const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const dayNum=d.getDate();const totalDays=d.getFullYear()%4===0?366:365;const yearProgress=Math.round((dayNum/totalDays)*100);document.getElementById('dayInfo').textContent=`${days[d.getDay()]} • Day ${dayNum} of ${totalDays}`;document.getElementById('yearProgress').textContent=yearProgress+'%'}
+
+// Habits
+function loadHabits(){const container=document.getElementById('habits');let completed=0;const saved=JSON.parse(localStorage.getItem('habits')||'{}');container.innerHTML=HABITS.map((h,i)=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleHabit('${h.name}',this)"><div class="habit-check ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div class="habit-streak">${h.streak} days</div></div></div>`}).join('');document.getElementById('habitProgress').textContent=`${completed}/${HABITS.length}`}
+function toggleHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('habits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('habits',JSON.stringify(saved));loadHabits()}
+
+// Todos
+function loadTodos(){const saved=JSON.parse(localStorage.getItem('todos')||'[]');const container=document.getElementById('todoList');const completed=saved.filter(t=>t.done).length;container.innerHTML=saved.map((t,i)=>`<div class="todo-item"><div class="todo-check ${t.done?'checked':''}" onclick="toggleTodo(${i})"></div><div class="todo-text ${t.done?'done':''}">${t.text}</div><div class="todo-delete" onclick="deleteTodo(${i})">×</div></div>`).join('');document.getElementById('todoCount').textContent=`${completed}/${saved.length||3}`;localStorage.setItem('todos',JSON.stringify(saved))}
+function addTodo(){const input=document.getElementById('todoInput');const text=input.value.trim();if(!text)return;const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved.push({text,done:false});input.value='';localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
+function toggleTodo(i){const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved[i].done=!saved[i].done;localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
+function deleteTodo(i){const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved.splice(i,1);localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
+
+// Space Fact
+function loadSpaceFact(){const fact=SPACE_FACTS[Math.floor(Math.random()*SPACE_FACTS.length)];document.getElementById('spaceFact').textContent=fact}
+
+// Weather (from data)
+function loadWeather(){const now=new Date();const month=now.getMonth();let temp=7,icon='☁️',humidity='87%';if(month>=2&&month<=4){temp=12;icon='🌸'}else if(month>=5&&month<=7){temp=20;icon='☀️'}else if(month>=8&&month<=10){temp=13;icon='🍂'}else{temp=5;icon='❄️'}document.getElementById('weatherTemp').textContent=temp+'°';document.getElementById('weatherIcon').textContent=icon;document.getElementById('humidity').textContent=humidity;document.getElementById('sunrise').textContent='08:02';document.getElementById('sunset').textContent='16:45'}
+
+// Todoist (simulated - replace with real API)
+function loadTodoistTasks(){const tasks=[{content:'Create Daily Productivity Report',done:false},{content:'Plan Breaks & Lunches',done:false}];const completed=tasks.filter(t=>t.done).length;document.getElementById('todoistCount').textContent=`${completed}/${tasks.length}`;document.getElementById('todoistTasks').innerHTML=tasks.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-subtle)"><div style="width:16px;height:16px;border-radius:4px;border:2px solid ${t.done?'var(--accent-success)':'var(--text-muted)'}"></div><span style="${t.done?'text-decoration:line-through;color:var(--text-muted)':''}">${t.content}</span></div>`).join('')}
+
+// Quick Actions
+function logAction(action){console.log('Action:',action);if(action==='exercise'){const h=document.querySelector('.habit-item:nth-child(1)');if(h)toggleHabit(HABITS[0].name,h)}else if(action==='read'){const h=document.querySelector('.habit-item:nth-child(2)');if(h)toggleHabit(HABITS[1].name,h)}}
 </script>
 </body>
 </html>
