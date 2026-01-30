@@ -416,7 +416,7 @@ const TODOIST_API='https://api.todoist.com/rest/v2';
 
 async function fetchTodaysTasks(){try{const res=await fetch(`${TODOIST_API}/tasks?filter=today`,{headers:{'Authorization':`Bearer ${TODOIST_TOKEN}`}});return await res.json()}catch(e){return[]}}
 async function completeTask(taskId){try{await fetch(`${TODOIST_API}/tasks/${taskId}/close`,{method:'POST',headers:{'Authorization':`Bearer ${TODOIST_TOKEN}`}});return true}catch(e){return false}}
-async function createTask(content,options={}){try{const body={content};if(options.dueDate)body.due_date=options.dueDate;if(options.priority&&options.priority>0)body.priority=options.priority;if(options.projectId)body.project_id=options.projectId;const res=await fetch(`${TODOIST_API}/tasks`,{method:'POST',headers:{'        'Authorization': `Bearer ${TODOIST_TOKEN}`,
+async function createTask(content,options={}){try{const body={content};if(options.dueDate)body.due_date=options.dueDate;if(options.priority&&options.priority>0)body.priority=options.priority;if(options.projectId)body.project_id=options.projectId;const res=await fetch(`${TODOIST_API}/tasks`,{method:'POST',headers:{'Authorization': `Bearer ${TODOIST_TOKEN}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
