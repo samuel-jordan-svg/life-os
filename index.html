@@ -559,14 +559,38 @@ async function loadTodoist(){
     if(!resp.ok)throw new Error('API error');
     let tasks=await resp.json();
     
-    // Filter for today's tasks (no date or due today)
+    // Filter for overdue + due today (NOT tasks with no due date)
     let today=new Date().toISOString().split('T')[0];
-    let dueToday=tasks.filter(t=>!t.due||t.due.date===today);
+    let overdue=tasks.filter(t=>t.due&&t.due.date<today);
+    let dueToday=tasks.filter(t=>t.due&&t.due.date===today);
+    let allDue=[...overdue,...dueToday];
     
-    if(dueToday.length===0){
-      document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--green)">🎉 All caught up! No tasks due today.</span>';
-    }else{
-      document.getElementById('todoist-tasks').innerHTML=dueToday.map(t=>`
+    if(overdue.length>0){
+      document.getElementById('todoist-tasks').innerHTML=overdue.map(t=>`
+        <div class="todoist-task" onclick="completeTodoistTask('${t.id}')" style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(239,68,68,0.1);border-radius:10px;margin-bottom:8px;cursor:pointer;border:1px solid var(--red)">
+          <div style="width:24px;height:24px;border-radius:6px;border:2px solid var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--red)">⚠️</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:500;color:var(--red)">${t.content}</div>
+            <div style="font-size:11px;color:var(--text-muted)">Overdue: ${t.due.date}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    if(dueToday.length===0 && overdue.length===0){
+      document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--green)">🎉 All caught up! Nothing overdue or due today.</span>';
+    }else if(dueToday.length>0){
+      let html=document.getElementById('todoist-tasks').innerHTML;
+      if(overdue.length>0)html+='<div style="margin:16px 0 8px;font-size:12px;color:var(--text-muted)">DUE TODAY</div>';
+      document.getElementById('todoist-tasks').innerHTML=html+dueToday.map(t=>`
+        <div class="todoist-task" onclick="completeTodoistTask('${t.id}')" style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;margin-bottom:8px;cursor:pointer">
+          <div style="width:24px;height:24px;border-radius:6px;border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0">☐</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:500">${t.content}</div>
+            <div style="font-size:11px;color:var(--text-muted)">${t.priority>1?'🔴🟠🟡'.slice(0,t.priority-1)+' ':''}Due today</div>
+          </div>
+        </div>
+      `).join('');
+    }
         <div class="todoist-task" onclick="completeTodoistTask('${t.id}')" style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;margin-bottom:8px;cursor:pointer">
           <div style="width:24px;height:24px;border-radius:6px;border:2px solid var(--purple);display:flex;align-items:center;justify-content:center;flex-shrink:0">☐</div>
           <div style="flex:1">
@@ -576,7 +600,9 @@ async function loadTodoist(){
         </div>
       `).join('');
     }
-    document.getElementById('todoist-count').textContent=dueToday.length+' tasks';
+    let total=overdue.length+dueToday.length;
+    document.getElementById('todoist-count').textContent=total+' tasks';
+    document.getElementById('todoist-count').style.background=overdue.length>0?'var(--red)':'var(--purple)';
   }catch(e){
     document.getElementById('todoist-tasks').innerHTML='<span style="color:var(--red)">Error loading tasks. Check API token.</span>';
   }
