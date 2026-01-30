@@ -2,294 +2,418 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🚀 Sam's Life</title>
+<title>🚀 Sam's Life OS</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
---bg-primary:#0a0a0f;--bg-secondary:#12121a;--bg-card:#1a1a24;--bg-card-hover:#22222e;
---accent-primary:#8b5cf6;--accent-secondary:#06b6d4;--accent-success:#10b981;--accent-warning:#f59e0b;--accent-danger:#ef4444;
+--bg-primary:#0d0d12;--bg-secondary:#13131a;--bg-card:#1a1a24;--accent-primary:#8b5cf6;--accent-secondary:#06b6d4;--accent-success:#10b981;--accent-warning:#f59e0b;--accent-danger:#ef4444;
 --text-primary:#ffffff;--text-secondary:#9ca3af;--text-muted:#6b7280;
---gradient-purple:linear-gradient(135deg,#8b5cf6,#a78bfa);--gradient-cyan:linear-gradient(135deg,#06b6d4,#22d3ee);--gradient-green:linear-gradient(135deg,#10b981,#34d399);--gradient-red:linear-gradient(135deg,#ef4444,#f87171);--gradient-gold:linear-gradient(135deg,#f59e0b,#fbbf24)
+--border-subtle:rgba(255,255,255,0.08);--shadow-glow:0 0 40px rgba(139,92,246,0.15)
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden;padding-bottom:100px}
-.animated-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(ellipse at 20% 20%,rgba(139,92,246,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(6,182,212,0.1) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(16,185,129,0.05) 0%,transparent 70%);animation:bgPulse 15s ease-in-out infinite}
+body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding-bottom:100px}
+.animated-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(ellipse at 15% 20%,rgba(139,92,246,0.12) 0%,transparent 40%),radial-gradient(ellipse at 85% 80%,rgba(6,182,212,0.08) 0%,transparent 40%);animation:bgPulse 20s ease-in-out infinite}
 @keyframes bgPulse{0%,100%{opacity:1}50%{opacity:0.7}}
-
-.container{max-width:480px;margin:0 auto;padding:20px}
-
-/* Header */
-.header{text-align:center;padding:30px 20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.2));border-radius:24px;margin-bottom:20px;backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);position:relative;overflow:hidden}
-.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 50%);animation:headerShine 10s linear infinite}
-@keyframes headerShine{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-.header h1{font-size:28px;font-weight:700;margin-bottom:8px;background:linear-gradient(90deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative}
-.header .subtitle{color:var(--text-secondary);font-size:14px;position:relative}
-.header-stats{display:flex;justify-content:center;gap:24px;margin-top:20px;position:relative}
-.header-stat{text-align:center}
-.header-stat .value{font-size:24px;font-weight:700;color:var(--accent-success)}
-.header-stat .label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
-
-/* Quote Card */
-.quote-card{background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(6,182,212,0.1));border-radius:20px;padding:24px;margin-bottom:20px;border:1px solid rgba(139,92,246,0.2);position:relative}
-.quote-card::before{content:'"' ;font-size:60px;color:var(--accent-primary);opacity:0.3;position:absolute;top:5px;left:15px;font-family:Georgia,serif}
-.quote-text{font-size:16px;line-height:1.6;color:var(--text-primary);font-style:italic;padding-left:20px}
-.quote-author{text-align:right;color:var(--text-secondary);font-size:13px;margin-top:12px;padding-left:20px}
-
-/* Stats Grid */
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.stat-card{background:var(--bg-card);border-radius:16px;padding:20px;text-align:center;transition:all 0.3s;border:1px solid rgba(255,255,255,0.05)}
-.stat-card:hover{background:var(--bg-card-hover);transform:translateY(-2px)}
-.stat-card .icon{font-size:28px;margin-bottom:8px}
-.stat-card .value{font-size:26px;font-weight:700;background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-card .label{font-size:12px;color:var(--text-muted);margin-top:4px}
-.stat-card.success .value{background:linear-gradient(90deg,var(--accent-success),#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-card.warning .value{background:linear-gradient(90deg,var(--accent-warning),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-/* Sections */
-.section{background:var(--bg-card);border-radius:20px;padding:20px;margin-bottom:16px;border:1px solid rgba(255,255,255,0.05)}
-.section-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.section-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,var(--bg-secondary),var(--bg-primary));border-top:1px solid var(--border-subtle);display:flex;justify-content:space-around;padding:12px 8px 25px;z-index:1000;backdrop-filter:blur(20px)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text-muted);text-decoration:none;font-size:10px;cursor:pointer;transition:all 0.3s}
+.nav-item.active{color:var(--accent-primary)}
+.nav-item i{font-size:20px}
+.nav-item span{font-size:9px;font-weight:500}
+.page{display:none;padding-bottom:80px}
+.page.active{display:block}
+.container{max-width:420px;margin:0 auto;padding:20px;padding-bottom:100px}
+.header{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px;backdrop-filter:blur(30px);border:1px solid var(--border-accent);position:relative;overflow:hidden;box-shadow:var(--shadow-glow)}
+.header::before{content:'';position:absolute;top:-100%;left:-100%;width:300%;height:300%;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 50%);animation:headerShine 15s linear infinite}
+@keyframes headerShine{0%{transform:translate(0,0)}100%{transform:translate(30%,30%)}}
+.greeting{font-size:14px;color:var(--text-secondary);font-weight:500}
+.time-display{font-size:48px;font-weight:700;background:linear-gradient(90deg:#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.day-info{font-size:13px;color:var(--text-muted);margin-top:4px}
+.header-stats{display:flex;justify-content:space-between;margin-top:24px}
+.header-stat{text-align:center;flex:1}
+.header-stat:not(:last-child){border-right:1px solid var(--border-subtle)}
+.header-stat .value{font-size:20px;font-weight:700}
+.header-stat .label{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+.header-stat.success .value{color:var(--accent-success)}
+.header-stat.cyan .value{color:var(--accent-secondary)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.stat-card{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:20px;padding:20px;text-align:center;border:1px solid var(--border-subtle)}
+.stat-card .icon{font-size:26px;margin-bottom:8px}
+.stat-card .value{font-size:24px;font-weight:700;background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-card .label{font-size:10px;color:var(--text-muted);margin-top:6px}
+.section{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:24px;padding:24px;margin-bottom:18px;border:1px solid var(--border-subtle)}
+.section-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
+.section-left{display:flex;align-items:center;gap:14px}
+.section-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));border:1px solid rgba(139,92,246,0.2)}
 .section-title{font-size:16px;font-weight:600}
-
-/* Career Timeline */
-.timeline{margin-left:8px;border-left:2px solid rgba(139,92,246,0.3);padding-left:20px}
-.timeline-item{position:relative;margin-bottom:20px}
-.timeline-item::before{content:'';position:absolute;left:-26px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent-success)}
-.timeline-item.pending::before{background:var(--text-muted)}
-.timeline-item h4{font-size:14px;font-weight:600;margin-bottom:4px}
-.timeline-item p{font-size:12px;color:var(--text-secondary)}
-.timeline-item .date{font-size:11px;color:var(--text-muted);margin-top:4px}
-
-/* Habits */
-.habit-list{space-y:8px}
-.habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;transition:all 0.2s}
-.habit-item:active{background:rgba(255,255,255,0.08);transform:scale(0.98)}
-.habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0}
+.habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;cursor:pointer}
+.habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;background:transparent}
 .habit-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
-.habit-check.checked::after{content:'✓';color:white;font-size:16px;font-weight:bold}
+.habit-check.checked.morning{background:linear-gradient(135deg,var(--accent-warning),#fbbf24);border-color:var(--accent-warning)}
+.habit-check.checked.evening{background:linear-gradient(135deg,var(--accent-secondary),#22d3ee);border-color:var(--accent-secondary)}
+.habit-check.morning{border-color:var(--accent-warning)}
+.habit-check.evening{border-color:var(--accent-secondary)}
+.habit-check.checked::after{content:'✓';color:white;font-size:14px;font-weight:bold}
 .habit-info{flex:1}
-.habit-name{font-size:14px;font-weight:500}
-.habit-streak{font-size:12px;color:var(--accent-warning);margin-top:2px}
-.habit-streak::before{content:'🔥 '}
-
-/* Space Widget */
-.space-widget{background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(6,182,212,0.1));border-radius:16px;padding:20px;border:1px solid rgba(139,92,246,0.2)}
-.space-fact{font-size:14px;line-height:1.6;color:var(--text-primary);padding:12px;background:rgba(0,0,0,0.2);border-radius:12px;border-left:3px solid var(--accent-primary)}
-.space-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
-.space-stat{text-align:center;padding:12px;background:rgba(255,255,255,0.05);border-radius:10px}
-.space-stat .value{font-size:16px;font-weight:700;color:var(--accent-secondary)}
-.space-stat .label{font-size:10px;color:var(--text-muted);margin-top:4px}
-
-/* Goals */
-.goal-item{margin-bottom:16px}
+.habit-name{font-size:13px;font-weight:500}
+.goal-item{margin-bottom:18px}
 .goal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.goal-name{font-size:14px;font-weight:500}
+.goal-name{font-size:13px;font-weight:500}
 .goal-progress{font-size:12px;color:var(--text-secondary)}
-.goal-bar{height:8px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden}
-.goal-fill{height:100%;border-radius:4px;transition:width 0.5s ease}
-.goal-fill.green{background:var(--gradient-green)}.goal-fill.yellow{background:var(--gradient-gold)}.goal-fill.red{background:var(--gradient-red)}
-
-/* Challenge */
-.challenge-box{background:linear-gradient(135deg,rgba(6,182,212,0.15),rgba(139,92,246,0.1));border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(6,182,212,0.2)}
-.challenge-badge{display:inline-block;padding:6px 16px;background:var(--gradient-cyan);color:var(--bg-primary);border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
-.challenge-title{font-size:18px;font-weight:700;margin:16px 0 8px;background:linear-gradient(90deg,var(--accent-secondary),var(--accent-primary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.challenge-desc{font-size:13px;color:var(--text-secondary);line-height:1.5}
-.challenge-progress{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:13px;color:var(--text-secondary)}
-.challenge-progress span{color:var(--accent-success);font-weight:600}
-
-/* Weather */
-.weather-main{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 0}
-.weather-temp{font-size:48px;font-weight:200;color:var(--accent-warning)}
-.weather-icon{font-size:48px}
-.weather-details{display:flex;justify-content:center;gap:30px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1)}
-.weather-detail{text-align:center}
-.weather-detail .value{font-size:16px;font-weight:600;color:var(--accent-secondary)}
-.weather-detail .label{font-size:11px;color:var(--text-muted)}
-
-/* Footer */
-.footer{text-align:center;padding:30px 20px;color:var(--text-muted);font-size:12px}
-.footer p{margin-bottom:4px}
-.footer .brand{color:var(--accent-primary);font-weight:600}
-
-/* Animations */
-@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.section{animation:fadeInUp 0.5s ease forwards}
-.section:nth-child(2){animation-delay:0.1s}.section:nth-child(3){animation-delay:0.2s}.section:nth-child(4){animation-delay:0.3s}.section:nth-child(5){animation-delay:0.4s}.section:nth-child(6){animation-delay:0.5s}.section:nth-child(7){animation-delay:0.6s}
-
-/* Quick Actions */
-.quick-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.quick-btn{flex:1;min-width:70px;padding:12px 8px;background:rgba(255,255,255,0.05);border:none;border-radius:12px;color:var(--text-primary);font-size:12px;text-align:center;cursor:pointer;transition:all 0.2s}
-.quick-btn:active{background:rgba(255,255,255,0.1);transform:scale(0.95)}
-.quick-btn .icon{display:block;font-size:20px;margin-bottom:4px}
-
-/* Responsive */
-@media(max-width:380px){.header-stats{gap:16px}.header-stat .value{font-size:20px}.stats-grid{grid-template-columns:1fr}}
+.goal-bar{height:8px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden}
+.goal-fill{height:100%;border-radius:6px;transition:width 0.8s}
+.goal-fill.green{background:linear-gradient(90deg,var(--accent-success),#34d399)}
+.goal-fill.yellow{background:linear-gradient(90deg,var(--accent-warning),#fbbf24)}
+.goal-fill.red{background:linear-gradient(90deg,var(--accent-danger),#f87171)}
+.goal-fill.purple{background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary))}
+.todo-input-group{display:flex;gap:10px;margin-bottom:16px}
+.todo-input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:12px;color:var(--text-primary);font-size:14px;outline:none}
+.todo-add{width:48px;background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));border:none;border-radius:12px;color:white;font-size:20px;cursor:pointer}
+.todoist-item{display:flex;align-items:center;gap:12px;padding:14px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;cursor:pointer}
+.todoist-check{width:24px;height:24px;border-radius:6px;border:2px solid var(--text-muted);flex-shrink:0;transition:all 0.2s}
+.todoist-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
+.todoist-check.checked::after{content:'✓';color:white;font-size:14px;display:flex;align-items:center;justify-content:center;height:100%}
+.todoist-text{flex:1;font-size:13px}
+.todoist-text.done{text-decoration:line-through;color:var(--text-muted)}
+.timeline{margin-left:8px;border-left:2px solid rgba(139,92,246,0.2);padding-left:20px}
+.timeline-item{position:relative;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-subtle)}
+.timeline-item::before{content:'';position:absolute;left:-25px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent-warning);box-shadow:0 0 15px rgba(245,158,11,0.5)}
+.timeline-item.pending::before{background:var(--text-muted);box-shadow:none}
+.timeline-item h4{font-size:13px;font-weight:600;margin-bottom:4px}
+.timeline-item p{font-size:11px;color:var(--text-secondary)}
+.timeline-item .date{font-size:10px;color:var(--text-muted);margin-top:4px}
+.space-widget{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.06));border-radius:16px;padding:18px;border:1px solid rgba(139,92,246,0.15)}
+.space-fact{font-size:13px;line-height:1.6;color:var(--text-primary);padding:12px;background:rgba(0,0,0,0.2);border-radius:10px;border-left:3px solid var(--accent-primary)}
+.quote-card{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.05));border-radius:18px;padding:20px;margin-bottom:20px;border:1px solid var(--border-subtle);position:relative}
+.quote-card::before{content:'"' ;font-size:60px;font-family:Georgia,serif;position:absolute;top:-5px;left:12px;color:var(--accent-primary);opacity:0.15}
+.quote-text{font-size:14px;line-height:1.6;color:var(--text-primary);font-style:italic;padding-left:20px}
+.quote-author{font-size:11px;color:var(--text-secondary);margin-top:10px;padding-left:20px;text-align:right}
+.tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:var(--accent-primary);border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase}
+.tag.success{background:rgba(16,185,129,0.15);color:var(--accent-success)}
+.tag.warning{background:rgba(245,158,11,0.15);color:var(--accent-warning)}
+.tag.info{background:rgba(6,182,212,0.15);color:var(--accent-secondary)}
+.tag.danger{background:rgba(239,68,68,0.15);color:var(--accent-danger)}
+.footer{text-align:center;padding:24px 20px;color:var(--text-muted);font-size:10px}
+@media (min-width: 1024px){.container{max-width:900px;display:block;padding:40px}.nav-bar{display:none}.page.active{display:block}}
+@media (max-width: 767px){.container{max-width:100%;padding:16px}.header{padding:24px 20px;border-radius:20px}.time-display{font-size:40px}.section{padding:20px;border-radius:20px}.stats-grid{gap:10px}.stat-card{padding:16px}.stat-card .value{font-size:22px}}
 </style>
 </head>
 <body>
-<div class="animated-bg"></div>
+<!-- Page: Dashboard -->
+<div id="page-dashboard" class="page active">
 <div class="container">
-<!-- Header -->
 <div class="header">
-<h1>🚀 Sam's Life</h1>
-<p class="subtitle">Your command center</p>
+<div class="header-top">
+<div>
+<div class="greeting">SAM'S LIFE OS</div>
+<div class="time-display" id="clock">--:--</div>
+<div class="day-info" id="dayInfo">Loading...</div>
+</div>
+</div>
 <div class="header-stats">
-<div class="header-stat"><div class="value" id="clock">--:--</div><div class="label">Friday</div></div>
-<div class="header-stat"><div class="value">6%</div><div class="label">YEAR</div></div>
-<div class="header-stat"><div class="value">30</div><div class="label">DAYS TO GOAL</div></div>
+<div class="header-stat"><div class="value" id="yearProgress">--%</div><div class="label">YEAR</div></div>
+<div class="header-stat cyan"><div class="value" id="daysToGoal">--</div><div class="label">DAYS TO GOAL</div></div>
+<div class="header-stat success"><div class="value">TBD</div><div class="label">DEBT</div></div>
 </div>
 </div>
 
-<!-- Quote -->
-<div class="quote-card">
-<p class="quote-text">"The future depends on what you do today."</p>
-<p class="quote-author">— Mahatma Gandhi</p>
-</div>
-
-<!-- Quick Stats -->
 <div class="stats-grid">
-<div class="stat-card success"><div class="icon">💰</div><div class="value">£7850</div><div class="label">Debt Remaining</div></div>
-<div class="stat-card warning"><div class="icon">🔥</div><div class="value">7</div><div class="label">Habit Streak</div></div>
+<div class="stat-card"><div class="icon">💼</div><div class="value">ScS</div><div class="label">Current Employer</div></div>
+<div class="stat-card"><div class="icon">🏃</div><div class="value">0km</div><div class="label">Running Total</div></div>
+<div class="stat-card"><div class="icon">📚</div><div class="value">0/24</div><div class="label">Books Read</div></div>
+<div class="stat-card"><div class="icon">💰</div><div class="value">TBD</div><div class="label">Debt</div></div>
 </div>
 
-<!-- Career -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">💼</div><div class="section-title">Infinite Energy</div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div>
+<div class="section-title">Morning Routine</div>
+</div>
+<span class="tag warning" id="morningProgress">0/6</span>
+</div>
+<div id="morningHabits"></div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div>
+<div class="section-title">Evening Routine</div>
+</div>
+<span class="tag info" id="eveningProgress">0/5</span>
+</div>
+<div id="eveningHabits"></div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">💼</div>
+<div class="section-title">Career Journey</div>
+</div>
+<span class="tag info">ScS → Infinite Energy</span>
+</div>
 <div class="timeline">
-<div class="timeline-item"><h4>CRM Manager</h4><p>Reports to Ben • Started March 2nd</p></div>
-<div class="timeline-item pending"><h4>90-Day Review</h4><p>Target: May 31st</p><div class="date">61 days away</div></div>
-<div class="timeline-item pending"><h4>Promotion Opportunity</h4><p>Target: September 1st</p><div class="date">154 days away</div></div>
+<div class="timeline-item"><h4>ScS (Sales Manager) <span class="tag warning">Current</span></h4><p>Working until March 2nd, 2026</p><div class="date">32 days remaining</div></div>
+<div class="timeline-item pending"><h4>Infinite Energy (CRM Manager)</h4><p>Reports to Ben • Starts March 2nd</p><div class="date">Starts in 32 days</div></div>
+<div class="timeline-item pending"><h4>90-Day Review</h4><p>Performance milestone</p><div class="date">June 1st</div></div>
 </div>
 </div>
 
-<!-- Habits -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-gold)">✅</div><div class="section-title">Today's Habits</div></div>
-<div class="habit-list" id="habits">
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">🏃 Morning Exercise</div><div class="habit-streak">3 days</div></div></div>
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📚 Read 30 mins</div><div class="habit-streak">7 days</div></div></div>
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📵 No social media AM</div><div class="habit-streak">5 days</div></div></div>
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">📝 Plan tomorrow</div><div class="habit-streak">2 days</div></div></div>
-<div class="habit-item" onclick="toggleHabit(this)"><div class="habit-check"></div><div class="habit-info"><div class="habit-name">🧘 Meditate</div><div class="habit-streak">4 days</div></div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🌌</div>
+<div class="section-title">Space Fact</div>
 </div>
 </div>
-
-<!-- Space -->
-<div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">🌌</div><div class="section-title">Space & Astronomy</div></div>
 <div class="space-widget">
-<div class="space-fact">Black holes are not actually black; they emit radiation.</div>
-<div class="space-stats">
-<div class="space-stat"><div class="value">107,000</div><div class="label">km/h Earth</div></div>
-<div class="space-stat"><div class="value">384,400</div><div class="label">km to Moon</div></div>
-<div class="space-stat"><div class="value">149.6M</div><div class="label">km to Sun</div></div>
-</div>
+<div class="space-fact" id="spaceFact">Loading...</div>
 </div>
 </div>
 
-<!-- Goals -->
+<div class="quote-card">
+<p class="quote-text">"The only way to do great work is to love what you do."</p>
+<p class="quote-author">— Steve Jobs</p>
+</div>
+
+<div class="footer"><p>🔄 Auto-updates • Built with 🤖 Clawdbot</p></div>
+</div>
+</div>
+
+<!-- Page: Financial -->
+<div id="page-financial" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">FINANCIAL</div>
+<div class="time-display" id="clock2">--:--</div>
+<div class="day-info" id="dayInfo2">Loading...</div>
+</div>
+
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-green)">🎯</div><div class="section-title">Active Goals</div></div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Emergency Fund</span><span class="goal-progress">£1,200 / £3,000</span></div><div class="goal-bar"><div class="goal-fill green" style="width:40%"></div></div></div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Read 24 Books</span><span class="goal-progress">8 / 24</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:33%"></div></div></div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Run 500km</span><span class="goal-progress">127 / 500km</span></div><div class="goal-bar"><div class="goal-fill red" style="width:25%"></div></div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">💰</div>
+<div class="section-title">Financial Overview</div>
+</div>
+<span class="tag warning">Awaiting Details</span>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+<div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--accent-success)">---</div><div style="font-size:10px;color:var(--text-muted)">Monthly Budget</div></div>
+<div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--accent-warning)">---</div><div style="font-size:10px;color:var(--text-muted)">Spent</div></div>
+<div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--accent-secondary)">---</div><div style="font-size:10px;color:var(--text-muted)">Remaining</div></div>
+<div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--accent-danger)">---</div><div style="font-size:10px;color:var(--text-muted)">Debt</div></div>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Emergency Fund</span><span class="goal-progress">£0 / £3,000</span></div><div class="goal-bar"><div class="goal-fill red" style="width:0%"></div></div></div>
 </div>
 
-<!-- Challenge -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-cyan)">🏆</div><div class="section-title">Weekly Challenge</div></div>
-<div class="challenge-box">
-<span class="challenge-badge">finance</span>
-<div class="challenge-title">Master Your Money</div>
-<div class="challenge-desc">Create a budget, track all expenses for one week, and identify three areas to cut costs. Set up automatic savings of 10% of each paycheck.</div>
-<div class="challenge-progress">Progress: <span>0/7 days</span></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">📊</div>
+<div class="section-title">Financial Goals</div>
+</div>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Emergency Fund (£3,000)</span><span class="goal-progress">£0 saved</span></div><div class="goal-bar"><div class="goal-fill red" style="width:0%"></div></div></div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Clear All Debt</span><span class="goal-progress">Pending analysis</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:5%"></div></div></div>
+</div>
+<div class="footer"><p>💰 Send me your detailed balances!</p></div>
 </div>
 </div>
 
-<!-- Weather -->
+<!-- Page: Health -->
+<div id="page-health" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">HEALTH & FITNESS</div>
+<div class="time-display" id="clock3">--:--</div>
+<div class="day-info" id="dayInfo3">Loading...</div>
+</div>
+
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-gold)">🌤️</div><div class="section-title">Sunderland</div></div>
-<div class="weather-main"><div class="weather-temp">7°</div><div class="weather-icon">☁️</div></div>
-<div class="weather-details">
-<div class="weather-detail"><div class="value">08:02</div><div class="label">Sunrise</div></div>
-<div class="weather-detail"><div class="value">16:45</div><div class="label">Sunset</div></div>
-<div class="weather-detail"><div class="value">87%</div><div class="label">Humidity</div></div>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🏃</div>
+<div class="section-title">Running Goal</div>
 </div>
+<span class="tag">2026 Challenge</span>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">500km in 2026</span><span class="goal-progress">0 / 500km</span></div><div class="goal-bar"><div class="goal-fill purple" style="width:0%"></div></div></div>
 </div>
 
-<!-- Quick Actions -->
 <div class="section">
-<div class="section-header"><div class="section-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">⚡</div><div class="section-title">Quick Actions</div></div>
-<div class="quick-actions">
-<button class="quick-btn" onclick="logAction('exercise')"><span class="icon">🏃</span>Exercise</button>
-<button class="quick-btn" onclick="logAction('read')"><span class="icon">📚</span>Read</button>
-<button class="quick-btn" onclick="logAction('expense')"><span class="icon">💸</span>Expense</button>
-<button class="quick-btn" onclick="logAction('focus')"><span class="icon">🎯</span>Focus</button>
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">📚</div>
+<div class="section-title">Reading Challenge</div>
+</div>
+<span class="tag info">24 Books</span>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Read 24 Books in 2026</span><span class="goal-progress">0 / 24</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:0%"></div></div></div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">⚖️</div>
+<div class="section-title">Weight Target</div>
+</div>
+<span class="tag">TBD</span>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Weight Goal</span><span class="goal-progress">-- / -- kg</span></div><div class="goal-bar"><div class="goal-fill green" style="width:50%"></div></div></div>
+</div>
+<div class="footer"><p>🏃 Running • 📚 Reading • ⚖️ Weight</p></div>
 </div>
 </div>
 
-<!-- Footer -->
-<div class="footer">
-<p>🌙 Auto-updates hourly</p>
-<p>Built with 🤖 Clawdbot • Generated: 2026-01-30 13:00</p>
+<!-- Page: Tasks -->
+<div id="page-todoist" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">TASKS</div>
+<div class="time-display" id="clock4">--:--</div>
+<div class="day-info" id="dayInfo4">Loading...</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">📋</div>
+<div class="section-title">Todoist Tasks</div>
+</div>
+<span class="tag" id="todoistCount">Loading...</span>
+</div>
+
+<div style="background:rgba(255,255,255,0.03);border-radius:16px;padding:16px;margin-bottom:16px">
+<input type="text" class="todo-input" id="todoistInput" placeholder="Task name..." style="margin-bottom:10px">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+<select id="todoistProject" style="padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:8px;color:var(--text-primary);font-size:12px">
+<option value="">Select Project</option>
+<option value="2364808227">Inbox</option>
+<option value="2364808454">work</option>
+<option value="2364814966">personal</option>
+<option value="2364875108">shoppinglist</option>
+</select>
+<select id="todoistPriority" style="padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:8px;color:var(--text-primary);font-size:12px">
+<option value="0">No Priority</option>
+<option value="4" style="color:var(--accent-danger)">🔴 P1</option>
+<option value="3" style="color:var(--accent-warning)">🟠 P2</option>
+<option value="2" style="color:var(--accent-secondary)">🟡 P3</option>
+</select>
+<input type="date" id="todoistDue" style="padding:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:8px;color:var(--text-primary);font-size:12px">
+</div>
+<button onclick="addTodoistTask()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));border:none;border-radius:10px;color:white;font-size:14px;font-weight:600;cursor:pointer">Add Task</button>
+</div>
+
+<div id="todoistTasks" style="font-size:13px;color:var(--text-secondary)">Loading from Todoist...</div>
+</div>
+<div class="footer"><p>📋 Synced with Todoist API</p></div>
 </div>
 </div>
+
+<!-- Page: Settings -->
+<div id="page-settings" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">SETTINGS & AUTOMATIONS</div>
+<div class="time-display" id="clock5">--:--</div>
+<div class="day-info" id="dayInfo5">Loading...</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">⚙️</div>
+<div class="section-title">Configuration</div>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:13px;line-height:1.6">Configure your Life OS preferences. Coming soon:</p>
+<ul style="color:var(--text-secondary);font-size:13px;line-height:1.8;margin-top:16px;padding-left:20px">
+<li>Financial accounts integration</li>
+<li>Weather location</li>
+<li>Goal targets</li>
+<li>Habit customization</li>
+<li>Automation rules</li>
+</ul>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🔄</div>
+<div class="section-title">Automations</div>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:13px;line-height:1.6">Automated workflows coming soon:</p>
+<ul style="color:var(--text-secondary);font-size:13px;line-height:1.8;margin-top:16px;padding-left:20px">
+<li>💰 Morning financial summary</li>
+<li>🏃 Workout tracking sync</li>
+<li>📚 Reading progress updates</li>
+<li>💼 Career milestone alerts</li>
+<li>🌤️ Daily weather briefing</li>
+</ul>
+</div>
+<div class="footer"><p>⚙️ Settings & Automations</p></div>
+</div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+<div class="nav-item active" onclick="switchPage('dashboard',this)"><i class="fas fa-home"></i><span>Home</span></div>
+<div class="nav-item" onclick="switchPage('financial',this)"><i class="fas fa-pound-sign"></i><span>Money</span></div>
+<div class="nav-item" onclick="switchPage('health',this)"><i class="fas fa-heart"></i><span>Health</span></div>
+<div class="nav-item" onclick="switchPage('todoist',this)"><i class="fas fa-tasks"></i><span>Tasks</span></div>
+<div class="nav-item" onclick="switchPage('settings',this)"><i class="fas fa-cog"></i><span>Settings</span></div>
+</nav>
 
 <script>
-function updateClock(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}
-updateClock();setInterval(updateClock,1000);
-function toggleHabit(e){e.querySelector('.habit-check').classList.toggle('checked')}
-function logAction(a){console.log('Action:',a)}
-setInterval(()=>location.reload(),300000);
-</script>
-</body>
-</html>
-// Create a task with full options
-async function createTask(content, options = {}) {
-  try {
-    const body = { content };
-    if (options.dueDate) body.due_date = options.dueDate;
-    if (options.priority && options.priority > 0) body.priority = options.priority;
-    if (options.projectId) body.project_id = options.projectId;
-    
-    const res = await fetch(`${TODOIST_API}/tasks`, {
-      method: 'POST',
-      headers: { 
-        'Authorization': `Bearer ${TODOIST_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
-    return await res.json();
-  } catch (e) {
-    console.error('Create error:', e);
-    return null;
-  }
-}
+const MORNING_HABITS=[
+{name:'⏰ Wake up at 6am',streak:0,description:'Wake up at 6am every day'},
+{name:'🌳 Stand outside 10min',streak:0,description:'Stand outside for 10 minutes'},
+{name:'💧 Drink big glass of water',streak:0,description:'Drink a big glass of water'},
+{name:'🧘 Complete stretching routine',streak:0,description:'Complete stretching routine'},
+{name:'☕ Drink coffee',streak:0,description:'Drink coffee (1 hour after waking)'},
+{name:'✍️ Write 3 things',streak:0,description:"Today's Win, One Thing, Obstacle + Response"}
+];
+const EVENING_HABITS=[
+{name:'🍽️ Final meal 4hrs before bed',streak:0,description:'Eat your final meal/snack of the day four hours before bed'},
+{name:'📵 Screens off 60min before bed',streak:0,description:'Screens off 60 minutes before bed'},
+{name:'📖 Read 10min before bed',streak:0,description:'Read a book ten minutes before bed'},
+{name:'☕ Avoid stimulants',streak:0,description:'Be mindful of stimulants like caffeine'},
+{name:'💡 Red/amber lights evening',streak:0,description:'Use red and amber lights in the evening'}
+];
+const SPACE_FACTS=[
+"The Sun is 93 million miles away, yet its light reaches Earth in just 8 minutes.",
+"One million Earths could fit inside the Sun.",
+"Venus spins clockwise while other planets spin counter-clockwise.",
+"A day on Venus is longer than its year.",
+"The footprints on the Moon won't disappear as there's no wind.",
+"Neutron stars can spin 600 times per second after they're born.",
+"Mars has the tallest mountain in the solar system - 3x taller than Everest.",
+"The Great Red Spot on Jupiter is a storm that has raged for 350 years."
+];
 
-// Add task with full options
-async function addTodoistTask() {
-  const input = document.getElementById('todoistInput');
-  const content = input.value.trim();
-  if (!content) return;
-  
-  const projectId = document.getElementById('todoistProject').value;
-  const priority = parseInt(document.getElementById('todoistPriority').value);
-  const dueDate = document.getElementById('todoistDue').value;
-  
-  const task = await createTask(content, {
-    projectId: projectId || undefined,
-    priority: priority || undefined,
-    dueDate: dueDate || undefined
-  });
-  
-  if (task) {
-    input.value = '';
-    document.getElementById('todoistDue').value = '';
-    document.getElementById('todoistPriority').value = '0';
-    document.getElementById('todoistProject').value = '';
-    loadTodoistTasks();
-  }
-}
+document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadMorningHabits();loadEveningHabits();loadTodoistTasks();setInterval(updateAllClocks,1000);setInterval(()=>location.reload(),300000)});
 
+function getUKTime(){const now=new Date();return now}
+function updateAllClocks(){const now=getUKTime();const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const months=['January','February','March','April','May','June','July','August','September','October','November','December'];const dayNum=now.getDate();const totalDays=(now.getFullYear()%4===0)?366:365;const yearProgress=Math.round((dayNum/totalDays)*100);const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});const dateStr=days[now.getDay()]+' '+dayNum+' '+months[now.getMonth()];['clock','clock2','clock3','clock4','clock5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=timeStr});['dayInfo','dayInfo2','dayInfo3','dayInfo4','dayInfo5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr});document.getElementById('yearProgress').textContent=yearProgress+'%';const march2=new Date('2026-03-02');const daysToGoal=Math.ceil((march2-now)/(1000*60*60*24));document.getElementById('daysToGoal').textContent=daysToGoal}
+
+function switchPage(pageName,navEl){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+pageName).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));navEl.classList.add('active')}
+
+function loadMorningHabits(){const container=document.getElementById('morningHabits');let completed=0;const saved=JSON.parse(localStorage.getItem('morningHabits')||'{}');container.innerHTML=MORNING_HABITS.map(h=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleMorningHabit('${h.name}',this)"><div class="habit-check morning ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">${h.description}</div></div></div>`}).join('');document.getElementById('morningProgress').textContent=completed+'/'+MORNING_HABITS.length}
+function toggleMorningHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('morningHabits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('morningHabits',JSON.stringify(saved));loadMorningHabits()}
+
+function loadEveningHabits(){const container=document.getElementById('eveningHabits');let completed=0;const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');container.innerHTML=EVENING_HABITS.map(h=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleEveningHabit('${h.name}',this)"><div class="habit-check evening ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">${h.description}</div></div></div>`}).join('');document.getElementById('eveningProgress').textContent=completed+'/'+EVENING_HABITS.length}
+function toggleEveningHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('eveningHabits',JSON.stringify(saved));loadEveningHabits()}
+
+function loadSpaceFact(){document.getElementById('spaceFact').textContent=SPACE_FACTS[Math.floor(Math.random()*SPACE_FACTS.length)]}
+
+const TODOIST_TOKEN='d6d547ef2cf7e84a585acaecdee6447cece3c2af';
+const TODOIST_API='https://api.todoist.com/rest/v2';
+
+async function fetchTodaysTasks(){try{const res=await fetch(`${TODOIST_API}/tasks?filter=today`,{headers:{'Authorization':`Bearer ${TODOIST_TOKEN}`}});return await res.json()}catch(e){return[]}}
+async function completeTask(taskId){try{await fetch(`${TODOIST_API}/tasks/${taskId}/close`,{method:'POST',headers:{'Authorization':`Bearer ${TODOIST_TOKEN}`}});return true}catch(e){return false}}
+async function createTask(content,options={}){try{const body={content};if(options.dueDate)body.due_date=options.dueDate;if(options.priority&&options.priority>0)body.priority=options.priority;if(options.projectId)body.project_id=options.projectId;const res=await fetch(`${TODOIST_API}/tasks`,{method:'POST',headers:{'
