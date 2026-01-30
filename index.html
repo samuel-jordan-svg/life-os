@@ -416,4 +416,19 @@ const TODOIST_API='https://api.todoist.com/rest/v2';
 
 async function fetchTodaysTasks(){try{const res=await fetch(`${TODOIST_API}/tasks?filter=today`,{headers:{'Authorization':`Bearer ${TODOIST_TOKEN}`}});return await res.json()}catch(e){return[]}}
 async function completeTask(taskId){try{await fetch(`${TODOIST_API}/tasks/${taskId}/close`,{method:'POST',headers:{'Authorization':`Bearer ${TODOIST_TOKEN}`}});return true}catch(e){return false}}
-async function createTask(content,options={}){try{const body={content};if(options.dueDate)body.due_date=options.dueDate;if(options.priority&&options.priority>0)body.priority=options.priority;if(options.projectId)body.project_id=options.projectId;const res=await fetch(`${TODOIST_API}/tasks`,{method:'POST',headers:{'
+async function createTask(content,options={}){try{const body={content};if(options.dueDate)body.due_date=options.dueDate;if(options.priority&&options.priority>0)body.priority=options.priority;if(options.projectId)body.project_id=options.projectId;const res=await fetch(`${TODOIST_API}/tasks`,{method:'POST',headers:{'        'Authorization': `Bearer ${TODOIST_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    return await res.json();
+  }catch(e){console.error('Create error:',e);return null}}
+
+async function addTodoistTask(){const input=document.getElementById('todoistInput');const content=input.value.trim();if(!content)return;const projectId=document.getElementById('todoistProject').value;const priority=parseInt(document.getElementById('todoistPriority').value);const dueDate=document.getElementById('todoistDue').value;const task=await createTask(content,{projectId:projectId||undefined,priority:priority||undefined,dueDate:dueDate||undefined});if(task){input.value='';document.getElementById('todoistDue').value='';document.getElementById('todoistPriority').value='0';document.getElementById('todoistProject').value='';loadTodoistTasks()}}
+
+async function loadTodoistTasks(){const tasks=await fetchTodaysTasks();const container=document.getElementById('todoistTasks');const countEl=document.getElementById('todoistCount');if(tasks.length===0){container.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:20px">No tasks for today!</p>';countEl.textContent='0 tasks';return}const completed=tasks.filter(t=>t.is_completed).length;countEl.textContent=completed+'/'+tasks.length+' done';container.innerHTML=tasks.map(t=>`<div class="todoist-item" onclick="toggleTodoistTask(${t.id},${t.is_completed})"><div class="todoist-check ${t.is_completed?'checked':''}" id="check-${t.id}"></div><div class="todoist-text ${t.is_completed?'done':''}">${t.content}</div></div>`).join('')}
+
+async function toggleTodoistTask(taskId,currentStatus){const checkEl=document.getElementById('check-'+taskId);if(!currentStatus){const success=await completeTask(taskId);if(success){checkEl.classList.add('checked');loadTodoistTasks()}}}
+</script>
+</body>
+</html>
