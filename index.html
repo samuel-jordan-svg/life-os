@@ -51,8 +51,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 .habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;cursor:pointer}
 .habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;background:transparent}
 .habit-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
-.habit-check.checked.amber{background:var(--accent-warning);border-color:var(--accent-warning)}
-.habit-check.amber{border-color:var(--accent-secondary)}
+.habit-check.checked.morning{background:linear-gradient(135deg,var(--accent-warning),#fbbf24);border-color:var(--accent-warning)}
+.habit-check.checked.evening{background:linear-gradient(135deg,var(--accent-secondary),#22d3ee);border-color:var(--accent-secondary)}
+.habit-check.morning{border-color:var(--accent-warning)}
+.habit-check.evening{border-color:var(--accent-secondary)}
 .habit-check.checked::after{content:'✓';color:white;font-size:14px;font-weight:bold}
 .habit-info{flex:1}
 .habit-name{font-size:13px;font-weight:500}
@@ -123,9 +125,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 
 <div class="stats-grid">
 <div class="stat-card"><div class="icon">💼</div><div class="value">ScS</div><div class="label">Current Employer</div></div>
-<div class="stat-card warning"><div class="icon">🔥</div><div class="value">0</div><div class="label">Day Streak</div></div>
+<div class="stat-card warning"><div class="icon">🏃</div><div class="value">0km</div><div class="label">Running Total</div></div>
 <div class="stat-card"><div class="icon">📚</div><div class="value">0/24</div><div class="label">Books Read</div></div>
-<div class="stat-card"><div class="icon">🏃</div><div class="value">0km</div><div class="label">Running Total</div></div>
+<div class="stat-card"><div class="icon">💰</div><div class="value">TBD</div><div class="label">Debt</div></div>
 </div>
 
 <div class="section">
@@ -157,7 +159,18 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 <div class="section">
 <div class="section-header">
 <div class="section-left">
-<div class="section-icon" style="background:linear-gradient(135deg,rgba(139,92,246,0.4),rgba(168,85,247,0.3))">🌙</div>
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div>
+<div class="section-title">Morning Routine</div>
+</div>
+<span class="tag warning" id="morningProgress">0/6</span>
+</div>
+<div id="morningHabits"></div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div>
 <div class="section-title">Evening Routine</div>
 </div>
 <span class="tag info" id="eveningProgress">0/5</span>
@@ -365,19 +378,20 @@ body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--tex
 </nav>
 
 <script>
+const MORNING_HABITS=[
+{name:'⏰ Wake up at 6am',streak:0,description:'Wake up at 6am every day'},
+{name:'🌳 Stand outside 10min',streak:0,description:'Stand outside for 10 minutes'},
+{name:'💧 Drink big glass of water',streak:0,description:'Drink a big glass of water'},
+{name:'🧘 Complete stretching routine',streak:0,description:'Complete stretching routine'},
+{name:'☕ Drink coffee',streak:0,description:'Drink coffee (1 hour after waking)'},
+{name:'✍️ Write 3 things',streak:0,description:"Today's Win, One Thing, Obstacle + Response"}
+];
 const EVENING_HABITS=[
 {name:'🍽️ Final meal 4hrs before bed',streak:0,description:'Eat your final meal/snack of the day four hours before bed'},
 {name:'📵 Screens off 60min before bed',streak:0,description:'Screens off 60 minutes before bed'},
 {name:'📖 Read 10min before bed',streak:0,description:'Read a book ten minutes before bed'},
 {name:'☕ Avoid stimulants',streak:0,description:'Be mindful of stimulants like caffeine'},
 {name:'💡 Red/amber lights evening',streak:0,description:'Use red and amber lights in the evening'}
-];
-const DAY_HABITS=[
-{name:'🏃 Morning Exercise',streak:0},
-{name:'📚 Read 30 mins',streak:0},
-{name:'📵 No social media AM',streak:0},
-{name:'📝 Plan tomorrow',streak:0},
-{name:'🧘 Meditate',streak:0}
 ];
 const SPACE_FACTS=[
 "The Sun is 93 million miles away, yet its light reaches Earth in just 8 minutes.",
@@ -389,7 +403,7 @@ const SPACE_FACTS=[
 "Mars has the tallest mountain in the solar system - 3x taller than Everest.",
 "The Great Red Spot on Jupiter is a storm that has raged for 350 years."
 ];
-document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadHabits();loadEveningHabits();loadTodos();loadSpaceFact();loadTodoistTasks();setInterval(updateAllClocks,1000);setInterval(()=>location.reload(),300000)});
+document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadMorningHabits();loadEveningHabits();loadTodos();loadSpaceFact();loadTodoistTasks();setInterval(updateAllClocks,1000);setInterval(()=>location.reload(),300000)});
 
 // UK Time - Use browser timezone (automatically UK if browser set correctly)
 function getUKTime(){const now=new Date();return now}
@@ -397,9 +411,9 @@ function updateAllClocks(){const now=getUKTime();const days=['Sunday','Monday','
 
 function switchPage(pageName,navEl){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+pageName).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));navEl.classList.add('active')}
 
-function loadHabits(){const container=document.getElementById('habits');let completed=0;const saved=JSON.parse(localStorage.getItem('dayHabits')||'{}');container.innerHTML=DAY_HABITS.map(h=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleHabit('${h.name}',this)"><div class="habit-check ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div class="habit-streak">${h.streak} days</div></div></div>`}).join('');document.getElementById('habitProgress').textContent=completed+'/'+DAY_HABITS.length}
-function toggleHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('dayHabits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('dayHabits',JSON.stringify(saved));loadHabits()}
-function loadEveningHabits(){const container=document.getElementById('eveningHabits');let completed=0;const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');container.innerHTML=EVENING_HABITS.map((h,i)=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleEveningHabit('${h.name}',this)"><div class="habit-check amber ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">${h.description}</div></div></div>`}).join('');document.getElementById('eveningProgress').textContent=completed+'/'+EVENING_HABITS.length}
+function loadMorningHabits(){const container=document.getElementById('morningHabits');let completed=0;const saved=JSON.parse(localStorage.getItem('morningHabits')||'{}');container.innerHTML=MORNING_HABITS.map(h=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleMorningHabit('${h.name}',this)"><div class="habit-check morning ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">${h.description}</div></div></div>`}).join('');document.getElementById('morningProgress').textContent=completed+'/'+MORNING_HABITS.length}
+function toggleMorningHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('morningHabits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('morningHabits',JSON.stringify(saved));loadMorningHabits()}
+function loadEveningHabits(){const container=document.getElementById('eveningHabits');let completed=0;const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');container.innerHTML=EVENING_HABITS.map((h,i)=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleEveningHabit('${h.name}',this)"><div class="habit-check evening ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">${h.description}</div></div></div>`}).join('');document.getElementById('eveningProgress').textContent=completed+'/'+EVENING_HABITS.length}
 function toggleEveningHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('eveningHabits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('eveningHabits',JSON.stringify(saved));loadEveningHabits()}
 function loadTodos(){const saved=JSON.parse(localStorage.getItem('todos')||'[]');const container=document.getElementById('todoList');const completed=saved.filter(t=>t.done).length;container.innerHTML=saved.map((t,i)=>`<div class="todo-item"><div class="todo-check ${t.done?'checked':''}" onclick="toggleTodo(${i})"></div><div class="todo-text ${t.done?'done':''}">${t.text}</div><div class="todo-delete" onclick="deleteTodo(${i})">×</div></div>`).join('');document.getElementById('todoCount').textContent=completed+'/'+saved.length;localStorage.setItem('todos',JSON.stringify(saved))}
 function addTodo(){const input=document.getElementById('todoInput');const text=input.value.trim();if(!text){return}const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved.push({text,done:false});input.value='';localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
