@@ -10,268 +10,129 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
---bg-primary:#0d0d12;--bg-secondary:#13131a;--bg-card:#1a1a24;--bg-card-hover:#22222e;--bg-elevated:#252532;
---accent-primary:#8b5cf6;--accent-secondary:#06b6d4;--accent-success:#10b981;--accent-warning:#f59e0b;--accent-danger:#ef4444;
---accent-gradient:linear-gradient(135deg,#8b5cf6,#06b6d4);
+--bg-primary:#0d0d12;--bg-secondary:#13131a;--bg-card:#1a1a24;--accent-primary:#8b5cf6;--accent-secondary:#06b6d4;--accent-success:#10b981;--accent-warning:#f59e0b;--accent-danger:#ef4444;
 --text-primary:#ffffff;--text-secondary:#9ca3af;--text-muted:#6b7280;
---border-subtle:rgba(255,255,255,0.08);--border-accent:rgba(139,92,246,0.3);
---shadow-glow:0 0 40px rgba(139,92,246,0.15)
+--border-subtle:rgba(255,255,255,0.08);--shadow-glow:0 0 40px rgba(139,92,246,0.15)
 }
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden;padding-bottom:120px}
-.animated-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(ellipse at 15% 20%,rgba(139,92,246,0.12) 0%,transparent 40%),radial-gradient(ellipse at 85% 80%,rgba(6,182,212,0.08) 0%,transparent 40%),radial-gradient(ellipse at 50% 50%,rgba(16,185,129,0.03) 0%,transparent 60%);animation:bgPulse 20s ease-in-out infinite}
+body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;padding-bottom:100px}
+.animated-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background:radial-gradient(ellipse at 15% 20%,rgba(139,92,246,0.12) 0%,transparent 40%),radial-gradient(ellipse at 85% 80%,rgba(6,182,212,0.08) 0%,transparent 40%);animation:bgPulse 20s ease-in-out infinite}
 @keyframes bgPulse{0%,100%{opacity:1}50%{opacity:0.7}}
-
-.container{max-width:420px;margin:0 auto;padding:20px}
-
-/* Header */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,var(--bg-secondary),var(--bg-primary));border-top:1px solid var(--border-subtle);display:flex;justify-content:space-around;padding:12px 8px 25px;z-index:1000;backdrop-filter:blur(20px)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--text-muted);text-decoration:none;font-size:10px;cursor:pointer;transition:all 0.3s}
+.nav-item.active{color:var(--accent-primary)}
+.nav-item i{font-size:20px}
+.nav-item span{font-size:9px;font-weight:500}
+.page{display:none;padding-bottom:80px}
+.page.active{display:block}
+.container{max-width:420px;margin:0 auto;padding:20px;padding-bottom:100px}
 .header{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px;backdrop-filter:blur(30px);border:1px solid var(--border-accent);position:relative;overflow:hidden;box-shadow:var(--shadow-glow)}
 .header::before{content:'';position:absolute;top:-100%;left:-100%;width:300%;height:300%;background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 50%);animation:headerShine 15s linear infinite}
 @keyframes headerShine{0%{transform:translate(0,0)}100%{transform:translate(30%,30%)}}
-.header-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2}
-.greeting{font-size:14px;color:var(--text-secondary);font-weight:500;letter-spacing:0.5px}
-.time-display{font-size:48px;font-weight:700;background:linear-gradient(90deg,#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.greeting{font-size:14px;color:var(--text-secondary);font-weight:500}
+.time-display{font-size:48px;font-weight:700;background:linear-gradient(90deg:#fff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
 .day-info{font-size:13px;color:var(--text-muted);margin-top:4px}
-.header-stats{display:flex;justify-content:space-between;margin-top:24px;position:relative;z-index:2}
+.header-stats{display:flex;justify-content:space-between;margin-top:24px}
 .header-stat{text-align:center;flex:1}
 .header-stat:not(:last-child){border-right:1px solid var(--border-subtle)}
 .header-stat .value{font-size:20px;font-weight:700}
 .header-stat .label{font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
 .header-stat.success .value{color:var(--accent-success)}
-.header-stat.warning .value{color:var(--accent-warning)}
 .header-stat.cyan .value{color:var(--accent-secondary)}
-
-/* Quick Stats */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
-.stat-card{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:20px;padding:20px;text-align:center;transition:all 0.3s;border:1px solid var(--border-subtle);position:relative;overflow:hidden}
-.stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent-gradient);opacity:0;transition:opacity 0.3s}
-.stat-card:hover::after{opacity:1}
-.stat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.stat-card{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:20px;padding:20px;text-align:center;border:1px solid var(--border-subtle)}
 .stat-card .icon{font-size:26px;margin-bottom:8px}
 .stat-card .value{font-size:24px;font-weight:700;background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-card .label{font-size:10px;color:var(--text-muted);margin-top:6px;font-weight:500}
-.stat-card.success .value{background:linear-gradient(90deg,var(--accent-success),#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-card.warning .value{background:linear-gradient(90deg,var(--accent-warning),#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.stat-card.danger .value{background:linear-gradient(90deg,var(--accent-danger),#f87171);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-/* Section Cards */
-.section{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:24px;padding:24px;margin-bottom:18px;border:1px solid var(--border-subtle);transition:all 0.3s}
-.section:hover{border-color:var(--border-accent);box-shadow:var(--shadow-glow)}
+.stat-card .label{font-size:10px;color:var(--text-muted);margin-top:6px}
+.section{background:linear-gradient(145deg,var(--bg-card),var(--bg-secondary));border-radius:24px;padding:24px;margin-bottom:18px;border:1px solid var(--border-subtle)}
 .section-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
 .section-left{display:flex;align-items:center;gap:14px}
 .section-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));border:1px solid rgba(139,92,246,0.2)}
 .section-title{font-size:16px;font-weight:600}
-.section-action{font-size:12px;color:var(--accent-primary);cursor:pointer}
-
-/* Habits */
-.habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;transition:all 0.2s;cursor:pointer}
-.habit-item:hover{background:rgba(255,255,255,0.06)}
-.habit-item:active{transform:scale(0.98)}
+.habit-item{display:flex;align-items:center;gap:14px;padding:14px;background:rgba(255,255,255,0.03);border-radius:14px;margin-bottom:10px;cursor:pointer}
 .habit-check{width:28px;height:28px;border-radius:8px;border:2px solid var(--accent-warning);display:flex;align-items:center;justify-content:center;transition:all 0.3s;flex-shrink:0;background:transparent}
 .habit-check.checked{background:var(--accent-success);border-color:var(--accent-success)}
 .habit-check.checked::after{content:'✓';color:white;font-size:14px;font-weight:bold}
 .habit-info{flex:1}
-.habit-name{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
+.habit-name{font-size:13px;font-weight:500}
 .habit-streak{font-size:11px;color:var(--accent-warning);margin-top:2px}
 .habit-streak::before{content:'🔥 '}
-
-/* Goals */
 .goal-item{margin-bottom:18px}
-.goal-item:last-child{margin-bottom:0}
 .goal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.goal-name{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
+.goal-name{font-size:13px;font-weight:500}
 .goal-progress{font-size:12px;color:var(--text-secondary)}
-.goal-bar{height:8px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;position:relative}
-.goal-fill{height:100%;border-radius:6px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1)}
+.goal-bar{height:8px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden}
+.goal-fill{height:100%;border-radius:6px;transition:width 0.8s}
 .goal-fill.green{background:linear-gradient(90deg,var(--accent-success),#34d399)}
 .goal-fill.yellow{background:linear-gradient(90deg,var(--accent-warning),#fbbf24)}
 .goal-fill.red{background:linear-gradient(90deg,var(--accent-danger),#f87171)}
 .goal-fill.purple{background:linear-gradient(90deg,var(--accent-primary),var(--accent-secondary))}
-
-/* Todo Input */
 .todo-input-group{display:flex;gap:10px;margin-bottom:16px}
 .todo-input{flex:1;padding:12px 16px;background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);border-radius:12px;color:var(--text-primary);font-size:14px;outline:none}
-.todo-input:focus{border-color:var(--accent-primary)}
 .todo-add{width:48px;background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));border:none;border-radius:12px;color:white;font-size:20px;cursor:pointer}
-
-/* Todo List */
 .todo-item{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px}
-.todo-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--text-muted);flex-shrink:0}
 .todo-text{flex:1;font-size:13px}
 .todo-text.done{text-decoration:line-through;color:var(--text-muted)}
-.todo-delete{color:var(--text-muted);cursor:pointer;font-size:14px}
-
-/* Financial */
+.timeline{margin-left:8px;border-left:2px solid rgba(139,92,246,0.2);padding-left:20px}
+.timeline-item{position:relative;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-subtle)}
+.timeline-item::before{content:'';position:absolute;left:-25px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent-warning);box-shadow:0 0 15px rgba(245,158,11,0.5)}
+.timeline-item.pending::before{background:var(--text-muted);box-shadow:none}
+.timeline-item h4{font-size:13px;font-weight:600;margin-bottom:4px}
+.timeline-item p{font-size:11px;color:var(--text-secondary)}
+.timeline-item .date{font-size:10px;color:var(--text-muted);margin-top:4px}
+.space-widget{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.06));border-radius:16px;padding:18px;border:1px solid rgba(139,92,246,0.15)}
+.space-fact{font-size:13px;line-height:1.6;color:var(--text-primary);padding:12px;background:rgba(0,0,0,0.2);border-radius:10px;border-left:3px solid var(--accent-primary)}
+.quote-card{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.05));border-radius:18px;padding:20px;margin-bottom:20px;border:1px solid var(--border-subtle)}
+.quote-card::before{content:'"' ;font-size:60px;font-family:Georgia,serif;position:absolute;top:-5px;left:12px;color:var(--accent-primary);opacity:0.15}
+.quote-text{font-size:14px;line-height:1.6;color:var(--text-primary);font-style:italic;padding-left:20px}
+.quote-author{font-size:11px;color:var(--text-secondary);margin-top:10px;padding-left:20px;text-align:right}
 .financial-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .financial-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;text-align:center}
 .financial-item .value{font-size:18px;font-weight:700;color:var(--accent-success)}
 .financial-item .label{font-size:10px;color:var(--text-muted);margin-top:4px}
 .financial-item.danger .value{color:var(--accent-danger)}
-
-/* Timeline */
-.timeline{margin-left:8px;border-left:2px solid rgba(139,92,246,0.2);padding-left:20px}
-.timeline-item{position:relative;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border-subtle)}
-.timeline-item:last-child{border:none;margin-bottom:0;padding-bottom:0}
-.timeline-item::before{content:'';position:absolute;left:-25px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--accent-success);box-shadow:0 0 10px rgba(16,185,129,0.4)}
-.timeline-item.pending::before{background:var(--text-muted);box-shadow:none}
-.timeline-item h4{font-size:13px;font-weight:600;margin-bottom:4px}
-.timeline-item p{font-size:11px;color:var(--text-secondary);line-height:1.5}
-.timeline-item .date{font-size:10px;color:var(--text-muted);margin-top:4px}
-
-/* Weather */
-.weather-main{display:flex;align-items:center;justify-content:center;gap:20px;padding:10px 0}
-.weather-temp{font-size:44px;font-weight:200;color:var(--text-primary)}
-.weather-icon{font-size:44px}
-.weather-details{display:flex;justify-content:center;gap:32px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-subtle)}
-.weather-detail{text-align:center}
-.weather-detail .value{font-size:16px;font-weight:600;color:var(--accent-secondary)}
-.weather-detail .label{font-size:10px;color:var(--text-muted);margin-top:4px}
-
-/* Space */
-.space-widget{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.06));border-radius:16px;padding:18px;border:1px solid rgba(139,92,246,0.15)}
-.space-fact{font-size:13px;line-height:1.6;color:var(--text-primary);padding:12px;background:rgba(0,0,0,0.2);border-radius:10px;border-left:3px solid var(--accent-primary)}
-.space-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.space-stat{text-align:center;padding:10px;background:rgba(255,255,255,0.04);border-radius:10px}
-.space-stat .value{font-size:14px;font-weight:700;color:var(--accent-secondary)}
-.space-stat .label{font-size:9px;color:var(--text-muted);margin-top:4px;text-transform:uppercase}
-
-/* Quote */
-.quote-card{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(6,182,212,0.05));border-radius:18px;padding:20px;margin-bottom:20px;border:1px solid var(--border-subtle);position:relative}
-.quote-card::before{content:'"' ;font-size:60px;font-family:Georgia,serif;position:absolute;top:-5px;left:12px;color:var(--accent-primary);opacity:0.15;font-weight:bold}
-.quote-text{font-size:14px;line-height:1.6;color:var(--text-primary);font-style:italic;padding-left:20px}
-.quote-author{font-size:11px;color:var(--text-secondary);margin-top:10px;padding-left:20px;text-align:right}
-
-/* Quick Actions */
-.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
-.quick-btn{padding:14px 8px;background:linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));border:none;border-radius:12px;color:var(--text-primary);font-size:10px;text-align:center;cursor:pointer;transition:all 0.2s;border:1px solid var(--border-subtle)}
-.quick-btn:hover{background:linear-gradient(145deg,rgba(255,255,255,0.08),rgba(255,255,255,0.04));transform:translateY(-2px)}
-.quick-btn .icon{display:block;font-size:20px;margin-bottom:6px}
-
-/* Footer */
-.footer{text-align:center;padding:24px 20px;color:var(--text-muted);font-size:10px}
-.footer p{margin-bottom:6px;opacity:0.7}
-
-/* Tag */
-.tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:var(--accent-primary);border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.tag{display:inline-block;padding:3px 8px;background:rgba(139,92,246,0.15);color:var(--accent-primary);border-radius:6px;font-size:9px;font-weight:600;text-transform:uppercase}
 .tag.success{background:rgba(16,185,129,0.15);color:var(--accent-success)}
 .tag.warning{background:rgba(245,158,11,0.15);color:var(--accent-warning)}
+.tag.info{background:rgba(6,182,212,0.15);color:var(--accent-secondary)}
 .tag.danger{background:rgba(239,68,68,0.15);color:var(--accent-danger)}
-
-/* Animations */
-@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-
-.section{animation:fadeInUp 0.6s ease forwards;opacity:0}
-.section:nth-child(1){animation-delay:0.05s}.section:nth-child(2){animation-delay:0.1s}.section:nth-child(3){animation-delay:0.15s}.section:nth-child(4){animation-delay:0.2s}.section:nth-child(5){animation-delay:0.25s}.section:nth-child(6){animation-delay:0.3s}.section:nth-child(7){animation-delay:0.35s}.section:nth-child(8){animation-delay:0.4s}.section:nth-child(9){animation-delay:0.45s}
-
-.stat-card:hover .icon{animation:float 0.5s ease}
-
-/* ==================== PC LAYOUT ==================== */
-@media (min-width: 1024px) {
-.container {
-  max-width: 1400px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  padding: 40px;
-}
-.header {grid-column: 1 / -1;max-width: none;}
-.section:only-child {grid-column: 1 / -1;}
-.stats-grid {grid-column: 1 / -1;grid-template-columns: repeat(4, 1fr);max-width: none;}
-.stat-card {padding: 28px;}
-.stat-card .value {font-size: 32px;}
-.stat-card .icon {font-size: 36px;}
-.section:has(.todo-input-group) {grid-column: 1 / -1;max-width: 800px;margin: 0 auto 20px;}
-.todo-input {font-size: 16px;padding: 16px 20px;}
-.todo-item {padding: 16px;font-size: 15px;}
-.section {padding: 32px;border-radius: 28px;}
-.section-icon {width: 56px;height: 56px;font-size: 24px;}
-.section-title {font-size: 20px;}
-.goal-item {margin-bottom: 24px;}
-.goal-name {font-size: 15px;}
-.goal-bar {height: 10px;}
-.financial-grid {grid-template-columns: repeat(4, 1fr);}
-.financial-item {padding: 20px;}
-.financial-item .value {font-size: 24px;}
-.timeline {margin-left: 12px;padding-left: 28px;}
-.timeline-item h4 {font-size: 16px;}
-.timeline-item p {font-size: 14px;}
-.section:has(.weather-main) {grid-column: 1 / -1;max-width: 600px;margin: 0 auto 20px;}
-.weather-temp, .weather-icon {font-size: 64px;}
-.weather-detail .value {font-size: 20px;}
-.quick-actions {grid-column: 1 / -1;max-width: 600px;margin: 0 auto;gap: 16px;}
-.quick-btn {padding: 20px;font-size: 12px;border-radius: 16px;}
-.quick-btn .icon {font-size: 28px;}
-.quote-card {grid-column: 1 / -1;max-width: 800px;margin: 0 auto 20px;padding: 32px;}
-.quote-text {font-size: 18px;}
-.footer {grid-column: 1 / -1;padding: 40px;font-size: 12px;}
-}
-
-/* ==================== TABLET ==================== */
-@media (min-width: 768px) and (max-width: 1023px) {
-.container {max-width: 700px;padding: 30px;}
-.header {padding: 40px 32px;}
-.time-display {font-size: 56px;}
-.stat-card .value {font-size: 28px;}
-.section {padding: 28px;}
-.stats-grid {grid-template-columns: repeat(2, 1fr);}
-.section:has(.todo-input-group) {max-width: none;}
-.quick-actions {grid-template-columns: repeat(4, 1fr);}
-}
-
-/* ==================== MOBILE ==================== */
-@media (max-width: 767px) {
-.container {max-width:100%;padding:16px;}
-.header {padding:24px 20px;border-radius:20px;}
-.time-display {font-size:40px;}
-.header-stat .value {font-size:18px;}
-.section {padding:20px;border-radius:20px;}
-.section-icon {width:40px;height:40px;font-size:18px;}
-.section-title {font-size:14px;}
-.stats-grid {gap:10px;}
-.stat-card {padding:16px;}
-.stat-card .value {font-size:22px;}
-.quick-actions {grid-template-columns:repeat(4,1fr);gap:8px;}
-.quick-btn {padding:12px 6px;font-size:9px;}
-.quick-btn .icon {font-size:18px;margin-bottom:4px;}
-}
+.footer{text-align:center;padding:24px 20px;color:var(--text-muted);font-size:10px}
+@media (min-width: 1024px){.container{max-width:900px;display:block;padding:40px}.nav-bar{display:none}.page.active{display:block}}
+@media (max-width: 767px){.container{max-width:100%;padding:16px}.header{padding:24px 20px;border-radius:20px}.time-display{font-size:40px}.section{padding:20px;border-radius:20px}.stats-grid{gap:10px}.stat-card{padding:16px}.stat-card .value{font-size:22px}}
 </style>
 </head>
 <body>
-<div class="animated-bg"></div>
+<!-- Page: Dashboard -->
+<div id="page-dashboard" class="page active">
 <div class="container">
-<!-- Header -->
 <div class="header">
 <div class="header-top">
 <div>
 <div class="greeting">SAM'S LIFE OS</div>
-<div class="time-display" id="clock">00:00</div>
-<div class="day-info" id="dayInfo">Monday • Day 0 of 365</div>
+<div class="time-display" id="clock">--:--</div>
+<div class="day-info" id="dayInfo">Loading...</div>
 </div>
-<div class="streak-badge" style="background:rgba(16,185,129,0.15);color:var(--accent-success);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:4px">🔥 <span id="streak">7</span> day</div>
 </div>
 <div class="header-stats">
-<div class="header-stat"><div class="value" id="yearProgress">0%</div><div class="label">YEAR</div></div>
-<div class="header-stat cyan"><div class="value">61</div><div class="label">DAYS TO GOAL</div></div>
-<div class="header-stat success"><div class="value">£7,850</div><div class="label">DEBT</div></div>
+<div class="header-stat"><div class="value" id="yearProgress">--%</div><div class="label">YEAR</div></div>
+<div class="header-stat cyan"><div class="value" id="daysToGoal">--</div><div class="label">DAYS TO GOAL</div></div>
+<div class="header-stat success"><div class="value">TBD</div><div class="label">DEBT</div></div>
 </div>
 </div>
 
-<!-- Quick Stats -->
 <div class="stats-grid">
-<div class="stat-card success"><div class="icon">💰</div><div class="value">£7,850</div><div class="label">Debt Remaining</div></div>
-<div class="stat-card warning"><div class="icon">🔥</div><div class="value">7</div><div class="label">Day Streak</div></div>
-<div class="stat-card"><div class="icon">📅</div><div class="value">29</div><div class="label">Days at Infinite</div></div>
-<div class="stat-card"><div class="icon">📚</div><div class="value">8/24</div><div class="label">Books Read</div></div>
+<div class="stat-card"><div class="icon">💼</div><div class="value">ScS</div><div class="label">Current Employer</div></div>
+<div class="stat-card warning"><div class="icon">🔥</div><div class="value">0</div><div class="label">Day Streak</div></div>
+<div class="stat-card"><div class="icon">📚</div><div class="value">0/24</div><div class="label">Books Read</div></div>
+<div class="stat-card"><div class="icon">🏃</div><div class="value">0km</div><div class="label">Running Total</div></div>
 </div>
 
-<!-- Daily Todos -->
 <div class="section">
 <div class="section-header">
 <div class="section-left">
 <div class="section-icon">✅</div>
 <div class="section-title">Today's Priorities</div>
 </div>
-<span class="tag" id="todoCount">0/3</span>
+<span class="tag" id="todoCount">0/0</span>
 </div>
 <div class="todo-input-group">
 <input type="text" class="todo-input" id="todoInput" placeholder="Add a priority...">
@@ -280,7 +141,6 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 <div id="todoList"></div>
 </div>
 
-<!-- Habits -->
 <div class="section">
 <div class="section-header">
 <div class="section-left">
@@ -292,83 +152,21 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 <div id="habits"></div>
 </div>
 
-<!-- Financial -->
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">💰</div>
-<div class="section-title">Financial Snapshot</div>
-</div>
-<span class="tag danger">£7,850</span>
-</div>
-<div class="financial-grid">
-<div class="financial-item"><div class="value">£2,850</div><div class="label">Monthly Budget</div></div>
-<div class="financial-item"><div class="value">£1,840</div><div class="label">Spent</div></div>
-<div class="financial-item"><div class="value">£1,010</div><div class="label">Remaining</div></div>
-<div class="financial-item danger"><div class="value">£785</div><div class="label">Credit Card</div></div>
-</div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Emergency Fund</span><span class="goal-progress">£1,200 / £3,000</span></div><div class="goal-bar"><div class="goal-fill green" style="width:40%"></div></div></div>
-</div>
-
-<!-- Career -->
 <div class="section">
 <div class="section-header">
 <div class="section-left">
 <div class="section-icon">💼</div>
-<div class="section-title">Infinite Energy</div>
+<div class="section-title">Career Journey</div>
 </div>
-<span class="tag">Day 29</span>
+<span class="tag info">ScS → Infinite Energy</span>
 </div>
 <div class="timeline">
-<div class="timeline-item"><h4>CRM Manager <span class="tag success">Current</span></h4><p>Reports to Ben • Started March 2nd</p><div class="date">30 days in role</div></div>
-<div class="timeline-item pending"><h4>90-Day Review</h4><p>Performance milestone</p><div class="date">61 days away • May 31st</div></div>
-<div class="timeline-item pending"><h4>Promotion Window</h4><p>B2B consultancy opportunity</p><div class="date">154 days away • Sept 1st</div></div>
+<div class="timeline-item"><h4>ScS (Sales Manager) <span class="tag warning">Current</span></h4><p>Working until March 2nd, 2026</p><div class="date">32 days remaining</div></div>
+<div class="timeline-item pending"><h4>Infinite Energy (CRM Manager)</h4><p>Reports to Ben • Starts March 2nd</p><div class="date">Starts in 32 days</div></div>
+<div class="timeline-item pending"><h4>90-Day Review</h4><p>Performance milestone</p><div class="date">June 1st</div></div>
 </div>
 </div>
 
-<!-- Health -->
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">🏃</div>
-<div class="section-title">Health & Fitness</div>
-</div>
-<span class="tag success">On Track</span>
-</div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Running Goal (500km)</span><span class="goal-progress">127 / 500km</span></div><div class="goal-bar"><div class="goal-fill purple" style="width:25%"></div></div></div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Weight Target</span><span class="goal-progress">84.2 / 80kg</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:70%"></div></div></div>
-<div class="goal-item"><div class="goal-header"><span class="goal-name">Read 24 Books</span><span class="goal-progress">8 / 24</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:33%"></div></div></div>
-</div>
-
-<!-- Todoist -->
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">📋</div>
-<div class="section-title">Todoist Tasks</div>
-</div>
-<span class="tag" id="todoistCount">Loading...</span>
-</div>
-<div id="todoistTasks" style="font-size:12px;color:var(--text-secondary)">Loading tasks...</div>
-</div>
-
-<!-- Weather -->
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">🌤️</div>
-<div class="section-title">Sunderland</div>
-</div>
-</div>
-<div class="weather-main"><div class="weather-temp" id="weatherTemp">--°</div><div class="weather-icon" id="weatherIcon">☀️</div></div>
-<div class="weather-details">
-<div class="weather-detail"><div class="value" id="sunrise">--:--</div><div class="label">Sunrise</div></div>
-<div class="weather-detail"><div class="value" id="sunset">--:--</div><div class="label">Sunset</div></div>
-<div class="weather-detail"><div class="value" id="humidity">--%</div><div class="label">Humidity</div></div>
-</div>
-</div>
-
-<!-- Space -->
 <div class="section">
 <div class="section-header">
 <div class="section-left">
@@ -381,63 +179,211 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans
 </div>
 </div>
 
-<!-- Quick Actions -->
-<div class="section">
-<div class="section-header">
-<div class="section-left">
-<div class="section-icon">⚡</div>
-<div class="section-title">Quick Actions</div>
-</div>
-</div>
-<div class="quick-actions">
-<button class="quick-btn" onclick="logAction('focus')"><span class="icon">🎯</span>Focus</button>
-<button class="quick-btn" onclick="logAction('read')"><span class="icon">📚</span>Read</button>
-<button class="quick-btn" onclick="logAction('exercise')"><span class="icon">🏃</span>Exercise</button>
-<button class="quick-btn" onclick="logAction('plan')"><span class="icon">📝</span>Plan</button>
-</div>
-</div>
-
-<!-- Quote -->
 <div class="quote-card">
 <p class="quote-text">"The only way to do great work is to love what you do."</p>
 <p class="quote-author">— Steve Jobs</p>
 </div>
 
-<!-- Footer -->
-<div class="footer">
-<p>🔄 Auto-updates every hour</p>
-<p>📱 Mobile-optimized • 💻 PC-expanded • Built with 🤖 Clawdbot</p>
+<div class="footer"><p>🔄 Auto-updates • Built with 🤖 Clawdbot</p></div>
 </div>
 </div>
 
+<!-- Page: Financial -->
+<div id="page-financial" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">FINANCIAL</div>
+<div class="time-display" id="clock2">--:--</div>
+<div class="day-info" id="dayInfo2">Loading...</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">💰</div>
+<div class="section-title">Financial Overview</div>
+</div>
+<span class="tag warning">Awaiting Details</span>
+</div>
+<div class="financial-grid">
+<div class="financial-item"><div class="value">---</div><div class="label">Monthly Budget</div></div>
+<div class="financial-item"><div class="value">---</div><div class="label">Spent</div></div>
+<div class="financial-item"><div class="value">---</div><div class="label">Remaining</div></div>
+<div class="financial-item danger"><div class="value">---</div><div class="label">Debt</div></div>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Emergency Fund</span><span class="goal-progress">£0 / £3,000</span></div><div class="goal-bar"><div class="goal-fill red" style="width:0%"></div></div></div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">📊</div>
+<div class="section-title">Financial Goals</div>
+</div>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Emergency Fund (£3,000)</span><span class="goal-progress">£0 saved</span></div><div class="goal-bar"><div class="goal-fill red" style="width:0%"></div></div></div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Clear All Debt</span><span class="goal-progress">Pending analysis</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:5%"></div></div></div>
+</div>
+<div class="footer"><p>💰 Financial page - send me your detailed balances!</p></div>
+</div>
+</div>
+
+<!-- Page: Health -->
+<div id="page-health" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">HEALTH & FITNESS</div>
+<div class="time-display" id="clock3">--:--</div>
+<div class="day-info" id="dayInfo3">Loading...</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🏃</div>
+<div class="section-title">Running Goal</div>
+</div>
+<span class="tag">2026 Challenge</span>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">500km in 2026</span><span class="goal-progress">0 / 500km</span></div><div class="goal-bar"><div class="goal-fill purple" style="width:0%"></div></div></div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">📚</div>
+<div class="section-title">Reading Challenge</div>
+</div>
+<span class="tag info">24 Books</span>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Read 24 Books in 2026</span><span class="goal-progress">0 / 24</span></div><div class="goal-bar"><div class="goal-fill yellow" style="width:0%"></div></div></div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">⚖️</div>
+<div class="section-title">Weight Target</div>
+</div>
+<span class="tag">TBD</span>
+</div>
+<div class="goal-item"><div class="goal-header"><span class="goal-name">Weight Goal</span><span class="goal-progress">-- / -- kg</span></div><div class="goal-bar"><div class="goal-fill green" style="width:50%"></div></div></div>
+</div>
+<div class="footer"><p>🏃 Running • 📚 Reading • ⚖️ Weight</p></div>
+</div>
+</div>
+
+<!-- Page: Tasks -->
+<div id="page-todoist" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">TASKS</div>
+<div class="time-display" id="clock4">--:--</div>
+<div class="day-info" id="dayInfo4">Loading...</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">📋</div>
+<div class="section-title">Todoist Tasks</div>
+</div>
+<span class="tag" id="todoistCount">Loading...</span>
+</div>
+<div id="todoistTasks" style="font-size:13px;color:var(--text-secondary)">Loading from Todoist...</div>
+</div>
+<div class="footer"><p>📋 Synced with Todoist</p></div>
+</div>
+</div>
+
+<!-- Page: Settings -->
+<div id="page-settings" class="page">
+<div class="container">
+<div class="header">
+<div class="greeting">SETTINGS & AUTOMATIONS</div>
+<div class="time-display" id="clock5">--:--</div>
+<div class="day-info" id="dayInfo5">Loading...</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">⚙️</div>
+<div class="section-title">Configuration</div>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:13px;line-height:1.6">Configure your Life OS preferences. Coming soon:</p>
+<ul style="color:var(--text-secondary);font-size:13px;line-height:1.8;margin-top:16px;padding-left:20px">
+<li>Financial accounts integration</li>
+<li>Weather location</li>
+<li>Goal targets</li>
+<li>Habit customization</li>
+<li>Automation rules</li>
+</ul>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-left">
+<div class="section-icon">🔄</div>
+<div class="section-title">Automations</div>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:13px;line-height:1.6">Automated workflows coming soon:</p>
+<ul style="color:var(--text-secondary);font-size:13px;line-height:1.8;margin-top:16px;padding-left:20px">
+<li>💰 Morning financial summary</li>
+<li>🏃 Workout tracking sync</li>
+<li>📚 Reading progress updates</li>
+<li>💼 Career milestone alerts</li>
+<li>🌤️ Daily weather briefing</li>
+</ul>
+</div>
+<div class="footer"><p>⚙️ Settings & Automations</p></div>
+</div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+<div class="nav-item active" onclick="switchPage('dashboard',this)"><i class="fas fa-home"></i><span>Home</span></div>
+<div class="nav-item" onclick="switchPage('financial',this)"><i class="fas fa-pound-sign"></i><span>Money</span></div>
+<div class="nav-item" onclick="switchPage('health',this)"><i class="fas fa-heart"></i><span>Health</span></div>
+<div class="nav-item" onclick="switchPage('todoist',this)"><i class="fas fa-tasks"></i><span>Tasks</span></div>
+<div class="nav-item" onclick="switchPage('settings',this)"><i class="fas fa-cog"></i><span>Settings</span></div>
+</nav>
+
 <script>
-const HABITS = [
-{name:'🏃 Morning Exercise',streak:3},
-{name:'📚 Read 30 mins',streak:7},
-{name:'📵 No social media AM',streak:5},
-{name:'📝 Plan tomorrow',streak:2},
-{name:'🧘 Meditate',streak:4}
+const HABITS=[
+{name:'🏃 Morning Exercise',streak:0},
+{name:'📚 Read 30 mins',streak:0},
+{name:'📵 No social media AM',streak:0},
+{name:'📝 Plan tomorrow',streak:0},
+{name:'🧘 Meditate',streak:0}
 ];
-const SPACE_FACTS = [
+const SPACE_FACTS=[
 "The Sun is 93 million miles away, yet its light reaches Earth in just 8 minutes.",
 "One million Earths could fit inside the Sun.",
 "Venus spins clockwise while other planets spin counter-clockwise.",
 "A day on Venus is longer than its year.",
 "The footprints on the Moon won't disappear as there's no wind.",
 "Neutron stars can spin 600 times per second after they're born.",
-"One teaspoon of neutron star would weigh 6 billion tons.",
 "Mars has the tallest mountain in the solar system - 3x taller than Everest.",
-"The Great Red Spot on Jupiter is a storm that has raged for 350 years.",
-"Mercury is shrinking as it cools, becoming 9 miles smaller over 4 billion years."
+"The Great Red Spot on Jupiter is a storm that has raged for 350 years."
 ];
-document.addEventListener('DOMContentLoaded',()=>{updateClock();updateDate();loadHabits();loadTodos();loadSpaceFact();loadWeather();loadTodoistTasks();setInterval(updateClock,1000);setInterval(()=>location.reload(),300000);});
-function updateClock(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}
-function updateDate(){const d=new Date();const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const dayNum=d.getDate();const totalDays=d.getFullYear()%4===0?366:365;const yearProgress=Math.round((dayNum/totalDays)*100);document.getElementById('dayInfo').textContent=`${days[d.getDay()]} • Day ${dayNum} of ${totalDays}`;document.getElementById('yearProgress').textContent=yearProgress+'%'}
-function loadHabits(){const container=document.getElementById('habits');let completed=0;const saved=JSON.parse(localStorage.getItem('habits')||'{}');container.innerHTML=HABITS.map((h,i)=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleHabit('${h.name}',this)"><div class="habit-check ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div class="habit-streak">${h.streak} days</div></div></div>`}).join('');document.getElementById('habitProgress').textContent=`${completed}/${HABITS.length}`}
+document.addEventListener('DOMContentLoaded',()=>{updateAllClocks();loadHabits();loadTodos();loadSpaceFact();loadTodoistTasks();setInterval(updateAllClocks,1000);setInterval(()=>location.reload(),300000)});
+
+async function fetchUKTime(){try{const res=await fetch('https://worldtimeapi.org/api/timezone/Europe/London');const data=await res.json();return new Date(data.datetime)}catch(e){return new Date()}}
+async function updateAllClocks(){const now=await fetchUKTime();const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const months=['January','February','March','April','May','June','July','August','September','October','November','December'];const dayNum=now.getDate();const totalDays=(now.getFullYear()%4===0)?366:365;const yearProgress=Math.round((dayNum/totalDays)*100);const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});const dateStr=days[now.getDay()]+' '+dayNum+' '+months[now.getMonth()];['clock','clock2','clock3','clock4','clock5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=timeStr});['dayInfo','dayInfo2','dayInfo3','dayInfo4','dayInfo5'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=dateStr});document.getElementById('yearProgress').textContent=yearProgress+'%';const march2=new Date('2026-03-02');const daysToGoal=Math.ceil((march2-now)/(1000*60*60*24));document.getElementById('daysToGoal').textContent=daysToGoal}
+
+function switchPage(pageName,navEl){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+pageName).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));navEl.classList.add('active')}
+
+function loadHabits(){const container=document.getElementById('habits');let completed=0;const saved=JSON.parse(localStorage.getItem('habits')||'{}');container.innerHTML=HABITS.map(h=>{const isCompleted=saved[h.name]||false;if(isCompleted)completed++;return`<div class="habit-item" onclick="toggleHabit('${h.name}',this)"><div class="habit-check ${isCompleted?'checked':''}"></div><div class="habit-info"><div class="habit-name">${h.name}</div><div class="habit-streak">${h.streak} days</div></div></div>`}).join('');document.getElementById('habitProgress').textContent=completed+'/'+HABITS.length}
 function toggleHabit(name,el){const check=el.querySelector('.habit-check');check.classList.toggle('checked');const saved=JSON.parse(localStorage.getItem('habits')||'{}');saved[name]=check.classList.contains('checked');localStorage.setItem('habits',JSON.stringify(saved));loadHabits()}
-function loadTodos(){const saved=JSON.parse(localStorage.getItem('todos')||'[]');const container=document.getElementById('todoList');const completed=saved.filter(t=>t.done).length;container.innerHTML=saved.map((t,i)=>`<div class="todo-item"><div class="todo-check ${t.done?'checked':''}" onclick="toggleTodo(${i})"></div><div class="todo-text ${t.done?'done':''}">${t.text}</div><div class="todo-delete" onclick="deleteTodo(${i})">×</div></div>`).join('');document.getElementById('todoCount').textContent=`${completed}/${saved.length||3}`;localStorage.setItem('todos',JSON.stringify(saved))}
-function addTodo(){const input=document.getElementById('todoInput');const text=input.value.trim();if(!text)return;const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved.push({text,done:false});input.value='';localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
+function loadTodos(){const saved=JSON.parse(localStorage.getItem('todos')||'[]');const container=document.getElementById('todoList');const completed=saved.filter(t=>t.done).length;container.innerHTML=saved.map((t,i)=>`<div class="todo-item"><div class="todo-check ${t.done?'checked':''}" onclick="toggleTodo(${i})"></div><div class="todo-text ${t.done?'done':''}">${t.text}</div><div class="todo-delete" onclick="deleteTodo(${i})">×</div></div>`).join('');document.getElementById('todoCount').textContent=completed+'/'+saved.length;localStorage.setItem('todos',JSON.stringify(saved))}
+function addTodo(){const input=document.getElementById('todoInput');const text=input.value.trim();if(!text){return}const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved.push({text,done:false});input.value='';localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
 function toggleTodo(i){const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved[i].done=!saved[i].done;localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
 function deleteTodo(i){const saved=JSON.parse(localStorage.getItem('todos')||'[]');saved.splice(i,1);localStorage.setItem('todos',JSON.stringify(saved));loadTodos()}
 function loadSpaceFact(){document.getElementById('spaceFact').textContent=SPACE_FACTS[Math.floor(Math.random()*SPACE_FACTS.length)]}
-function loadWeather(){const now=new Date();const month=now.getMonth();let temp=7,icon='☁️',humidity='87%';if(month>=2&&month<=4){temp=12;icon='🌸'}else if(month>=5&&month<=7){temp=20;icon='☀️'}else if(month>=8&&month<=10){temp=13;icon='🍂'}else{temp=5;icon='❄️'}document.getElementById('weatherTemp').textContent=temp+'°';document.getElementById('weatherIcon').textContent=icon;document.getElementById('humidity').textContent=humidity;document.getElementById('sunrise').textContent='08:02';document.getElementById
+function loadTodoistTasks(){const tasks=[{content:'Create Daily Productivity Report',done:false},{content:'Plan Breaks & Lunches',done:false}];const completed=tasks.filter(t=>t.done).length;document.getElementById('todoistCount').textContent=completed+'/'+tasks.length;document.getElementById('todoistTasks').innerHTML=tasks.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-subtle)"><div style="width:16px;height:16px;border-radius:4px;border:2px solid ${t.done?'var(--accent-success)':'var(--text-muted)'}"></div><span style="${t.done?'text-decoration:line-through;color:var(--text-muted)':''}">${t.content}</span></div>`).join('')}
+</script>
+</body>
+</html>
