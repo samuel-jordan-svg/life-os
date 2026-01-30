@@ -132,7 +132,7 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 
 <!-- Debts -->
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">4 debts</span></div>
+<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5 debts</span></div>
 <div id="debtsList"></div>
 </div>
 
@@ -168,7 +168,11 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 
 <!-- Settings -->
 <div id="page-settings" class="page">
-<div class="c"><div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div><div class="sec"><div class="st">⚙️ Settings</div><p style="color:var(--text2);margin-top:12px">Configure preferences</p></div></div>
+<div class="c"><div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div><div class="sec"><div class="st">⚙️ Data Backup</div>
+<p style="color:var(--text2);margin-top:12px;margin-bottom:16px">Data saves to browser storage. Export before clearing cache!</p>
+<button class="btn" onclick="exportData()" style="background:var(--green)">📥 Export Backup</button>
+<button class="btn" onclick="importData()" style="background:var(--cyan)">📤 Import Backup</button>
+</div></div>
 </div>
 
 <!-- Nav -->
@@ -185,7 +189,7 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 const MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
 const EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
 
-// Fixed Bills - INCLUDING KIA PCP
+// Fixed Bills
 let bills=[
 {id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:true},
 {id:'phone',n:'📱 Phone',a:48.09,m:48.09,p:true},
@@ -195,7 +199,7 @@ let bills=[
 {id:'kia',n:'🚗 Kia Finance (PCP)',a:198.29,m:198.29,p:true}
 ];
 
-// Debts - KIA REMOVED
+// Debts
 let debts=[
 {id:'argos',n:'🏪 Argos Card',b:320,min:51.10,apr:0,end:'2026-06-14',h:[]},
 {id:'monzo',n:'🏦 Monzo IFL',b:40,min:40,apr:0,end:null,h:[]},
@@ -241,18 +245,13 @@ function saveAll(){
 function calcTotals(){
   let totDebt=debts.reduce((a,b)=>a+(b.paid?0:b.b),0);
   let totBill=bills.filter(b=>!b.p).reduce((a,b)=>a+b.m,0);
-  
-  // Calculate today's debt payments (from history today)
   let today=new Date().toLocaleDateString('en-GB');
   let todayPayments=history.filter(h=>h.d===today).reduce((a,h)=>a+parseFloat(h.a),0);
-  
   let inc=1872.44;
   let left=inc-totBill-todayPayments;
-  
   document.getElementById('totalDebt').textContent='£'+totDebt.toLocaleString();
   document.getElementById('fixedTotal').textContent='£'+totBill.toFixed(2);
   document.getElementById('remaining').textContent='£'+left.toFixed(2);
-  document.getElementById('remaining').style.color=todayPayments>0?'var(--orange)':'var(--cyan)';
   document.getElementById('debt').textContent=totDebt<10000?'£'+(totDebt/1000).toFixed(1)+'k':'£'+(totDebt/1000).toFixed(1)+'k';
   document.getElementById('billCount').textContent=bills.filter(b=>!b.p).length+' bills';
   document.getElementById('debtCount').textContent=debts.filter(d=>!d.paid).length+' debts';
@@ -285,7 +284,7 @@ function toggleE(i){
 
 function renderBills(){
   document.getElementById('billsList').innerHTML=bills.map(b=>
-    '<div class="bill-item '+(!b.p?'bill-paid':'')+'" onclick="toggleBill(\''+b.id+'\')"><span class="bill-name">'+b.n+'</span><span class="bill-amt">£'+b.m.toFixed(2)+'</span></div>'
+    '<div class="bill-item '+(b.p?'bill-paid':'')+'" onclick="toggleBill(\''+b.id+'\')"><span class="bill-name">'+b.n+'</span><span class="bill-amt">£'+b.m.toFixed(2)+'</span></div>'
   ).join('');
 }
 
@@ -410,6 +409,44 @@ function clearHist(){
     saveAll();
     renderHistory();
   }
+}
+
+function exportData(){
+  let data={bills:bills,debts:debts,history:history,exported:new Date().toISOString()};
+  let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  let url=URL.createObjectURL(blob);
+  let a=document.createElement('a');
+  a.href=url;
+  a.download='life-os-backup-'+new Date().toISOString().split('T')[0]+'.json';
+  a.click();
+  toast('Backup downloaded!');
+}
+
+function importData(){
+  let input=document.createElement('input');
+  input.type='file';
+  input.accept='.json';
+  input.onchange=e=>{
+    let file=e.target.files[0];
+    let reader=new FileReader();
+    reader.onload=ev=>{
+      try{
+        let data=JSON.parse(ev.target.result);
+        if(data.bills)bills=data.bills;
+        if(data.debts)debts=data.debts;
+        if(data.history)history=data.history;
+        saveAll();
+        renderBills();
+        renderDebts();
+        renderHistory();
+        toast('Data imported successfully!');
+      }catch(err){
+        alert('Invalid backup file');
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
 }
 
 function toast(msg){
