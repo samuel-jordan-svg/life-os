@@ -199,6 +199,19 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 const MORN=[{n:'⏰ Wake 6am',d:'Wake at 6am'},{n:'🌳 Outside 10min',d:'Stand outside'},{n:'💧 Water',d:'Big glass'},{n:'🧘 Stretch',d:'Stretching'},{n:'☕ Coffee',d:'1hr after wake'},{n:'✍️ Write',d:'Win+Thing+Obstacle'}];
 const EVE=[{n:'🍽️ Meal 4hrs bed',d:'Final meal'},{n:'📵 Screens off',d:'60min before bed'},{n:'📖 Read',d:'10min read'},{n:'☕ No caffeine',d:'Avoid stimulants'},{n:'💡 Red lights',d:'Amber lights'}];
 
+// Auto-reset habits for new day
+function checkDayReset(){
+  let today=new Date().toISOString().split('T')[0];
+  let lastDate=localStorage.getItem('lifeOSlastDate');
+  if(lastDate!==today){
+    // New day - reset habits
+    localStorage.setItem('morn','{}');
+    localStorage.setItem('eve','{}');
+    localStorage.setItem('lifeOSlastDate',today);
+    console.log('Habits reset for '+today);
+  }
+}
+
 // Fixed Bills
 let bills=[
 {id:'rent',n:'🏠 Rent (girlfriend)',a:500,m:500,p:false},
@@ -470,6 +483,7 @@ function updateClocks(){
   document.getElementById('daysTo').textContent=Math.ceil((new Date('2026-03-02')-n)/(1000*60*60*24));
 }
 
+checkDayReset();
 loadAll();
 renderHabits();
 renderBills();
