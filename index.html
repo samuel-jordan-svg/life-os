@@ -107,34 +107,6 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="nav-btn" onclick="go('settings')"><span>⚙️</span><span>Settings</span></div>
 </div>
 
-<!-- Todoist Due Today -->
-<div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
-<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
-<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
-<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(245,158,11,0.4),rgba(251,191,36,0.3))">🌅</div><div class="st">Morning</div></div><span class="tag orange" id="mornProg">0/6</span></div>
-<div id="mornHabits"></div>
-</div>
-
-<!-- Todoist Due Today -->
-<div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
-<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
-<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
-<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2" style="background:linear-gradient(135deg,rgba(6,182,212,0.4),rgba(34,211,238,0.3))">🌙</div><div class="st">Evening</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
-<div id="eveHabits"></div>
-</div>
-</div>
-</div>
-
 <!-- Money -->
 <div id="page-money" class="page">
 <div class="c">
@@ -142,80 +114,6 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="g">FINANCIAL COMMAND CENTER</div>
 <div class="t" id="clockM">--:--</div>
 <div class="d" id="dayInfoM">Loading...</div>
-</div>
-
-<!-- Todoist Due Today -->
-<div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
-<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
-<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
-<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📊</div><div class="st">Monthly Summary</div></div></div>
-<div class="s" style="margin-bottom:0">
-<div class="si"><div class="sv green">£1,872</div><div class="sl">INCOME</div></div>
-<div class="si"><div class="sv red" id="fixedTotal">£0</div><div class="sl">PAID</div></div>
-<div class="si"><div class="sv orange" id="totalDebt">£15,402</div><div class="sl">DEBT</div></div>
-<div class="si"><div class="sv cyan" id="remaining">£1,872</div><div class="sl">AVAILABLE</div></div>
-</div>
-</div>
-
-<!-- Todoist Due Today -->
-<div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
-<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
-<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
-<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Fixed Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
-<div id="billsList"></div>
-</div>
-
-<!-- Todoist Due Today -->
-<div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
-<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
-<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
-<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5 debts</span></div>
-<div id="debtsList"></div>
-</div>
-
-<!-- Todoist Due Today -->
-<div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
-<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
-<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
-<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2">⚡</div><div class="st">Quick Payment</div></div></div>
-<input type="number" id="payAmt" placeholder="Amount">
-<select id="payDebt"><option value="">Select debt</option></select>
-<button class="btn" onclick="quickPay()">Pay Now</button>
-</div>
-
-<!-- Todoist Due Today -->
-<div class="section">
-<div class="section-header"><div class="section-icon" style="background:var(--gradient-purple)">✅</div><div class="section-title">Due Today</div><span class="tag" id="todoist-count">0 tasks</span></div>
-<div id="todoist-tasks" style="color:var(--text2);font-size:13px">Loading...</div>
-<button class="btn" onclick="loadTodoist()" style="background:var(--cyan)">🔄 Refresh</button>
-<div style="margin-top:12px;font-size:11px;color:var(--text-muted)">Tap a task to complete it</div>
-</div>
-
-<div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📜</div><div class="st">Payment History</div></div><button class="tag" onclick="clearHist()">Clear</button></div>
-<div id="histList" style="font-size:12px;color:var(--text2)">No payments</div>
-</div>
-</div>
 </div>
 
 <!-- Health -->
