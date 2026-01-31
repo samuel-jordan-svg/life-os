@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Sam's Life OS</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0d0d12;color:#fff;font-family:'Inter',sans-serif;min-height:100vh;padding-bottom:80px}
-.c{max-width:420px;margin:0 auto;padding:20px}
+.c{max-width:480px;margin:0 auto;padding:20px}
 .h{background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(6,182,212,0.15));border-radius:28px;padding:32px 24px;margin-bottom:20px}
 .g{font-size:14px;color:#9ca3af}
 .t{font-size:48px;font-weight:700;margin-top:8px}
@@ -20,7 +23,7 @@ body{background:#0d0d12;color:#fff;font-family:'Inter',sans-serif;min-height:100
 .sv{font-size:18px;font-weight:700}
 .sl{font-size:9px;color:#9ca3af;text-transform:uppercase;margin-top:4px}
 .sv.green{color:#10b981}.sv.cyan{color:#06b6d4}.sv.orange{color:#f59e0b}
-.sec{background:#1a1a24;border-radius:24px;padding:20px;margin-bottom:16px}
+.sec{background:#1a1a24;border-radius:24px;padding:20px;margin-bottom:18px}
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .slft{display:flex;align-items:center;gap:12px}
 .si2{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.15));font-size:18px}
@@ -37,7 +40,7 @@ body{background:#0d0d12;color:#fff;font-family:'Inter',sans-serif;min-height:100
 .hc.evening.checked{background:#06b6d4;border-color:#06b6d4}
 .hn{flex:1}.hn2{font-size:13px;font-weight:500}
 .hd{font-size:11px;color:#9ca3af;margin-top:2px}
-.quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
 .nav-btn{background:#1a1a24;border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,0.08)}
 .nav-btn span{display:block;font-size:10px;color:#9ca3af;margin-top:6px}
 .nav-btn span:first-child{font-size:24px}
@@ -46,8 +49,13 @@ body{background:#0d0d12;color:#fff;font-family:'Inter',sans-serif;min-height:100
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:#9ca3af;font-size:10px;cursor:pointer}
 .nav-item.active{color:#8b5cf6}
 .nav-item i{font-size:20px}
-.bill-item{display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px;cursor:pointer}
+.bill-item{display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;margin-bottom:8px;cursor:pointer;gap:10px}
 .bill-paid{background:rgba(16,185,129,0.15);color:#10b981}
+.bill-main{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:1}
+.bill-actions{display:flex;gap:8px}
+.bill-btn{padding:6px 8px;border-radius:6px;border:none;font-size:10px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.08);color:#9ca3af}
+.bill-btn.edit{background:rgba(255,255,255,0.12)}
+.bill-btn.remove{background:rgba(239,68,68,0.2);color:#ef4444}
 .debt-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.08)}
 .debt-row{display:flex;justify-content:space-between;margin-bottom:8px}
 .debt-name{font-size:14px;font-weight:600}
@@ -64,7 +72,24 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 .hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
 .hist-amt{color:#10b981;font-weight:600}
 .hist-date{font-size:11px;color:#9ca3af}
+.dashboard-grid{display:grid;gap:16px}
+.dashboard-col{display:flex;flex-direction:column;gap:16px}
+.field-label{font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px}
+textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:13px;margin-bottom:10px}
+.money-grid{display:grid;gap:14px}
+.money-card{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;border:1px solid rgba(255,255,255,0.08)}
+.money-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.money-label{font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.04em}
+.money-value{font-size:20px;font-weight:700}
+.money-value.good{color:#10b981}
+.money-value.warn{color:#f59e0b}
+.money-value.alert{color:#ef4444}
+.progress{height:8px;background:rgba(255,255,255,0.08);border-radius:999px;overflow:hidden;margin-top:10px}
+.progress-bar{height:100%;background:linear-gradient(135deg,#8b5cf6,#06b6d4);width:0%}
+.helper{font-size:11px;color:#9ca3af;margin-top:6px}
 @media(max-width:767px){.c{padding:16px}.h{padding:24px 20px;border-radius:20px}.t{font-size:40px}}
+@media(max-width:480px){.c{padding:16px 14px}.h{padding:22px 18px}.quick-nav{grid-template-columns:repeat(2,1fr)}.bill-item{flex-direction:column;align-items:flex-start}.bill-actions{width:100%;justify-content:flex-end}.money-row{flex-direction:column;align-items:flex-start}}
+@media(min-width:900px){.c{max-width:980px}.dashboard-grid{grid-template-columns:1.1fr 0.9fr}}
 </style>
 </head>
 <body>
@@ -82,6 +107,8 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 </div>
 </div>
 
+<div class="dashboard-grid">
+<div class="dashboard-col">
 <div class="quick-nav">
 <div class="nav-btn" onclick="showPage('money')"><span>💰</span><span>Money</span></div>
 <div class="nav-btn" onclick="showPage('health')"><span>❤️</span><span>Health</span></div>
@@ -99,6 +126,22 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div id="eveHabits"></div>
 </div>
 </div>
+
+<div class="dashboard-col">
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">🎯</div><div class="st">Daily Focus</div></div><span class="tag">Today</span></div>
+<label class="field-label" for="focus-intent">Intent</label>
+<input id="focus-intent" type="text" placeholder="What matters most today?">
+<label class="field-label" for="focus-1">Top 3</label>
+<input id="focus-1" type="text" placeholder="1.">
+<input id="focus-2" type="text" placeholder="2.">
+<input id="focus-3" type="text" placeholder="3.">
+<label class="field-label" for="quick-note">Notes</label>
+<textarea id="quick-note" placeholder="Quick thoughts, reminders, or wins..."></textarea>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <div id="page-money" class="page" style="display:none">
@@ -110,13 +153,40 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 </div>
 
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5</span></div>
-<div id="debtsList"></div>
+<div class="sh"><div class="slft"><div class="si2">🎮</div><div class="st">Money Game</div></div><span class="tag green" id="moneyStatus">On track</span></div>
+<div class="money-grid">
+<div class="money-card">
+<div class="money-row"><span class="money-label">Monthly Salary</span><span class="money-value" id="salaryDisplay">£0</span></div>
+<input id="salaryInput" type="number" min="0" step="0.01" placeholder="Enter your monthly take-home">
+</div>
+<div class="money-card">
+<div class="money-row"><span class="money-label">Bills & Commitments</span><span class="money-value warn" id="billsTotal">£0</span></div>
+<div class="helper">Auto-calculated from your bills list.</div>
+</div>
+<div class="money-card">
+<div class="money-row"><span class="money-label">Money Left to Live</span><span class="money-value good" id="moneyLeft">£0</span></div>
+<div class="money-row" style="margin-top:8px"><span class="money-label">Daily Allowance</span><span class="money-value" id="dailyAllowance">£0</span></div>
+<div class="money-row" style="margin-top:8px"><span class="money-label">Debt Paid This Month</span><span class="money-value warn" id="debtPaid">£0</span></div>
+<div class="progress"><div class="progress-bar" id="moneyProgress"></div></div>
+<div class="helper" id="moneyHint">Set your salary to start tracking.</div>
+</div>
+</div>
 </div>
 
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
 <div id="billsList"></div>
+<button class="btn" onclick="addBill()">Add Bill</button>
+</div>
+
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">🟣</div><div class="st">Everyday Card (Zopa)</div></div><span class="tag">Not debt</span></div>
+<div id="spendList"></div>
+</div>
+
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5</span></div>
+<div id="debtsList"></div>
 </div>
 </div>
 </div>
@@ -169,14 +239,20 @@ var debts=[
 {n:'Argos Card',b:320,min:51.10},
 {n:'Monzo IFL',b:40,min:40},
 {n:'Virgin Money',b:2555.23,min:51.10},
-{n:'Lendable',b:11876.71,min:264.25},
-{n:'Zopa',b:0,min:0}
+{n:'Lendable',b:11876.71,min:264.25}
+];
+
+var spendCards=[
+{n:'Zopa Spend',limit:500,used:0,cycle:'Paid off monthly'}
 ];
 
 // Init
 renderHabits();
 renderBills();
 renderDebts();
+renderSpend();
+initFocus();
+initMoneyGame();
 
 // Functions
 function showPage(page,el){
@@ -225,14 +301,46 @@ function toggleE(i){
 
 function renderBills(){
   var html='';
+  var paid=0;
+  var total=0;
   for(var i=0;i<bills.length;i++){
-    html+='<div class="bill-item'+(bills[i].p?' bill-paid':'')+'" onclick="toggleBill('+i+')"><span>'+bills[i].n+'</span><span>£'+bills[i].a.toFixed(2)+'</span></div>';
+    total+=bills[i].a;
+    if(bills[i].p){paid++;}
+    html+='<div class="bill-item'+(bills[i].p?' bill-paid':'')+'" onclick="toggleBill('+i+')"><div class="bill-main"><span>'+bills[i].n+'</span><span>£'+bills[i].a.toFixed(2)+'</span></div><div class="bill-actions"><button class="bill-btn edit" onclick="editBill('+i+',event)">Edit</button><button class="bill-btn remove" onclick="removeBill('+i+',event)">Remove</button></div></div>';
   }
   document.getElementById('billsList').innerHTML=html;
+  document.getElementById('billCount').textContent=paid+' paid';
+  document.getElementById('billsTotal').textContent='£'+total.toFixed(2);
+  updateMoneyGame();
 }
 
 function toggleBill(i){
   bills[i].p=!bills[i].p;
+  renderBills();
+}
+
+function addBill(){
+  var name=prompt('Bill name?');
+  if(!name){return;}
+  var amount=prompt('Monthly amount?',0);
+  if(amount===null){return;}
+  bills.push({n:name,a:Math.max(0,parseFloat(amount)||0),p:false});
+  renderBills();
+}
+
+function editBill(i,event){
+  if(event){event.stopPropagation();}
+  var bill=bills[i];
+  var name=prompt('Edit bill name',bill.n);
+  if(name!==null&&name!==''){bill.n=name;}
+  var amount=prompt('Edit monthly amount',bill.a);
+  if(amount!==null){bill.a=Math.max(0,parseFloat(amount)||0);}
+  renderBills();
+}
+
+function removeBill(i,event){
+  if(event){event.stopPropagation();}
+  bills.splice(i,1);
   renderBills();
 }
 
@@ -243,11 +351,23 @@ function renderDebts(){
     html+='<div class="debt-item"><div class="debt-row"><div><div class="debt-name">'+d.n+'</div><div class="debt-meta">Min: £'+d.min+'</div></div><div class="debt-bal active">£'+d.b+'</div></div><div class="debt-btns"><button class="debt-btn pay" onclick="payMin('+i+')">Pay Min</button><button class="debt-btn edit" onclick="editBal('+i+')">Edit</button></div></div>';
   }
   document.getElementById('debtsList').innerHTML=html;
+  document.getElementById('debtCount').textContent=debts.length;
+}
+
+function renderSpend(){
+  var html='';
+  for(var i=0;i<spendCards.length;i++){
+    var s=spendCards[i];
+    var pct=s.limit?Math.min(100,(s.used/s.limit)*100):0;
+    html+='<div class="money-card"><div class="money-row"><div><div class="debt-name">'+s.n+'</div><div class="debt-meta">'+s.cycle+'</div></div><div class="debt-bal">'+formatCurrency(s.used)+' / '+formatCurrency(s.limit)+'</div></div><div class="progress"><div class="progress-bar" style="width:'+pct+'%"></div></div><div class="debt-btns"><button class="debt-btn pay" onclick="spendMore('+i+')">Add Spend</button><button class="debt-btn edit" onclick="editSpend('+i+')">Edit Used</button></div></div>';
+  }
+  document.getElementById('spendList').innerHTML=html;
 }
 
 function payMin(i){
   var d=debts[i];
   d.b=Math.max(0,d.b-d.min);
+  addDebtPaid(d.min);
   renderDebts();
 }
 
@@ -257,18 +377,122 @@ function editBal(i){
   if(newBal!==null){d.b=Math.max(0,parseFloat(newBal));renderDebts();}
 }
 
+function spendMore(i){
+  var s=spendCards[i];
+  var amt=prompt('Add spend for '+s.n+'?',0);
+  if(amt!==null){s.used=Math.min(s.limit,Math.max(0,s.used+parseFloat(amt)||0));renderSpend();}
+}
+
+function editSpend(i){
+  var s=spendCards[i];
+  var newUsed=prompt('Used amount for '+s.n+'?',s.used);
+  if(newUsed!==null){s.used=Math.min(s.limit,Math.max(0,parseFloat(newUsed)||0));renderSpend();}
+}
+
 function updateClocks(){
   var n=new Date();
   var t=n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
   var d=n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
   ['clock','clockM','clockH','clockT','clockS'].forEach(function(x){var e=document.getElementById(x);if(e)e.textContent=t});
   ['dayInfo','dayInfoM','dayInfoH','dayInfoT','dayInfoS'].forEach(function(x){var e=document.getElementById(x);if(e)e.textContent=d});
-  document.getElementById('yearPct').textContent=Math.round((n.getDate()/365)*100)+'%';
+  var year=n.getFullYear();
+  var start=new Date(year,0,1);
+  var end=new Date(year,11,31);
+  var day=Math.floor((n-start)/(1000*60*60*24))+1;
+  var yearLength=Math.floor((end-start)/(1000*60*60*24))+1;
+  document.getElementById('yearPct').textContent=Math.round((day/yearLength)*100)+'%';
   document.getElementById('daysTo').textContent=Math.ceil((new Date('2026-03-02')-n)/(1000*60*60*24));
 }
 
 setInterval(updateClocks,1000);
 updateClocks();
+
+function initFocus(){
+  var ids=['focus-intent','focus-1','focus-2','focus-3','quick-note'];
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el){return;}
+    var saved=localStorage.getItem(id);
+    if(saved!==null){el.value=saved;}
+    el.addEventListener('input',function(){localStorage.setItem(id,el.value);});
+  });
+}
+
+function initMoneyGame(){
+  var input=document.getElementById('salaryInput');
+  if(!input){return;}
+  var saved=localStorage.getItem('salary');
+  if(saved!==null){input.value=saved;}
+  input.addEventListener('input',function(){
+    localStorage.setItem('salary',input.value);
+    updateMoneyGame();
+  });
+  updateMoneyGame();
+}
+
+function updateMoneyGame(){
+  var salary=parseFloat(localStorage.getItem('salary')||'0')||0;
+  var billsTotal=0;
+  for(var i=0;i<bills.length;i++){billsTotal+=bills[i].a;}
+  var debtPaid=getDebtPaid();
+  var left=Math.max(0,salary-billsTotal-debtPaid);
+  var today=new Date();
+  var daysInMonth=new Date(today.getFullYear(),today.getMonth()+1,0).getDate();
+  var dayOfMonth=today.getDate();
+  var daysLeft=Math.max(1,daysInMonth-dayOfMonth+1);
+  var daily=left/daysLeft;
+  var committed=billsTotal+debtPaid;
+  var progress=salary>0?Math.min(100,(committed/salary)*100):0;
+  document.getElementById('salaryDisplay').textContent=formatCurrency(salary);
+  document.getElementById('moneyLeft').textContent=formatCurrency(left);
+  document.getElementById('dailyAllowance').textContent=formatCurrency(daily);
+  document.getElementById('debtPaid').textContent=formatCurrency(debtPaid);
+  document.getElementById('moneyProgress').style.width=progress+'%';
+  var status=document.getElementById('moneyStatus');
+  if(salary===0){
+    status.textContent='Set salary';
+    status.className='tag';
+    document.getElementById('moneyHint').textContent='Add your take-home pay to get your daily allowance.';
+    return;
+  }
+  if(left===0){
+    status.textContent='Tight month';
+    status.className='tag red';
+    document.getElementById('moneyHint').textContent='No money left after bills. Consider adjusting bills or adding income.';
+    return;
+  }
+  if(daily<20){
+    status.textContent='Careful';
+    status.className='tag orange';
+    document.getElementById('moneyHint').textContent='Keep daily spend under '+formatCurrency(daily)+' to finish the month.';
+    return;
+  }
+  status.textContent='On track';
+  status.className='tag green';
+  document.getElementById('moneyHint').textContent='Stay under '+formatCurrency(daily)+' per day to win the month.';
+}
+
+function getDebtPaid(){
+  var now=new Date();
+  var monthKey=now.getFullYear()+'-'+(now.getMonth()+1);
+  var storedMonth=localStorage.getItem('debtPaidMonth');
+  if(storedMonth!==monthKey){
+    localStorage.setItem('debtPaidMonth',monthKey);
+    localStorage.setItem('debtPaid','0');
+  }
+  return parseFloat(localStorage.getItem('debtPaid')||'0')||0;
+}
+
+function addDebtPaid(amount){
+  var current=getDebtPaid();
+  var next=Math.max(0,current+(parseFloat(amount)||0));
+  localStorage.setItem('debtPaid',next);
+  updateMoneyGame();
+}
+
+function formatCurrency(amount){
+  return '£'+(Math.round(amount*100)/100).toFixed(2);
+}
 </script>
 </body>
 </html>
