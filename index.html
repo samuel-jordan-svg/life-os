@@ -51,6 +51,11 @@ body{background:#0d0d12;color:#fff;font-family:'Inter',sans-serif;min-height:100
 .nav-item i{font-size:20px}
 .bill-item{display:flex;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:6px;cursor:pointer}
 .bill-paid{background:rgba(16,185,129,0.15);color:#10b981}
+.bill-main{display:flex;align-items:center;justify-content:space-between;gap:8px;flex:1}
+.bill-actions{display:flex;gap:6px}
+.bill-btn{padding:6px 8px;border-radius:6px;border:none;font-size:10px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.08);color:#9ca3af}
+.bill-btn.edit{background:rgba(255,255,255,0.12)}
+.bill-btn.remove{background:rgba(239,68,68,0.2);color:#ef4444}
 .debt-item{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.08)}
 .debt-row{display:flex;justify-content:space-between;margin-bottom:8px}
 .debt-name{font-size:14px;font-weight:600}
@@ -160,6 +165,7 @@ textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba
 <div class="money-card">
 <div class="money-row"><span class="money-label">Money Left to Live</span><span class="money-value good" id="moneyLeft">£0</span></div>
 <div class="money-row" style="margin-top:8px"><span class="money-label">Daily Allowance</span><span class="money-value" id="dailyAllowance">£0</span></div>
+<div class="money-row" style="margin-top:8px"><span class="money-label">Debt Paid This Month</span><span class="money-value warn" id="debtPaid">£0</span></div>
 <div class="progress"><div class="progress-bar" id="moneyProgress"></div></div>
 <div class="helper" id="moneyHint">Set your salary to start tracking.</div>
 </div>
@@ -167,8 +173,9 @@ textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba
 </div>
 
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5</span></div>
-<div id="debtsList"></div>
+<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
+<div id="billsList"></div>
+<button class="btn" onclick="addBill()">Add Bill</button>
 </div>
 
 <div class="sec">
@@ -177,8 +184,8 @@ textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba
 </div>
 
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">📄</div><div class="st">Bills</div></div><span class="tag" id="billCount">0 paid</span></div>
-<div id="billsList"></div>
+<div class="sh"><div class="slft"><div class="si2">💳</div><div class="st">Debts</div></div><span class="tag red" id="debtCount">5</span></div>
+<div id="debtsList"></div>
 </div>
 </div>
 </div>
@@ -235,7 +242,7 @@ var debts=[
 ];
 
 var spendCards=[
-{n:'Zopa Spend',limit:1200,used:0,cycle:'Paid off monthly'}
+{n:'Zopa Spend',limit:500,used:0,cycle:'Paid off monthly'}
 ];
 
 // Init
@@ -298,7 +305,7 @@ function renderBills(){
   for(var i=0;i<bills.length;i++){
     total+=bills[i].a;
     if(bills[i].p){paid++;}
-    html+='<div class="bill-item'+(bills[i].p?' bill-paid':'')+'" onclick="toggleBill('+i+')"><span>'+bills[i].n+'</span><span>£'+bills[i].a.toFixed(2)+'</span></div>';
+    html+='<div class="bill-item'+(bills[i].p?' bill-paid':'')+'" onclick="toggleBill('+i+')"><div class="bill-main"><span>'+bills[i].n+'</span><span>£'+bills[i].a.toFixed(2)+'</span></div><div class="bill-actions"><button class="bill-btn edit" onclick="editBill('+i+',event)">Edit</button><button class="bill-btn remove" onclick="removeBill('+i+',event)">Remove</button></div></div>';
   }
   document.getElementById('billsList').innerHTML=html;
   document.getElementById('billCount').textContent=paid+' paid';
@@ -308,6 +315,31 @@ function renderBills(){
 
 function toggleBill(i){
   bills[i].p=!bills[i].p;
+  renderBills();
+}
+
+function addBill(){
+  var name=prompt('Bill name?');
+  if(!name){return;}
+  var amount=prompt('Monthly amount?',0);
+  if(amount===null){return;}
+  bills.push({n:name,a:Math.max(0,parseFloat(amount)||0),p:false});
+  renderBills();
+}
+
+function editBill(i,event){
+  if(event){event.stopPropagation();}
+  var bill=bills[i];
+  var name=prompt('Edit bill name',bill.n);
+  if(name!==null&&name!==''){bill.n=name;}
+  var amount=prompt('Edit monthly amount',bill.a);
+  if(amount!==null){bill.a=Math.max(0,parseFloat(amount)||0);}
+  renderBills();
+}
+
+function removeBill(i,event){
+  if(event){event.stopPropagation();}
+  bills.splice(i,1);
   renderBills();
 }
 
@@ -334,6 +366,7 @@ function renderSpend(){
 function payMin(i){
   var d=debts[i];
   d.b=Math.max(0,d.b-d.min);
+  addDebtPaid(d.min);
   renderDebts();
 }
 
@@ -400,16 +433,19 @@ function updateMoneyGame(){
   var salary=parseFloat(localStorage.getItem('salary')||'0')||0;
   var billsTotal=0;
   for(var i=0;i<bills.length;i++){billsTotal+=bills[i].a;}
-  var left=Math.max(0,salary-billsTotal);
+  var debtPaid=getDebtPaid();
+  var left=Math.max(0,salary-billsTotal-debtPaid);
   var today=new Date();
   var daysInMonth=new Date(today.getFullYear(),today.getMonth()+1,0).getDate();
   var dayOfMonth=today.getDate();
   var daysLeft=Math.max(1,daysInMonth-dayOfMonth+1);
   var daily=left/daysLeft;
-  var progress=salary>0?Math.min(100,(billsTotal/salary)*100):0;
+  var committed=billsTotal+debtPaid;
+  var progress=salary>0?Math.min(100,(committed/salary)*100):0;
   document.getElementById('salaryDisplay').textContent=formatCurrency(salary);
   document.getElementById('moneyLeft').textContent=formatCurrency(left);
   document.getElementById('dailyAllowance').textContent=formatCurrency(daily);
+  document.getElementById('debtPaid').textContent=formatCurrency(debtPaid);
   document.getElementById('moneyProgress').style.width=progress+'%';
   var status=document.getElementById('moneyStatus');
   if(salary===0){
@@ -433,6 +469,24 @@ function updateMoneyGame(){
   status.textContent='On track';
   status.className='tag green';
   document.getElementById('moneyHint').textContent='Stay under '+formatCurrency(daily)+' per day to win the month.';
+}
+
+function getDebtPaid(){
+  var now=new Date();
+  var monthKey=now.getFullYear()+'-'+(now.getMonth()+1);
+  var storedMonth=localStorage.getItem('debtPaidMonth');
+  if(storedMonth!==monthKey){
+    localStorage.setItem('debtPaidMonth',monthKey);
+    localStorage.setItem('debtPaid','0');
+  }
+  return parseFloat(localStorage.getItem('debtPaid')||'0')||0;
+}
+
+function addDebtPaid(amount){
+  var current=getDebtPaid();
+  var next=Math.max(0,current+(parseFloat(amount)||0));
+  localStorage.setItem('debtPaid',next);
+  updateMoneyGame();
 }
 
 function formatCurrency(amount){
