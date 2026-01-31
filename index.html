@@ -64,7 +64,12 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 .hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
 .hist-amt{color:#10b981;font-weight:600}
 .hist-date{font-size:11px;color:#9ca3af}
+.dashboard-grid{display:grid;gap:16px}
+.dashboard-col{display:flex;flex-direction:column;gap:16px}
+.field-label{font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px}
+textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-size:13px;margin-bottom:10px}
 @media(max-width:767px){.c{padding:16px}.h{padding:24px 20px;border-radius:20px}.t{font-size:40px}}
+@media(min-width:900px){.c{max-width:980px}.dashboard-grid{grid-template-columns:1.1fr 0.9fr}}
 </style>
 </head>
 <body>
@@ -82,6 +87,8 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 </div>
 </div>
 
+<div class="dashboard-grid">
+<div class="dashboard-col">
 <div class="quick-nav">
 <div class="nav-btn" onclick="showPage('money')"><span>💰</span><span>Money</span></div>
 <div class="nav-btn" onclick="showPage('health')"><span>❤️</span><span>Health</span></div>
@@ -97,6 +104,22 @@ input,select{width:100%;padding:12px;background:rgba(255,255,255,0.05);border:1p
 <div class="sec">
 <div class="sh"><div class="slft"><div class="si2">🌙</div><div class="st">Evening</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
 <div id="eveHabits"></div>
+</div>
+</div>
+
+<div class="dashboard-col">
+<div class="sec">
+<div class="sh"><div class="slft"><div class="si2">🎯</div><div class="st">Daily Focus</div></div><span class="tag">Today</span></div>
+<label class="field-label" for="focus-intent">Intent</label>
+<input id="focus-intent" type="text" placeholder="What matters most today?">
+<label class="field-label" for="focus-1">Top 3</label>
+<input id="focus-1" type="text" placeholder="1.">
+<input id="focus-2" type="text" placeholder="2.">
+<input id="focus-3" type="text" placeholder="3.">
+<label class="field-label" for="quick-note">Notes</label>
+<textarea id="quick-note" placeholder="Quick thoughts, reminders, or wins..."></textarea>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -177,6 +200,7 @@ var debts=[
 renderHabits();
 renderBills();
 renderDebts();
+initFocus();
 
 // Functions
 function showPage(page,el){
@@ -263,12 +287,28 @@ function updateClocks(){
   var d=n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
   ['clock','clockM','clockH','clockT','clockS'].forEach(function(x){var e=document.getElementById(x);if(e)e.textContent=t});
   ['dayInfo','dayInfoM','dayInfoH','dayInfoT','dayInfoS'].forEach(function(x){var e=document.getElementById(x);if(e)e.textContent=d});
-  document.getElementById('yearPct').textContent=Math.round((n.getDate()/365)*100)+'%';
+  var year=n.getFullYear();
+  var start=new Date(year,0,1);
+  var end=new Date(year,11,31);
+  var day=Math.floor((n-start)/(1000*60*60*24))+1;
+  var yearLength=Math.floor((end-start)/(1000*60*60*24))+1;
+  document.getElementById('yearPct').textContent=Math.round((day/yearLength)*100)+'%';
   document.getElementById('daysTo').textContent=Math.ceil((new Date('2026-03-02')-n)/(1000*60*60*24));
 }
 
 setInterval(updateClocks,1000);
 updateClocks();
+
+function initFocus(){
+  var ids=['focus-intent','focus-1','focus-2','focus-3','quick-note'];
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el){return;}
+    var saved=localStorage.getItem(id);
+    if(saved!==null){el.value=saved;}
+    el.addEventListener('input',function(){localStorage.setItem(id,el.value);});
+  });
+}
 </script>
 </body>
 </html>
