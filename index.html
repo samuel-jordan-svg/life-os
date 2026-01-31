@@ -39,16 +39,13 @@ body{background:#0d0d12;color:#fff;font-family:'Inter',sans-serif;min-height:100
 .hc.evening{border-color:#06b6d4}
 .hc.evening.checked{background:#06b6d4;border-color:#06b6d4}
 .hn{flex:1}.hn2{font-size:13px;font-weight:500}
+.hn3{font-size:11px;color:#9ca3af;margin-top:4px}
 .hd{font-size:11px;color:#9ca3af;margin-top:2px}
 .quick-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
 .nav-btn{background:#1a1a24;border-radius:16px;padding:16px 8px;text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,0.08)}
 .nav-btn span{display:block;font-size:10px;color:#9ca3af;margin-top:6px}
 .nav-btn span:first-child{font-size:24px}
 .nav-btn:active{background:rgba(139,92,246,0.2)}
-.nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,#13131a,#0d0d12);border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-around;padding:12px 8px 25px;z-index:100}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:#9ca3af;font-size:10px;cursor:pointer}
-.nav-item.active{color:#8b5cf6}
-.nav-item i{font-size:20px}
 .bill-item{display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;margin-bottom:8px;cursor:pointer;gap:10px}
 .bill-paid{background:rgba(16,185,129,0.15);color:#10b981}
 .bill-main{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:1}
@@ -117,19 +114,29 @@ textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba
 </div>
 
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">🌅</div><div class="st">Morning</div></div><span class="tag orange" id="mornProg">0/6</span></div>
+<div class="sh"><div class="slft"><div class="si2">🌅</div><div class="st">Morning Routine</div></div><span class="tag orange" id="mornProg">0/6</span></div>
 <div id="mornHabits"></div>
 </div>
 
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">🌙</div><div class="st">Evening</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
+<div class="sh"><div class="slft"><div class="si2">🌙</div><div class="st">Evening Routine</div></div><span class="tag cyan" id="eveProg">0/5</span></div>
 <div id="eveHabits"></div>
+<label class="field-label" for="win-day">Win of the day</label>
+<input id="win-day" type="text" placeholder="A small win that mattered">
+<label class="field-label" for="lesson-day">Lesson</label>
+<input id="lesson-day" type="text" placeholder="What did today teach me?">
+<label class="field-label" for="slip-day">What I avoided / slipped on</label>
+<input id="slip-day" type="text" placeholder="Name it, learn, move on">
+<label class="field-label" for="gratitude-day">Gratitude (1 line)</label>
+<input id="gratitude-day" type="text" placeholder="One thing I'm grateful for">
+<label class="field-label" for="first-action">Tomorrow’s first action</label>
+<input id="first-action" type="text" placeholder="Make it tiny and specific">
 </div>
 </div>
 
 <div class="dashboard-col">
 <div class="sec">
-<div class="sh"><div class="slft"><div class="si2">🎯</div><div class="st">Daily Focus</div></div><span class="tag">Today</span></div>
+<div class="sh"><div class="slft"><div class="si2">🎯</div><div class="st">Morning Daily Focus</div></div><span class="tag">Today</span></div>
 <label class="field-label" for="focus-intent">Intent</label>
 <input id="focus-intent" type="text" placeholder="What matters most today?">
 <label class="field-label" for="focus-1">Top 3</label>
@@ -146,6 +153,12 @@ textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba
 
 <div id="page-money" class="page" style="display:none">
 <div class="c">
+<div class="quick-nav">
+<div class="nav-btn" onclick="showPage('dashboard')"><span>🏠</span><span>Home</span></div>
+<div class="nav-btn" onclick="showPage('health')"><span>❤️</span><span>Health</span></div>
+<div class="nav-btn" onclick="showPage('tasks')"><span>📋</span><span>Tasks</span></div>
+<div class="nav-btn" onclick="showPage('settings')"><span>⚙️</span><span>Settings</span></div>
+</div>
 <div class="h">
 <div class="g">FINANCIAL</div>
 <div class="t" id="clockM">--:--</div>
@@ -193,6 +206,12 @@ textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba
 
 <div id="page-health" class="page" style="display:none">
 <div class="c">
+<div class="quick-nav">
+<div class="nav-btn" onclick="showPage('dashboard')"><span>🏠</span><span>Home</span></div>
+<div class="nav-btn" onclick="showPage('money')"><span>💰</span><span>Money</span></div>
+<div class="nav-btn" onclick="showPage('tasks')"><span>📋</span><span>Tasks</span></div>
+<div class="nav-btn" onclick="showPage('settings')"><span>⚙️</span><span>Settings</span></div>
+</div>
 <div class="h"><div class="g">HEALTH</div><div class="t" id="clockH">--:--</div><div class="d" id="dayInfoH">Loading...</div></div>
 <div class="sec"><div class="st">🏃 Running</div><div style="margin:12px 0;color:#9ca3af">0 / 500km</div></div>
 <div class="sec"><div class="st">📚 Reading</div><div style="margin:12px 0;color:#9ca3af">0 / 24 books</div></div>
@@ -201,6 +220,12 @@ textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba
 
 <div id="page-tasks" class="page" style="display:none">
 <div class="c">
+<div class="quick-nav">
+<div class="nav-btn" onclick="showPage('dashboard')"><span>🏠</span><span>Home</span></div>
+<div class="nav-btn" onclick="showPage('money')"><span>💰</span><span>Money</span></div>
+<div class="nav-btn" onclick="showPage('health')"><span>❤️</span><span>Health</span></div>
+<div class="nav-btn" onclick="showPage('settings')"><span>⚙️</span><span>Settings</span></div>
+</div>
 <div class="h"><div class="g">TASKS</div><div class="t" id="clockT">--:--</div><div class="d" id="dayInfoT">Loading...</div></div>
 <div class="sec"><div class="st">📋 Tasks</div><p style="color:#9ca3af;margin-top:12px">Coming soon</p></div>
 </div>
@@ -208,23 +233,34 @@ textarea{width:100%;min-height:96px;resize:vertical;padding:12px;background:rgba
 
 <div id="page-settings" class="page" style="display:none">
 <div class="c">
+<div class="quick-nav">
+<div class="nav-btn" onclick="showPage('dashboard')"><span>🏠</span><span>Home</span></div>
+<div class="nav-btn" onclick="showPage('money')"><span>💰</span><span>Money</span></div>
+<div class="nav-btn" onclick="showPage('health')"><span>❤️</span><span>Health</span></div>
+<div class="nav-btn" onclick="showPage('tasks')"><span>📋</span><span>Tasks</span></div>
+</div>
 <div class="h"><div class="g">SETTINGS</div><div class="t" id="clockS">--:--</div><div class="d" id="dayInfoS">Loading...</div></div>
 <div class="sec"><div class="st">⚙️ Settings</div><p style="color:#9ca3af;margin-top:12px">Coming soon</p></div>
 </div>
 </div>
 
-<nav class="nav">
-<div class="nav-item active" onclick="showPage('dashboard',this)"><i class="fas fa-home"></i><span>Home</span></div>
-<div class="nav-item" onclick="showPage('money',this)"><i class="fas fa-pound-sign"></i><span>Money</span></div>
-<div class="nav-item" onclick="showPage('health',this)"><i class="fas fa-heart"></i><span>Health</span></div>
-<div class="nav-item" onclick="showPage('tasks',this)"><i class="fas fa-tasks"></i><span>Tasks</span></div>
-<div class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-cog"></i><span>Settings</span></div>
-</nav>
-
 <script>
 // Data
-var MORN=[{n:'Wake 6am'},{n:'Outside 10min'},{n:'Water'},{n:'Stretch'},{n:'Coffee'},{n:'Write'}];
-var EVE=[{n:'Meal 4hrs bed'},{n:'Screens off'},{n:'Read'},{n:'No caffeine'},{n:'Red lights'}];
+var MORN=[
+{n:'Wake 6am',d:'Start on time to win the morning.'},
+{n:'Outside 10min',d:'Light + fresh air to wake the body.'},
+{n:'Water',d:'Hydrate before caffeine.'},
+{n:'Stretch',d:'Loosen back, hips, shoulders.'},
+{n:'Coffee',d:'Enjoy slowly, no scrolling.'},
+{n:'Write',d:'Capture top 3 + mindset.'}
+];
+var EVE=[
+{n:'Meal 4hrs bed',d:'Sleep starts with digestion.'},
+{n:'Screens off',d:'Dim + switch off 60 mins out.'},
+{n:'Read',d:'Wind down the mind.'},
+{n:'No caffeine',d:'Protect tomorrow’s energy.'},
+{n:'Red lights',d:'Signal rest mode to the brain.'}
+];
 
 var bills=[
 {n:'Rent',a:500,p:false},
@@ -258,8 +294,6 @@ initMoneyGame();
 function showPage(page,el){
   document.querySelectorAll('.page').forEach(function(p){p.style.display='none'});
   document.getElementById('page-'+page).style.display='block';
-  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active')});
-  if(el)el.classList.add('active');
   updateClocks();
 }
 
@@ -272,13 +306,13 @@ function renderHabits(){
   
   var html='';
   for(var i=0;i<MORN.length;i++){
-    html+='<div class="hi" onclick="toggleM('+i+')"><div class="hc'+(ms[i]?' checked':'')+'"></div><div class="hn"><div class="hn2">'+MORN[i].n+'</div></div></div>';
+    html+='<div class="hi" onclick="toggleM('+i+')"><div class="hc'+(ms[i]?' checked':'')+'"></div><div class="hn"><div class="hn2">'+MORN[i].n+'</div><div class="hn3">'+MORN[i].d+'</div></div></div>';
   }
   document.getElementById('mornHabits').innerHTML=html;
   
   var html2='';
   for(var i=0;i<EVE.length;i++){
-    html2+='<div class="hi" onclick="toggleE('+i+')"><div class="hc evening '+(es[i]?'checked':'')+'"></div><div class="hn"><div class="hn2">'+EVE[i].n+'</div></div></div>';
+    html2+='<div class="hi" onclick="toggleE('+i+')"><div class="hc evening '+(es[i]?'checked':'')+'"></div><div class="hn"><div class="hn2">'+EVE[i].n+'</div><div class="hn3">'+EVE[i].d+'</div></div></div>';
   }
   document.getElementById('eveHabits').innerHTML=html2;
   document.getElementById('mornProg').textContent=mc+'/6';
@@ -408,7 +442,7 @@ setInterval(updateClocks,1000);
 updateClocks();
 
 function initFocus(){
-  var ids=['focus-intent','focus-1','focus-2','focus-3','quick-note'];
+  var ids=['focus-intent','focus-1','focus-2','focus-3','quick-note','win-day','lesson-day','slip-day','gratitude-day','first-action'];
   ids.forEach(function(id){
     var el=document.getElementById(id);
     if(!el){return;}
